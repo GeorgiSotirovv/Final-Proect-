@@ -1,17 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CigarWorld.Data.Models;
+using CigarWorld.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CigarWorld.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<User> userManager;
 
-        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly SignInManager<User> signInManager;
 
         public UserController(
-            UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager)
+            UserManager<User> _userManager,
+            SignInManager<User> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
@@ -40,7 +43,7 @@ namespace CigarWorld.Controllers
                 return View(model);
             }
 
-            var user = new ApplicationUser()
+            var user = new User()
             {
                 Email = model.Email,
                 UserName = model.UserName
