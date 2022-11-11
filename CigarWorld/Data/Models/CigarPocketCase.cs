@@ -16,14 +16,6 @@ namespace CigarWorld.Data.Models
         public string ImageUrl { get; set; }
 
         [Required]
-        [Range(MinHeightLenght, MaxHeightLenght)]
-        public double Height { get; set; } //The unit of measure is CM
-
-        [Required]
-        [Range(MinLengthLenght, MaxLengthLenght)]
-        public double Length { get; set; } //The unit of measure is CM
-
-        [Required]
         [StringLength(MaxCountryOfManufacturingLenght, MinimumLength = MinCountryOfManufacturingLenght)]
         public string CountryOfManufacturing { get; set; } = null!;
 

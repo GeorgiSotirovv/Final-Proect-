@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    [Migration("20221110145758_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221111175820_SeedTable")]
+    partial class SeedTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,17 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Ashtrays");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AshtrayId = 1,
+                            Brand = "Lubinski",
+                            Comment = "Really nice and colorful ashtray.",
+                            CountryOfManufacturing = "China",
+                            ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.AshtrayType", b =>
@@ -82,6 +93,18 @@ namespace CigarWorld.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AshtrayType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "For cigars"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "For Cigarillos"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Cigar", b =>
@@ -116,9 +139,8 @@ namespace CigarWorld.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Length")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
 
                     b.Property<double>("Ring")
                         .HasColumnType("float");
@@ -140,6 +162,21 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cigars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Cohiba",
+                            Comment = "This cigar is very unice. The taste, smoke from she and the flavor make the cigar a very special.",
+                            CountryOfManufacturing = "Cuba",
+                            Format = "Vitola",
+                            ImageUrl = "https://kalimancaribe.com/images/thumbnails/650/366/detailed/5/COHIBA_BEHIKE_BHK_52.jpg",
+                            Length = 119,
+                            Ring = 52.0,
+                            SmokingDuration = 90,
+                            StrengthId = 1
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Cigarillo", b =>
@@ -182,6 +219,17 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cigarillos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Clubmaster",
+                            Comment = "This Cigarillos have a very nice taste and nice flavor.",
+                            CountryOfManufacturing = "Germany",
+                            FiterId = 1,
+                            ImageUrl = "https://i.colnect.net/f/4259/015/Clubmaster-Mini.jpg"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.CigarPocketCase", b =>
@@ -210,15 +258,9 @@ namespace CigarWorld.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("Height")
-                        .HasColumnType("float");
-
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Length")
-                        .HasColumnType("float");
 
                     b.Property<string>("MaterialOfManufacture")
                         .IsRequired()
@@ -233,6 +275,18 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("CigarPocketCases");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Visol",
+                            Capacity = 4,
+                            Comment = "Expertly crafted with the small cigar smoker in mind, the premium quality Visol Landon Carbon Fiber Mini Cigar Case allows you toss away your ugly cigarillo boxes and carry up to 4- little stogies in style..",
+                            CountryOfManufacturing = "Germany",
+                            ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRev3HE7yrOrEkefMQhkif-qti8T5pm9262jQ&usqp=CAU",
+                            MaterialOfManufacture = "Оak"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Cutter", b =>
@@ -275,6 +329,17 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cutters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Cohiba",
+                            Comment = "Really nice and sharp cutter.",
+                            CountryOfManufacturing = "Chuba",
+                            ImageUrl = "https://mikescigars.com/media/catalog/product/cache/0fe343e181b5504db207ac8c729e73b7/h/t/Cohiba-Cutter-each.jpg",
+                            TypeId = 1
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.CutterType", b =>
@@ -293,6 +358,23 @@ namespace CigarWorld.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CutterType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Guillotine"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "V-Cut"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Point"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.FilterType", b =>
@@ -311,6 +393,33 @@ namespace CigarWorld.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FilterType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Standard"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Cherry"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mint"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Vanila"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Other"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Humidor", b =>
@@ -365,6 +474,21 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Humidors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "The Hampton",
+                            Capacity = 50,
+                            Comment = "This remarkable black lacquer piece features a diamond pattern bonded leather inlay w/ red accent stitching.",
+                            CountryOfManufacturing = "Cuba",
+                            Height = 20.0,
+                            ImageUrl = "https://www.cigarhumidors-online.com/media/catalog/product/cache/1/image/430x295/9df78eab33525d08d6e5fb8d27136e95/h/m/hmptnblu6.jpg",
+                            Length = 20.0,
+                            MaterialOfManufacture = "Оak",
+                            Weight = 5.0
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Lighter", b =>
@@ -402,6 +526,16 @@ namespace CigarWorld.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Lighters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Brand = "Cohiba",
+                            Comment = "Very nice lighter.",
+                            CountryOfManufacturing = "Cuba",
+                            ImageUrl = "https://lacasadelhabano-thehague.com/wp-content/uploads/2020/10/briquet-ligne-2-cohiba-016110-01.png"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.StrengthType", b =>
@@ -420,6 +554,23 @@ namespace CigarWorld.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StrengthType");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mild"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Medium"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Full"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.User", b =>

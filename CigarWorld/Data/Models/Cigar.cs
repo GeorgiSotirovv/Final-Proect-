@@ -19,7 +19,7 @@ namespace CigarWorld.Data.Models
 
         [Required]
         [Range(MinLengthLenght, MaxLengthLenght)]
-        public string Length { get; set; } = null!; //The unit of measure is mm
+        public int Length { get; set; }  //The unit of measure is mm
 
         [Required]
         [Range(MinRingLenght, MaxRingLenght)]
