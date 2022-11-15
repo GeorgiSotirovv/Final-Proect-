@@ -19,7 +19,7 @@ namespace CigarWorld.Data.Models
         public string CountryOfManufacturing { get; set; } = null!;
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]

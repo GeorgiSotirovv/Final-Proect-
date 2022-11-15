@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using static CigarWorld.Data.DataConstants.Cigarillo;
+using static CigarWorld.Data.DataConstants.Lighter;
 
-namespace CigarWorld.Data.Models
+namespace CigarWorld.Models.JustModels
 {
-    public class Cigarillo
+    public class LighterViewModel
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
-
 
         [Required]
         [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
@@ -19,16 +17,9 @@ namespace CigarWorld.Data.Models
         public string CountryOfManufacturing { get; set; } = null!;
 
         [Required]
-        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
-        public string Comment { get; set; } = null!;
-
-        [Required]
         public string ImageUrl { get; set; } = null!;
 
-
-        public int FiterId { get; set; }
-
-        [ForeignKey(nameof(FiterId))]
-        public FilterType? FilterType { get; set; }
+        [Required]
+        public string Comment { get; set; } = null!;
     }
 }

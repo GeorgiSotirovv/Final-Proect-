@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.CigarPocketCase;
-
-namespace CigarWorld.Data.Models
+﻿using CigarWorld.Data.Models;
+using System.ComponentModel.DataAnnotations;
+using static CigarWorld.Data.DataConstants.Ashtray;
+namespace CigarWorld.Models.Models
 {
-    public class CigarPocketCase
+    public class AshtrayViewModel
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -13,22 +13,16 @@ namespace CigarWorld.Data.Models
         public string Brand { get; set; } = null!;
 
         [Required]
-        public string ImageUrl { get; set; } = null!;
-
-        [Required]
         [StringLength(MaxCountryOfManufacturingLenght, MinimumLength = MinCountryOfManufacturingLenght)]
         public string CountryOfManufacturing { get; set; } = null!;
 
         [Required]
-        [StringLength(MaxMaterialOfManufactureLenght, MinimumLength = MinMaterialOfManufactureLenght)]
-        public string MaterialOfManufacture { get; set; } = null!;
-
-        [Required]
-        [MinLength(MinCapacityLenght)]
-        public int Capacity { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
+
+        public string Type { get; set; } = null!;
     }
 }

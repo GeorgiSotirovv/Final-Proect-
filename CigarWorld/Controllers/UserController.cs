@@ -1,11 +1,12 @@
-﻿using CigarWorld.Data.Models;
-using CigarWorld.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using CigarWorld.Data.Models;
+using CigarWorld.Models;
 
-namespace CigarWorld.Controllers
+namespace Watchlist.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -22,11 +23,12 @@ namespace CigarWorld.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+
         public IActionResult Register()
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("All", "Books");
+                return RedirectToAction("All", "Movies");
             }
 
             var model = new RegisterViewModel();
@@ -46,7 +48,7 @@ namespace CigarWorld.Controllers
             var user = new User()
             {
                 Email = model.Email,
-                UserName = model.UserName
+                UserName = model.UserName,
             };
 
             var result = await userManager.CreateAsync(user, model.Password);
@@ -70,7 +72,7 @@ namespace CigarWorld.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("All", "Books");
+                return RedirectToAction("Login", "User");
             }
 
             var model = new LoginViewModel();
@@ -91,11 +93,16 @@ namespace CigarWorld.Controllers
 
             if (user != null)
             {
+                var result = await userManager.FindByNameAsync(model.UserName);
+            }
+
+            if (user != null)
+            {
                 var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("All", "Books");
+                    return RedirectToAction("Cigar", "General");
                 }
             }
 

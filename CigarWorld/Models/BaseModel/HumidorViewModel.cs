@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.CigarPocketCase;
+using static CigarWorld.Data.DataConstants.Humidors;
 
-namespace CigarWorld.Data.Models
+
+namespace CigarWorld.Models.JustModels
 {
-    public class CigarPocketCase
+    public class HumidorViewModel
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -14,6 +15,18 @@ namespace CigarWorld.Data.Models
 
         [Required]
         public string ImageUrl { get; set; } = null!;
+
+        [Required]
+        [Range(MinHeightLenght, MaxHeightLenght)]
+        public double Height { get; set; } //The unit of measure is CM
+
+        [Required]
+        [Range(MinLengthLenght, MaxLengthLenght)]
+        public double Length { get; set; } //The unit of measure is CM
+
+        [Required]
+        [Range(MinWeightLenght, MinWeightLenght)]
+        public double Weight { get; set; } //The unit of measure is Kg
 
         [Required]
         [StringLength(MaxCountryOfManufacturingLenght, MinimumLength = MinCountryOfManufacturingLenght)]

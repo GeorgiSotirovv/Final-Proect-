@@ -1,11 +1,12 @@
+using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
-using Microsoft.AspNetCore.Identity;
+using CigarWorld.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<CigarWorldDbContext>(options =>
@@ -19,17 +20,29 @@ builder.Services.AddDefaultIdentity<User>(options =>
     options.Password.RequiredLength = 5;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireDigit = false;
-    options.Password.RequireUppercase = false;
+
 })
-
-
     .AddEntityFrameworkStores<CigarWorldDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/User/Login";
+});
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IAshtrayService, AshtrayService>();
+builder.Services.AddScoped<ICigarService, CigarService>();
+builder.Services.AddScoped<ICigarilloService, CigarilloService>();
+builder.Services.AddScoped<ICutterService, CutterService>();
+builder.Services.AddScoped<ILighterService, LighterService>();
+builder.Services.AddScoped<IHumidorsService, HumidorsService>();
+builder.Services.AddScoped<ICigarCaseService, CigarCaseService>();
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -37,7 +50,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+   
     app.UseHsts();
 }
 

@@ -13,7 +13,7 @@ namespace CigarWorld.Data.Models
         public string Brand { get; set; } = null!;
 
         [Required]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } = null!;
 
         [Required]
         [Range(MinHeightLenght,MaxHeightLenght)]

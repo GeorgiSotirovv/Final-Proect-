@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.CigarPocketCase;
 
-namespace CigarWorld.Data.Models
+namespace CigarWorld.Models.JustModels
 {
     public class CigarPocketCase
     {
-        [Key]
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -32,3 +32,4 @@ namespace CigarWorld.Data.Models
         public string Comment { get; set; } = null!;
     }
 }
+

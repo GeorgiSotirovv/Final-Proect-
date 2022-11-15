@@ -4,8 +4,8 @@ namespace CigarWorld.Data.Models
 {
     public class User : IdentityUser
     {
-        public string Introduction { get; set; }
-        public string ProfilePictureUrl { get; set; }
+        public string Introduction { get; set; } = "Empry";
+        public string ProfilePictureUrl { get; set; } = "Empry";
 
         public ICollection<Cigar> Cigars { get; set; } = new HashSet<Cigar>();
         public ICollection<Ashtray> Ashtrays { get; set; } = new HashSet<Ashtray>();

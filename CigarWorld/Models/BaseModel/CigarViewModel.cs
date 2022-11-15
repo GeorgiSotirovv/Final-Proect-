@@ -1,16 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using CigarWorld.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.Cigar;
-
-namespace CigarWorld.Data.Models
+namespace CigarWorld.Models.Models
 {
-    public class Cigar
+    public class CigarViewModel
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(MaxBrandLenght, MinimumLength =MinBrandLenght)]
+        [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
         public string Brand { get; set; } = null!;
 
         [Required]
@@ -40,11 +39,8 @@ namespace CigarWorld.Data.Models
         [Required]
         public string ImageUrl { get; set; } = null!;
 
-
         [Required]
-        public int StrengthId { get; set; }
+        public string Strength { get; set; } = null!;
 
-        [ForeignKey(nameof(StrengthId))]
-        public StrengthType? StrengthType { get; set; }
     }
 }

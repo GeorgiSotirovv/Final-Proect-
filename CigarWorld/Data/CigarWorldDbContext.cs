@@ -36,10 +36,7 @@ namespace CigarWorld.Data
                     CountryOfManufacturing = "Cuba",
                     Comment = "This cigar is very unice. The taste, smoke from she and the flavor make the cigar a very special.",
                     ImageUrl = "https://kalimancaribe.com/images/thumbnails/650/366/detailed/5/COHIBA_BEHIKE_BHK_52.jpg",
-                    StrengthId = 1,
-
-
-
+                    StrengthId = 1
                 });
 
             builder
