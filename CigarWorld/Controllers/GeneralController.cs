@@ -36,7 +36,7 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Cigar()
         {
-            var model = await cigarCaseService.GetAllAsync();
+            var model = await cigarService.GetAllAsync();
 
             return View(model);
         }

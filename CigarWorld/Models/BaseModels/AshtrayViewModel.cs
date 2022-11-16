@@ -1,7 +1,7 @@
 ﻿using CigarWorld.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.Ashtray;
-namespace CigarWorld.Models.Models
+namespace CigarWorld.Models.BaseModels
 {
     public class AshtrayViewModel
     {

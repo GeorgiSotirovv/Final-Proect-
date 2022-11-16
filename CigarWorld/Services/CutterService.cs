@@ -17,6 +17,7 @@ namespace CigarWorld.Services
         public async Task<IEnumerable<CutterViewModel>> GetAllAsync()
         {
             var entities = await context.Cutters
+                .Include(x => x.CutterType)
                 .ToListAsync();
 
             return entities

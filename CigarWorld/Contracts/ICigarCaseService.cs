@@ -4,6 +4,6 @@ namespace CigarWorld.Contracts
 {
     public interface ICigarCaseService
     {
-        Task<IEnumerable<CigarPocketCase>> GetAllAsync();
+        Task<IEnumerable<CigarPocketCaseViewModel>> GetAllAsync();
     }
 }

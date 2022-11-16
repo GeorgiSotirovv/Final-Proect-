@@ -1,6 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
-using CigarWorld.Models.Models;
+using CigarWorld.Models.BaseModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -17,6 +17,7 @@ namespace CigarWorld.Services
         public async Task<IEnumerable<AshtrayViewModel>> GetAllAsync()
         {
             var entities = await context.Ashtrays
+                .Include(x => x.AshtrayType)
                 .ToListAsync();
 
             return entities
@@ -26,7 +27,8 @@ namespace CigarWorld.Services
                     Brand = m.Brand,
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
-                    Comment = m.Comment
+                    Comment = m.Comment,
+                    Type = m?.AshtrayType?.Name
                 });
         }
     }

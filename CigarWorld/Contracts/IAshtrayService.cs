@@ -1,4 +1,4 @@
-﻿using CigarWorld.Models.Models;
+﻿using CigarWorld.Models.BaseModels;
 
 namespace CigarWorld.Contracts
 {

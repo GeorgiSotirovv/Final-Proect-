@@ -1,4 +1,4 @@
-﻿@using CigarWorld.Models.Models
+﻿@using CigarWorld.Models.BaseModels
 @model IEnumerable<AshtrayViewModel>
 
 @{
@@ -11,15 +11,15 @@
 <div class="text-center row">
     @foreach (var ashtray in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
+        <div class="card col-4" style="width: 50rem; ">
+            <img class="card-img-top" style="width: 20rem;"
              src="@ashtray.ImageUrl" alt="Ashtray Image">
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@ashtray.Brand</h5>
                 <p class="mb-0">Type: @ashtray.Type</p>
-                <p class="mb-0">Author: @ashtray.CountryOfManufacturing</p>
-                <p class="mb-0">Rating: @ashtray.Comment</p>
+                <p class="mb-0">Country of manufacturing: @ashtray.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @ashtray.Comment</p>
             </div>
 
            @* <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddToCollection" asp-route-bookId="@ashtray.Id">

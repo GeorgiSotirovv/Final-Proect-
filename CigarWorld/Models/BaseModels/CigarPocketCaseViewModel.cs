@@ -3,7 +3,7 @@ using static CigarWorld.Data.DataConstants.CigarPocketCase;
 
 namespace CigarWorld.Models.JustModels
 {
-    public class CigarPocketCase
+    public class CigarPocketCaseViewModel
     {
         [Required]
         public int Id { get; set; }

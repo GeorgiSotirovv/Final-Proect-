@@ -17,6 +17,7 @@ namespace CigarWorld.Services
         public async Task<IEnumerable<CigarViewModel>> GetAllAsync()
         {
             var entities = await context.Cigars
+                .Include(x => x.StrengthType)
                 .ToListAsync();
 
             return entities

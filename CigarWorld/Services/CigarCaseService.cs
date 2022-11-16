@@ -15,20 +15,21 @@ namespace CigarWorld.Services
             context = _context;
         }
 
-        public async Task<IEnumerable<CigarPocketCase>> GetAllAsync()
+        public async Task<IEnumerable<CigarPocketCaseViewModel>> GetAllAsync()
         {
             var entities = await context.CigarPocketCases
                 .ToListAsync();
 
             return entities
-                .Select(m => new CigarPocketCase()
+                .Select(m => new CigarPocketCaseViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
-                    Capacity = m.Capacity
+                    Capacity = m.Capacity,
+                    MaterialOfManufacture = m.MaterialOfManufacture
                 });
         }
     }
