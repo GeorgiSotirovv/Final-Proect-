@@ -1,4 +1,5 @@
 ﻿using CigarWorld.Contracts;
+using CigarWorld.Models.AddModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CigarWorld.Controllers
@@ -25,14 +26,55 @@ namespace CigarWorld.Controllers
             cigarService = _cigarService;
         }
 
+        /// <summary>
+        /// Ashtrays logic 
+        /// </summary>
+
         [HttpGet]
         public async Task<IActionResult> Ashtrays()
         {
-            var model = await ashtrayService.GetAllAsync();
+            var model = await ashtrayService.GetAllAshtrayAsync();
 
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddAshtray()
+        {
+            var model = new AddAshtrayViewModel()
+            {
+                Categories = await ashtrayService.GetTypesAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await ashtrayService.AddAshtraysAsync(model);
+
+                return RedirectToAction(nameof(Cigar));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
+
+
+        /// <summary>
+        /// Cigar logic 
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Cigar()
         {

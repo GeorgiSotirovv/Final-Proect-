@@ -31,5 +31,7 @@ namespace CigarWorld.Data.Models
         [ForeignKey(nameof(AshtrayId))]
 
         public AshtrayType? AshtrayType { get; set; }
+
+        public List<User> UserAshtrays { get; set; } = new List<User>();
     }
 }

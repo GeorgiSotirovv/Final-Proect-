@@ -30,5 +30,8 @@ namespace CigarWorld.Data.Models
 
         [ForeignKey(nameof(FiterId))]
         public FilterType? FilterType { get; set; }
+
+
+        public List<User> UserCigarillos { get; set; } = new List<User>();
     }
 }

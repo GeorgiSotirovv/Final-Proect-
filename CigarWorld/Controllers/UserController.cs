@@ -9,13 +9,13 @@ namespace Watchlist.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        private readonly SignInManager<User> signInManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
 
         public UserController(
-            UserManager<User> _userManager,
-            SignInManager<User> _signInManager)
+            UserManager<ApplicationUser> _userManager,
+            SignInManager<ApplicationUser> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
@@ -45,7 +45,7 @@ namespace Watchlist.Controllers
                 return View(model);
             }
 
-            var user = new User()
+            var user = new ApplicationUser()
             {
                 Email = model.Email,
                 UserName = model.UserName,

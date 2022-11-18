@@ -42,5 +42,8 @@ namespace CigarWorld.Data.Models
         [Required]
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
+
+
+        public List<User> UserHumidors { get; set; } = new List<User>();
     }
 }

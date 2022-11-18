@@ -1,18 +1,64 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CigarWorld.Data.Models
 {
-    public class User : IdentityUser
+    public class User 
     {
-        public string Introduction { get; set; } = "Empry";
-        public string ProfilePictureUrl { get; set; } = "Empry";
+        [Required]
+        public string ApplicationUserId { get; set; }
 
-        public ICollection<Cigar> Cigars { get; set; } = new HashSet<Cigar>();
-        public ICollection<Ashtray> Ashtrays { get; set; } = new HashSet<Ashtray>();
-        public ICollection<Cutter> Cutters { get; set; } = new HashSet<Cutter>();
-        public ICollection<Humidor> Humidors { get; set; } = new HashSet<Humidor>();
-        public ICollection<Lighter> Lighters { get; set; } = new HashSet<Lighter>();
-        public ICollection<Cigarillo> Cigarillos { get; set; } = new HashSet<Cigarillo>();
-        public ICollection<CigarPocketCase> CigarPocketCases { get; set; } = new HashSet<CigarPocketCase>();
+        [ForeignKey(nameof(ApplicationUserId))]
+        public ApplicationUser ApplicationUser { get; set; }
+
+
+        [Required]
+        public int AshtrayId { get; set; }
+
+        [ForeignKey(nameof(AshtrayId))]
+        public Ashtray Ashtray { get; set; }
+
+
+        [Required]
+        public int CigarId { get; set; }
+
+        [ForeignKey(nameof(CigarId))]
+        public Cigar Cigar { get; set; }
+
+
+        [Required]
+        public int CigarilloId { get; set; }
+
+        [ForeignKey(nameof(CigarilloId))]
+        public Cigarillo Cigarillo { get; set; }
+
+
+        [Required]
+        public int CigarPocketCaseId { get; set; }
+
+        [ForeignKey(nameof(AshtrayId))]
+        public CigarPocketCase CigarPocketCase { get; set; }
+
+
+        [Required]
+        public int CutterId { get; set; }
+
+        [ForeignKey(nameof(CutterId))]
+        public Cutter Cutter { get; set; }
+
+
+        [Required]
+        public int HumidorId { get; set; }
+
+        [ForeignKey(nameof(HumidorId))]
+        public Humidor Humidor { get; set; }
+
+
+        [Required]
+        public int LighterId { get; set; }
+
+        [ForeignKey(nameof(LighterId))]
+        public Lighter Lighter { get; set; }
     }
 }

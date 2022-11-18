@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Data
 {
-    public class CigarWorldDbContext : IdentityDbContext<User>
+    public class CigarWorldDbContext : IdentityDbContext<ApplicationUser>
     {
         public CigarWorldDbContext(DbContextOptions<CigarWorldDbContext> options)
             : base(options)
@@ -19,10 +19,30 @@ namespace CigarWorld.Data
         public DbSet<Humidor> Humidors { get; set; }
         public DbSet<CigarPocketCase> CigarPocketCases { get; set; }
         public DbSet<Lighter> Lighters { get; set; }
+        public DbSet<StrengthType> StrengthTypes { get; set; }
+        public DbSet<FilterType> FilterTypes { get; set; }
+        public DbSet<CutterType> CutterTypes { get; set; }
+        public DbSet<AshtrayType> AshtrayTypes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<User>()
+                .HasKey(x => new
+                {
+                    x.ApplicationUserId,
+                    x.AshtrayId,
+                    x.CigarId,
+                    x.CigarilloId,
+                    x.HumidorId,
+                    x.LighterId,
+                    x.CigarPocketCaseId,
+                    x.CutterId
+                });
+
+
+
+
             builder
                 .Entity<Cigar>()
                 .HasData(new Cigar()

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    [Migration("20221114102433_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221118131504_NewDatabase")]
+    partial class NewDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,79 @@ namespace CigarWorld.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Introduction")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProfilePictureUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Ashtray", b =>
                 {
@@ -54,14 +127,9 @@ namespace CigarWorld.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AshtrayId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Ashtrays");
 
@@ -152,14 +220,9 @@ namespace CigarWorld.Data.Migrations
                     b.Property<int>("StrengthId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("StrengthId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Cigars");
 
@@ -209,14 +272,9 @@ namespace CigarWorld.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FiterId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Cigarillos");
 
@@ -267,12 +325,7 @@ namespace CigarWorld.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CigarPocketCases");
 
@@ -319,14 +372,9 @@ namespace CigarWorld.Data.Migrations
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("TypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Cutters");
 
@@ -463,15 +511,10 @@ namespace CigarWorld.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Humidors");
 
@@ -518,12 +561,7 @@ namespace CigarWorld.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Lighters");
 
@@ -575,75 +613,45 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("AccessFailedCount")
+                    b.Property<int>("AshtrayId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CigarId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<int>("CigarilloId")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                    b.Property<int>("HumidorId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Introduction")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LighterId")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                    b.Property<int>("CigarPocketCaseId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<int>("CutterId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.HasKey("ApplicationUserId", "AshtrayId", "CigarId", "CigarilloId", "HumidorId", "LighterId", "CigarPocketCaseId", "CutterId");
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.HasIndex("AshtrayId");
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("CigarId");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("CigarilloId");
 
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                    b.HasIndex("CutterId");
 
-                    b.Property<string>("ProfilePictureUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("HumidorId");
 
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasIndex("LighterId");
 
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -791,10 +799,6 @@ namespace CigarWorld.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("Ashtrays")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("AshtrayType");
                 });
 
@@ -805,10 +809,6 @@ namespace CigarWorld.Data.Migrations
                         .HasForeignKey("StrengthId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("Cigars")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("StrengthType");
                 });
@@ -821,18 +821,7 @@ namespace CigarWorld.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("Cigarillos")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("FilterType");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.CigarPocketCase", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("CigarPocketCases")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Cutter", b =>
@@ -843,25 +832,74 @@ namespace CigarWorld.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("Cutters")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("CutterType");
                 });
 
-            modelBuilder.Entity("CigarWorld.Data.Models.Humidor", b =>
+            modelBuilder.Entity("CigarWorld.Data.Models.User", b =>
                 {
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("Humidors")
-                        .HasForeignKey("UserId");
-                });
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserProducts")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("CigarWorld.Data.Models.Lighter", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.User", null)
-                        .WithMany("Lighters")
-                        .HasForeignKey("UserId");
+                    b.HasOne("CigarWorld.Data.Models.Ashtray", "Ashtray")
+                        .WithMany("UserAshtrays")
+                        .HasForeignKey("AshtrayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.CigarPocketCase", "CigarPocketCase")
+                        .WithMany("UserCigarPOcketCases")
+                        .HasForeignKey("AshtrayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Cigar", "Cigar")
+                        .WithMany("UserCigars")
+                        .HasForeignKey("CigarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Cigarillo", "Cigarillo")
+                        .WithMany("UserCigarillos")
+                        .HasForeignKey("CigarilloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Cutter", "Cutter")
+                        .WithMany("UserCutters")
+                        .HasForeignKey("CutterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Humidor", "Humidor")
+                        .WithMany("UserHumidors")
+                        .HasForeignKey("HumidorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Lighter", "Lighter")
+                        .WithMany("UserLighters")
+                        .HasForeignKey("LighterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Ashtray");
+
+                    b.Navigation("Cigar");
+
+                    b.Navigation("CigarPocketCase");
+
+                    b.Navigation("Cigarillo");
+
+                    b.Navigation("Cutter");
+
+                    b.Navigation("Humidor");
+
+                    b.Navigation("Lighter");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -875,7 +913,7 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CigarWorld.Data.Models.User", null)
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -884,7 +922,7 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CigarWorld.Data.Models.User", null)
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -899,7 +937,7 @@ namespace CigarWorld.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CigarWorld.Data.Models.User", null)
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -908,28 +946,51 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("CigarWorld.Data.Models.User", null)
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CigarWorld.Data.Models.User", b =>
+            modelBuilder.Entity("CigarWorld.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Ashtrays");
+                    b.Navigation("UserProducts");
+                });
 
-                    b.Navigation("CigarPocketCases");
+            modelBuilder.Entity("CigarWorld.Data.Models.Ashtray", b =>
+                {
+                    b.Navigation("UserAshtrays");
+                });
 
-                    b.Navigation("Cigarillos");
+            modelBuilder.Entity("CigarWorld.Data.Models.Cigar", b =>
+                {
+                    b.Navigation("UserCigars");
+                });
 
-                    b.Navigation("Cigars");
+            modelBuilder.Entity("CigarWorld.Data.Models.Cigarillo", b =>
+                {
+                    b.Navigation("UserCigarillos");
+                });
 
-                    b.Navigation("Cutters");
+            modelBuilder.Entity("CigarWorld.Data.Models.CigarPocketCase", b =>
+                {
+                    b.Navigation("UserCigarPOcketCases");
+                });
 
-                    b.Navigation("Humidors");
+            modelBuilder.Entity("CigarWorld.Data.Models.Cutter", b =>
+                {
+                    b.Navigation("UserCutters");
+                });
 
-                    b.Navigation("Lighters");
+            modelBuilder.Entity("CigarWorld.Data.Models.Humidor", b =>
+                {
+                    b.Navigation("UserHumidors");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.Lighter", b =>
+                {
+                    b.Navigation("UserLighters");
                 });
 #pragma warning restore 612, 618
         }

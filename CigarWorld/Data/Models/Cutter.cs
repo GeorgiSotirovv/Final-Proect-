@@ -30,5 +30,8 @@ namespace CigarWorld.Data.Models
 
         [ForeignKey(nameof(TypeId))]
         public CutterType? CutterType { get; set; }
+
+
+        public List<User> UserCutters { get; set; } = new List<User>();
     }
 }
