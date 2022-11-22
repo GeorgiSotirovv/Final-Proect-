@@ -1,5 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
+using CigarWorld.Data.Models;
+using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,21 @@ namespace CigarWorld.Services
         {
             context = _context;
         }
+
+        public async Task AddLighterAsync(AddLighterViewModel model)
+        {
+            var entity = new Lighter() 
+            {
+                Brand = model.Brand,
+                CountryOfManufacturing = model.CountryOfManufacturing,
+                Comment = model.Comment,
+                ImageUrl = model.ImageUrl,
+            };
+
+            await context.Lighters.AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<LighterViewModel>> GetAllAsync()
         {
             var entities = await context.Lighters

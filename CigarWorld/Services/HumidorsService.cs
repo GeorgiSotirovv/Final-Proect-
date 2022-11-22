@@ -1,5 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
+using CigarWorld.Data.Models;
+using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,25 @@ namespace CigarWorld.Services
         {
             context = _context;
         }
+
+        public async Task AddHumidorAsync(AddHumidorViewModel model)
+        {
+            var entity = new Humidor()
+            {
+                Brand = model.Brand,
+                CountryOfManufacturing = model.CountryOfManufacturing,
+                ImageUrl = model.ImageUrl,
+                Comment = model.Comment,
+                Height = model.Height,
+                Length = model.Length,
+                Weight = model.Weight,
+                MaterialOfManufacture = model.MaterialOfManufacture,
+                Capacity = model.Capacity
+            };
+            await context.Humidors.AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<HumidorViewModel>> GetAllAsync()
         {
             var entities = await context.Humidors

@@ -1,10 +1,10 @@
-﻿using CigarWorld.Data.Models;
-using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.Ashtray;
+﻿using System.ComponentModel.DataAnnotations;
+using static CigarWorld.Data.DataConstants.Lighter;
 
 namespace CigarWorld.Models.AddModels
+
 {
-    public class AddAshtrayViewModel
+    public class AddLighterViewModel
     {
         [Required]
         [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
@@ -20,9 +20,5 @@ namespace CigarWorld.Models.AddModels
         [Required]
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
-
-        public int TypeId { get; set; }
-
-        public IEnumerable<AshtrayType> AshtrayType { get; set; } = new List<AshtrayType>();
     }
 }

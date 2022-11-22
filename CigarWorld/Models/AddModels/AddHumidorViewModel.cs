@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.Humidors;
 
-namespace CigarWorld.Data.Models
+namespace CigarWorld.Models.AddModels
 {
-    public class Humidor
+    public class AddHumidorViewModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
         public string Brand { get; set; } = null!;
@@ -16,7 +13,7 @@ namespace CigarWorld.Data.Models
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        [Range(MinHeightLenght,MaxHeightLenght)]
+        [Range(MinHeightLenght, MaxHeightLenght)]
         public double Height { get; set; } //The unit of measure is CM
 
         [Required]
@@ -42,8 +39,5 @@ namespace CigarWorld.Data.Models
         [Required]
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
-
-
-        public List<User> UserHumidors { get; set; } = new List<User>();
     }
 }

@@ -1,5 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
+using CigarWorld.Data.Models;
+using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.Models;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +17,55 @@ namespace CigarWorld.Services
             context = _context;
         }
 
-        public async Task<IEnumerable<CigarPocketCaseViewModel>> GetAllAsync()
+        public async Task AddCigarCasesAsync(AddCigarPocketCaseViewModel model)
+        {
+            var entity = new CigarPocketCase()
+            {
+                Brand = model.Brand,
+                CountryOfManufacturing = model.CountryOfManufacturing,
+                ImageUrl = model.ImageUrl,
+                Comment = model.Comment,
+                Capacity = model.Capacity,
+                MaterialOfManufacture = model.MaterialOfManufacture
+            };
+            await context.CigarPocketCases.AddAsync(entity);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task AddCigarCaseToCollectionAsync(int cigarPocketCaseId, string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID.");
+            }
+
+            var cigarPocketCase = await context.CigarPocketCases.FirstOrDefaultAsync(a => a.Id == cigarPocketCaseId);
+            if (cigarPocketCase == null)
+            {
+                throw new ArgumentException("Invalid Case ID.");
+            }
+
+            if (user.UserProducts.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
+            {
+                throw new ArgumentException("This Case is alredy added.");
+            }
+
+            if (!user.UserProducts.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
+            {
+                user.UserProducts.Add(new User()
+                {
+                    CigarPocketCaseId = cigarPocketCase.Id,
+                    ApplicationUserId = user.Id,
+                    CigarPocketCase = cigarPocketCase,
+                    ApplicationUser = user
+                });
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<IEnumerable<CigarPocketCaseViewModel>> GetAllAsyncCigarCase()
         {
             var entities = await context.CigarPocketCases
                 .ToListAsync();

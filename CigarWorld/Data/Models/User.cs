@@ -37,7 +37,7 @@ namespace CigarWorld.Data.Models
         [Required]
         public int CigarPocketCaseId { get; set; }
 
-        [ForeignKey(nameof(AshtrayId))]
+        [ForeignKey(nameof(CigarPocketCaseId))]
         public CigarPocketCase CigarPocketCase { get; set; }
 
 

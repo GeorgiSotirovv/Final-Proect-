@@ -1,8 +1,8 @@
 ﻿@using CigarWorld.Models.AddModels
-@model AddAshtrayViewModel
+@model AddCutterViewModel
 
 @{
-    ViewBag.Title = "Add Ashtray";
+    ViewBag.Title = "Add Cutter";
 }
 
 
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="AddAshtray" method="post">
+        <form asp-action="AddCutter" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Brand" class="form-label">Brand </label>
                 <input asp-for="@Model.Brand" class="form-control" aria-required="true" />
@@ -35,7 +35,7 @@
             <div class="mb-3">
                 <label asp-for="@Model.TypeId" class="form-label">Type</label>
                 <select asp-for="@Model.TypeId" class="form-control">
-                    @foreach (var type in Model.AshtrayType)
+                    @foreach (var type in Model.CutterTypes)
                     {
                         <option value="@type.Id">@type.Name</option>
                     }
@@ -43,7 +43,7 @@
                 <span asp-validation-for="TypeId" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="AddAshtray" />
+                <input class="btn btn-primary" type="submit" value="AddCutter" />
             </div>
         </form>
     </div>

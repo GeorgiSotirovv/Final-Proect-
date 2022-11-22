@@ -20,7 +20,6 @@ namespace CigarWorld.Services
         {
             var entity = new Ashtray()
             {
-
                 Brand = model.Brand,
                 CountryOfManufacturing = model.CountryOfManufacturing,
                 ImageUrl = model.ImageUrl,
@@ -42,12 +41,12 @@ namespace CigarWorld.Services
             var ashtray = await context.Ashtrays.FirstOrDefaultAsync(a => a.Id == ashtrayId);
             if (ashtray == null)
             {
-                throw new ArgumentException("Invalid ashtray ID");
+                throw new ArgumentException("Invalid ashtray ID.");
             }
 
             if (user.UserProducts.Any(m => m.AshtrayId == ashtrayId))
             {
-                throw new ArgumentException("Ashtray all added");
+                throw new ArgumentException("This Ashtray is alredy added.");
             }
 
             if (!user.UserProducts.Any(m => m.AshtrayId == ashtrayId))

@@ -10,7 +10,7 @@ namespace CigarWorld.Controllers
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Cigar", "General");
             }
 
             return View();

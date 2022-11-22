@@ -1,9 +1,12 @@
-﻿using CigarWorld.Models.JustModels;
+﻿using CigarWorld.Models.AddModels;
+using CigarWorld.Models.JustModels;
 
 namespace CigarWorld.Contracts
 {
     public interface IHumidorsService
     {
         Task<IEnumerable<HumidorViewModel>> GetAllAsync();
+
+        Task AddHumidorAsync(AddHumidorViewModel model);
     }
 }

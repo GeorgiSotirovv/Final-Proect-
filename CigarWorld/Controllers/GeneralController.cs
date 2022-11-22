@@ -1,9 +1,11 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CigarWorld.Controllers
 {
+    [Authorize]
     public class GeneralController : Controller
     {
         private readonly IAshtrayService ashtrayService;
@@ -43,7 +45,7 @@ namespace CigarWorld.Controllers
         {
             var model = new AddAshtrayViewModel()
             {
-                Categories = await ashtrayService.GetTypesAsync()
+                AshtrayType = await ashtrayService.GetTypesAsync()
             };
 
             return View(model);
@@ -78,10 +80,49 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Cigar()
         {
-            var model = await cigarService.GetAllAsync();
+            var model = await cigarService.GetAllCigarsAsync();
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddCigar()
+        {
+            var model = new AddCigarViewModel()
+            {
+                StrengthTypes = await cigarService.GetStrengthTypeAsync()
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddCigar(AddCigarViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await cigarService.AddCigarsAsync(model);
+
+                return RedirectToAction(nameof(Cigar));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
+
+
+        /// <summary>
+        /// Cutter logic 
+        /// </summary>
 
         [HttpGet]
         public async Task<IActionResult> Cutter()
@@ -92,20 +133,127 @@ namespace CigarWorld.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AddCutter()
+        {
+            var model = new AddCutterViewModel()
+            {
+                CutterTypes = await cutterService.GetTypesAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCutter(AddCutterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await cutterService.AddCutterAsync(model);
+
+                return RedirectToAction(nameof(Cutter));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
+
+        /// <summary>
+        /// Cigarillo logic 
+        /// </summary>
+
+        [HttpGet]
         public async Task<IActionResult> Cigarillo()
         {
-            var model = await cigarilloService.GetAllAsync();
+            var model = await cigarilloService.GetAllCigarillosAsync();
+
+            return View(model);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> AddCigarillo()
+        {
+            var model = new AddCigarilloViewModel()
+            {
+                FilterTypes = await cigarilloService.GetTypesAsync()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCigarillo(AddCigarilloViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await cigarilloService.AddCigarilloAsync(model);
+
+                return RedirectToAction(nameof(Cigarillo));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
+
+                return View(model);
+            }
+        }
+
+        /// <summary>
+        /// CigarPocketCase logic 
+        /// </summary>
+
+        [HttpGet]
+        public async Task<IActionResult> CigarPocketCase()
+        {
+            var model = await cigarCaseService.GetAllAsyncCigarCase();
 
             return View(model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> CigarPocketCase()
+        public async Task<IActionResult> AddCigarPocketCase()
         {
-            var model = await cigarCaseService.GetAllAsync();
-
-            return View(model);
+            return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCigarPocketCase(AddCigarPocketCaseViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await cigarCaseService.AddCigarCasesAsync(model);
+
+                return RedirectToAction(nameof(CigarPocketCase));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong!");
+
+                return View(model);
+            }
+        }
+
+        /// <summary>
+        /// Lighter logic 
+        /// </summary>
 
         [HttpGet]
         public async Task<IActionResult> Lighter()
@@ -116,11 +264,72 @@ namespace CigarWorld.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AddLighter()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddLighter(AddLighterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await lighterService.AddLighterAsync(model);
+
+                return RedirectToAction(nameof(Lighter));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong!");
+
+                return View(model);
+            }
+        }
+
+
+        /// <summary>
+        /// Humidor logic 
+        /// </summary>
+
+        [HttpGet]
         public async Task<IActionResult> Humidor()
         {
             var model = await humidorsService.GetAllAsync();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddHumidor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddHumidor(AddHumidorViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                await humidorsService.AddHumidorAsync(model);
+
+                return RedirectToAction(nameof(Humidor));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong!");
+
+                return View(model);
+            }
         }
     }
 }

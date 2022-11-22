@@ -1,10 +1,10 @@
 ﻿using CigarWorld.Data.Models;
 using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.Ashtray;
+using static CigarWorld.Data.DataConstants.Cutter;
 
 namespace CigarWorld.Models.AddModels
 {
-    public class AddAshtrayViewModel
+    public class AddCutterViewModel
     {
         [Required]
         [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
@@ -21,8 +21,9 @@ namespace CigarWorld.Models.AddModels
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
 
+        [Required]
         public int TypeId { get; set; }
 
-        public IEnumerable<AshtrayType> AshtrayType { get; set; } = new List<AshtrayType>();
+        public IEnumerable<CutterType> CutterTypes { get; set; } = new List<CutterType>();
     }
 }

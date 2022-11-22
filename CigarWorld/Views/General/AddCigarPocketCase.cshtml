@@ -1,8 +1,8 @@
 ﻿@using CigarWorld.Models.AddModels
-@model AddAshtrayViewModel
+@model AddCigarPocketCaseViewModel
 
 @{
-    ViewBag.Title = "Add Ashtray";
+    ViewBag.Title = "Add Cigar Pocket Case";
 }
 
 
@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
-        <form asp-action="AddAshtray" method="post">
+        <form asp-action="AddCigarPocketCase" method="post">
             <div class="mb-3">
                 <label asp-for="@Model.Brand" class="form-label">Brand </label>
                 <input asp-for="@Model.Brand" class="form-control" aria-required="true" />
@@ -28,22 +28,23 @@
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="mb-3">
+                <label asp-for="@Model.MaterialOfManufacture" class="form-label">MaterialOfManufacture</label>
+                <textarea asp-for="@Model.MaterialOfManufacture" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="MaterialOfManufacture" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Capacity" class="form-label">Capacity</label>
+                <textarea asp-for="@Model.Capacity" class="form-control" aria-required="true" rows="5"></textarea>
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
                 <label asp-for="@Model.Comment" class="form-label">Comment</label>
                 <textarea asp-for="@Model.Comment" class="form-control" aria-required="true" rows="5"></textarea>
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
+            
             <div class="mb-3">
-                <label asp-for="@Model.TypeId" class="form-label">Type</label>
-                <select asp-for="@Model.TypeId" class="form-control">
-                    @foreach (var type in Model.AshtrayType)
-                    {
-                        <option value="@type.Id">@type.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="TypeId" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <input class="btn btn-primary" type="submit" value="AddAshtray" />
+                <input class="btn btn-primary" type="submit" value="Add Case" />
             </div>
         </form>
     </div>
