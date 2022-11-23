@@ -10,8 +10,9 @@
 
 <div class="text-center row">
     <form class="input-group-sm" asp-controller="General" asp-action="AddAshtray">
-            <input type="submit" value="Add Ashtray" class="fs-6 btn btn-success mb-3 p-2" />
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="General" asp-action="AddAshtray">Add Ashtray</a>
     </form>
+
     @foreach (var ashtray in Model)
     {
         <div class="card col-4" style="width: 50rem; ">

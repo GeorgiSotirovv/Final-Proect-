@@ -2,13 +2,18 @@
 @model IEnumerable<LighterViewModel>
 
 @{
-    ViewBag.Title = "All Cigars";
+    ViewBag.Title = "All Lighters";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="text-center row">
+
+    <form class="input-group-sm" asp-controller="General" asp-action="AddLighter">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="General" asp-action="AddLighter">Add Lighter</a>
+    </form>
+
     @foreach (var cigar in Model)
     {
         <div class="card col-4" style="width: 20rem; ">

@@ -2,13 +2,18 @@
 @model IEnumerable<CigarilloViewModel>
 
 @{
-    ViewBag.Title = "All Cigarillos";
+    ViewBag.Title = "All Cigarillo";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="text-center row">
+
+    <form class="input-group-sm" asp-controller="General" asp-action="AddCigarillo">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="General" asp-action="AddCigarillo">Add AddCigarillo</a>
+    </form>
+
     @foreach (var cigar in Model)
     {
         <div class="card col-4" style="width: 50rem; ">

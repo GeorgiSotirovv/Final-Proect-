@@ -9,6 +9,11 @@
 <hr />
 
 <div class="text-center row">
+
+    <form class="input-group-sm" asp-controller="General" asp-action="AddCigarPocketCase">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="General" asp-action="AddCigarPocketCase">Add Cigar Pocket Case</a>
+    </form>
+
     @foreach (var cigar in Model)
     {
         <div class="card col-4" style="width: 50rem; ">

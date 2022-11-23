@@ -22,7 +22,7 @@ namespace CigarWorld.Models.AddModels
         public string MaterialOfManufacture { get; set; } = null!;
 
         [Required]
-        [MinLength(MinCapacityLenght)]
+        [Range(MinCapacityLenght, 10)]
         public int Capacity { get; set; }
 
         [Required]

@@ -32,9 +32,9 @@
                 <textarea asp-for="@Model.Comment" class="form-control" aria-required="true" rows="5"></textarea>
                 <span asp-validation-for="Comment" class="text-danger"></span>
             </div>
-            <div class="mb-3">
+             <div class="mb-3">
                 <label asp-for="@Model.FilterTypes" class="form-label">Type</label>
-                <select asp-for="@Model.FilterTypes" class="form-control">
+                <select asp-for="@Model.FiterId" class="form-control">
                     @foreach (var type in Model.FilterTypes)
                     {
                         <option value="@type.Id">@type.Name</option>
