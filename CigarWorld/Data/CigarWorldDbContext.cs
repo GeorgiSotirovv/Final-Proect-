@@ -1,4 +1,5 @@
-﻿using CigarWorld.Data.Models;
+﻿using CigarWorld.Data.Configuration;
+using CigarWorld.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,7 +41,7 @@ namespace CigarWorld.Data
                     x.CutterId
                 });
 
-
+            builder.ApplyConfiguration(new UserConfiguration());
 
 
             builder
