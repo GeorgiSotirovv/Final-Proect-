@@ -33,6 +33,7 @@ namespace CigarWorld.Services
         public async Task AddAshtrayToCollectionAsync(int ashtrayId, string userId)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
             if (user == null)
             {
                 throw new ArgumentException("Invalid user ID.");

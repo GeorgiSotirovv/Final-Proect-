@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    [Migration("20221122181553_Corection")]
-    partial class Corection
+    [Migration("20221124120845_SeedDatabase")]
+    partial class SeedDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,6 +95,44 @@ namespace CigarWorld.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d1776847-99f3-45e1-9370-2939283a8227",
+                            Email = "admin@mail.com",
+                            EmailConfirmed = false,
+                            Introduction = "I am Admin",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@MAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGgbpiYz4wdsH48kLzVQpbqQBEKKTkxL95GFhCk9A+mqsjd36zxXcQqhiznfpz+R/w==",
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "Empty",
+                            SecurityStamp = "06b158cc-73ad-4803-b5d4-f38c4a6126d2",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "88394fb9-7009-44cf-8685-b46507591872",
+                            Email = "guest@mail.com",
+                            EmailConfirmed = false,
+                            Introduction = "I am guest",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "GUEST@MAIL.COM",
+                            NormalizedUserName = "GUEST",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH9pSML8Lot52jgCIz77nflUnv7csjkm5KoE8JZWxH8ANNIq+xnJ/FepFXKMWFjQkw==",
+                            PhoneNumberConfirmed = false,
+                            ProfilePictureUrl = "Empty",
+                            SecurityStamp = "e8ea7694-1d62-4573-92da-e7948fc6421b",
+                            TwoFactorEnabled = false,
+                            UserName = "Guest"
+                        });
                 });
 
             modelBuilder.Entity("CigarWorld.Data.Models.Ashtray", b =>

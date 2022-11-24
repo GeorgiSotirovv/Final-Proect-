@@ -2,6 +2,7 @@
 using CigarWorld.Models.AddModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CigarWorld.Controllers
 {
@@ -73,6 +74,21 @@ namespace CigarWorld.Controllers
             }
         }
 
+        public async Task<IActionResult> AddToCollection(int ashtrayId)
+        {
+
+            try
+            {
+                var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                await ashtrayService.AddAshtrayToCollectionAsync(ashtrayId, userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RedirectToAction(nameof(Cigar));
+        }
 
         /// <summary>
         /// Cigar logic 
