@@ -32,6 +32,6 @@ namespace CigarWorld.Data.Models
 
         public AshtrayType? AshtrayType { get; set; }
 
-        public List<User> UserAshtrays { get; set; } = new List<User>();
+        
     }
 }

@@ -47,6 +47,6 @@ namespace CigarWorld.Data.Models
         [ForeignKey(nameof(StrengthId))]
         public StrengthType? StrengthType { get; set; }
 
-        public List<User> UserCigars { get; set; } = new List<User>();
+       
     }
 }

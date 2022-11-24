@@ -32,6 +32,6 @@ namespace CigarWorld.Data.Models
         public string Comment { get; set; } = null!;
 
 
-        public List<User> UserCigarPOcketCases { get; set; } = new List<User>();
+        
     }
 }

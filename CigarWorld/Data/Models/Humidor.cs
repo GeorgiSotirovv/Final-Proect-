@@ -44,6 +44,6 @@ namespace CigarWorld.Data.Models
         public string Comment { get; set; } = null!;
 
 
-        public List<User> UserHumidors { get; set; } = new List<User>();
+       
     }
 }

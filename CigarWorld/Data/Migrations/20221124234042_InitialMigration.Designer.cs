@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    [Migration("20221124100558_SeedAdmin")]
-    partial class SeedAdmin
+    [Migration("20221124234042_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "711b9efa-f008-40be-b82b-1e19a5e2838f",
+                            ConcurrencyStamp = "ff9bacf0-4376-42ae-845d-ad5e4e2d8436",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBzgJrVK7EhJRN0N8YwLlnxLOMutvuTzt2/AM9iNd+cUqy0IOokTIZ5zVTFSZ5+X1Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJn73s4DOUx1kUbYj0EtiXuScakH0mJG8VbYOp+GoDBFZTvyOXg7XvFjMpQNJA6JLw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "d413702e-dd0d-4cf1-bbd7-3233c43b1234",
+                            SecurityStamp = "4eef386c-6e82-4c73-ae28-7ebd69d2b2f9",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -119,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "36bcef0e-5555-42d0-b115-c7a5669fcf84",
+                            ConcurrencyStamp = "3d15cc1d-f376-4f4d-b98c-9838b7b811ce",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAH7HcJ+ZhhCwmaN6dtla5r4hmRD66AVxe1ikvXkyFhsyzRNlszFtV34bAH8uzEkuQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKrvkihy41DkYU3X8KiIGIzQmExk+8PzmhKgtQWvFr0hMa3SaH95gr4yhHVXivmyKw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "037a4b57-e100-492c-9a5e-21d2544418fd",
+                            SecurityStamp = "70a593bb-2ae8-4ff2-931d-ff9f1c2f6e6b",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -614,6 +614,167 @@ namespace CigarWorld.Data.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserAshtray", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("AshtrayId")
+                        .HasColumnType("int")
+                        .HasColumnName("AshtrayId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "AshtrayId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("AshtrayId");
+
+                    b.ToTable("UserAshtray");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigar", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("CigarId")
+                        .HasColumnType("int")
+                        .HasColumnName("CigarId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CigarId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CigarId");
+
+                    b.ToTable("UserCigar");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarillo", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("CigarilloId")
+                        .HasColumnType("int")
+                        .HasColumnName("CigarilloId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CigarilloId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CigarilloId");
+
+                    b.ToTable("UserCigarillo");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarPocketCase", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("CigarPocketCaseId")
+                        .HasColumnType("int")
+                        .HasColumnName("CigarPocketCaseId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CigarPocketCaseId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CigarPocketCaseId");
+
+                    b.ToTable("UserCigarPocketCase");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCutter", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("CutterId")
+                        .HasColumnType("int")
+                        .HasColumnName("CutterId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "CutterId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("CutterId");
+
+                    b.ToTable("UserCutter");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserHumidor", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("HumidorId")
+                        .HasColumnType("int")
+                        .HasColumnName("HumidorId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "HumidorId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("HumidorId");
+
+                    b.ToTable("UserHumidor");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserLighter", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.Property<int>("LighterId")
+                        .HasColumnType("int")
+                        .HasColumnName("LighterId");
+
+                    b.Property<string>("ApplicationUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "LighterId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("LighterId");
+
+                    b.ToTable("UserLighter");
+                });
+
             modelBuilder.Entity("CigarWorld.Data.Models.StrengthType", b =>
                 {
                     b.Property<int>("Id")
@@ -647,51 +808,6 @@ namespace CigarWorld.Data.Migrations
                             Id = 3,
                             Name = "Full"
                         });
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.User", b =>
-                {
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AshtrayId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CigarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CigarilloId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HumidorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LighterId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CigarPocketCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CutterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApplicationUserId", "AshtrayId", "CigarId", "CigarilloId", "HumidorId", "LighterId", "CigarPocketCaseId", "CutterId");
-
-                    b.HasIndex("AshtrayId");
-
-                    b.HasIndex("CigarId");
-
-                    b.HasIndex("CigarPocketCaseId");
-
-                    b.HasIndex("CigarilloId");
-
-                    b.HasIndex("CutterId");
-
-                    b.HasIndex("HumidorId");
-
-                    b.HasIndex("LighterId");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -875,69 +991,135 @@ namespace CigarWorld.Data.Migrations
                     b.Navigation("CutterType");
                 });
 
-            modelBuilder.Entity("CigarWorld.Data.Models.User", b =>
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserAshtray", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserProducts")
+                        .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CigarWorld.Data.Models.Ashtray", "Ashtray")
-                        .WithMany("UserAshtrays")
+                        .WithMany()
                         .HasForeignKey("AshtrayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.Cigar", "Cigar")
-                        .WithMany("UserCigars")
-                        .HasForeignKey("CigarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.CigarPocketCase", "CigarPocketCase")
-                        .WithMany("UserCigarPOcketCases")
-                        .HasForeignKey("CigarPocketCaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.Cigarillo", "Cigarillo")
-                        .WithMany("UserCigarillos")
-                        .HasForeignKey("CigarilloId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.Cutter", "Cutter")
-                        .WithMany("UserCutters")
-                        .HasForeignKey("CutterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.Humidor", "Humidor")
-                        .WithMany("UserHumidors")
-                        .HasForeignKey("HumidorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CigarWorld.Data.Models.Lighter", "Lighter")
-                        .WithMany("UserLighters")
-                        .HasForeignKey("LighterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Ashtray");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigar", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("UserCigar")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Cigar", "Cigar")
+                        .WithMany()
+                        .HasForeignKey("CigarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Cigar");
+                });
 
-                    b.Navigation("CigarPocketCase");
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarillo", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Cigarillo", "Cigarillo")
+                        .WithMany()
+                        .HasForeignKey("CigarilloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Cigarillo");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarPocketCase", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.CigarPocketCase", "CigarPocketCase")
+                        .WithMany()
+                        .HasForeignKey("CigarPocketCaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("CigarPocketCase");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCutter", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Cutter", "Cutter")
+                        .WithMany()
+                        .HasForeignKey("CutterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Cutter");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserHumidor", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Humidor", "Humidor")
+                        .WithMany()
+                        .HasForeignKey("HumidorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Humidor");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserLighter", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CigarWorld.Data.Models.Lighter", "Lighter")
+                        .WithMany()
+                        .HasForeignKey("LighterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Lighter");
                 });
@@ -995,42 +1177,7 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("UserProducts");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Ashtray", b =>
-                {
-                    b.Navigation("UserAshtrays");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Cigar", b =>
-                {
-                    b.Navigation("UserCigars");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Cigarillo", b =>
-                {
-                    b.Navigation("UserCigarillos");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.CigarPocketCase", b =>
-                {
-                    b.Navigation("UserCigarPOcketCases");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Cutter", b =>
-                {
-                    b.Navigation("UserCutters");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Humidor", b =>
-                {
-                    b.Navigation("UserHumidors");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Lighter", b =>
-                {
-                    b.Navigation("UserLighters");
+                    b.Navigation("UserCigar");
                 });
 #pragma warning restore 612, 618
         }

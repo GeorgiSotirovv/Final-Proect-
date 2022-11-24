@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CigarWorld.Data.Models.ManyToMany;
+using Microsoft.AspNetCore.Identity;
 
 namespace CigarWorld.Data.Models
 {
@@ -7,6 +8,7 @@ namespace CigarWorld.Data.Models
         public string Introduction { get; set; } = "Empry";
         public string ProfilePictureUrl { get; set; } = "Empry";
 
-        public List<User> UserProducts { get; set; } = new List<User>();
+        public ICollection<UserCigar> UserCigar { get; set; } = new HashSet<UserCigar>();
+
     }
 }

@@ -32,6 +32,6 @@ namespace CigarWorld.Data.Models
         public FilterType? FilterType { get; set; }
 
 
-        public List<User> UserCigarillos { get; set; } = new List<User>();
+        
     }
 }

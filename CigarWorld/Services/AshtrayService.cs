@@ -16,6 +16,23 @@ namespace CigarWorld.Services
             context = _context;
         }
 
+        //public int Create(string Brand, string CountryOfManufacturing, string ImageUrl, string Comment, int AshtrayId)
+        //{
+        //    var AshtrayData = new Ashtray
+        //    {
+        //        Brand = Brand,
+        //        CountryOfManufacturing = CountryOfManufacturing,
+        //        ImageUrl = ImageUrl,
+        //        Comment = Comment,
+        //        AshtrayId = AshtrayId
+        //    };
+
+        //    this.context.Ashtrays.Add(AshtrayData);
+        //    this.context.SaveChanges();
+
+        //    return AshtrayData.Id;
+        //}
+
         public async Task AddAshtraysAsync(AddAshtrayViewModel model)
         {
             var entity = new Ashtray()
@@ -30,39 +47,40 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task AddAshtrayToCollectionAsync(int ashtrayId, string userId)
-        {
-            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        //public async Task AddAshtrayToCollectionAsync(int ashtrayId, string userId)
+        //{
+        //    var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-            if (user == null)
-            {
-                throw new ArgumentException("Invalid user ID.");
-            }
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentException("Invalid user ID.");
+        //    }
 
-            var ashtray = await context.Ashtrays.FirstOrDefaultAsync(a => a.Id == ashtrayId);
-            if (ashtray == null)
-            {
-                throw new ArgumentException("Invalid ashtray ID.");
-            }
+        //    var ashtray = await context.Ashtrays.FirstOrDefaultAsync(a => a.Id == ashtrayId);
 
-            if (user.UserProducts.Any(m => m.AshtrayId == ashtrayId))
-            {
-                throw new ArgumentException("This Ashtray is alredy added.");
-            }
+        //    if (ashtray == null)
+        //    {
+        //        throw new ArgumentException("Invalid ashtray ID.");
+        //    }
 
-            if (!user.UserProducts.Any(m => m.AshtrayId == ashtrayId))
-            {
-                user.UserProducts.Add(new User()
-                {
-                   AshtrayId = ashtray.Id,
-                   ApplicationUserId = user.Id,
-                   Ashtray = ashtray,
-                   ApplicationUser = user
-                });
+        //    if (user.UserProducts.Any(m => m.AshtrayId == ashtrayId))
+        //    {
+        //        throw new ArgumentException("This Ashtray is alredy added.");
+        //    }
 
-                await context.SaveChangesAsync();
-            }
-        }
+        //    if (!user.UserProducts.Any(m => m.AshtrayId == ashtrayId))
+        //    {
+        //        user.UserProducts.Add(new User()
+        //        {
+        //           AshtrayId = ashtray.Id,
+        //           ApplicationUserId = user.Id,
+        //           Ashtray = ashtray,
+        //           ApplicationUser = user,
+        //        });
+
+        //        await context.SaveChangesAsync();
+        //    }
+        //}
 
         public async Task<IEnumerable<AshtrayViewModel>> GetAllAshtrayAsync()
         {

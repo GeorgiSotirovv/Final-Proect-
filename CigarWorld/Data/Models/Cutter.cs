@@ -32,6 +32,6 @@ namespace CigarWorld.Data.Models
         public CutterType? CutterType { get; set; }
 
 
-        public List<User> UserCutters { get; set; } = new List<User>();
+        
     }
 }

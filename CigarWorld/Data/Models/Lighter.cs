@@ -24,6 +24,6 @@ namespace CigarWorld.Data.Models
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
 
-        public List<User> UserLighters{ get; set; } = new List<User>();
+        
     }
 }

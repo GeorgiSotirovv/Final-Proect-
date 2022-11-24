@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Data.Configuration;
 using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.ManyToMany;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,18 +29,62 @@ namespace CigarWorld.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<User>()
-                .HasKey(x => new
-                {
-                    x.ApplicationUserId,
-                    x.AshtrayId,
-                    x.CigarId,
-                    x.CigarilloId,
-                    x.HumidorId,
-                    x.LighterId,
-                    x.CigarPocketCaseId,
-                    x.CutterId
-                });
+            builder.Entity<UserCigar>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.CigarId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.CigarId).HasColumnName("CigarId");
+            });
+
+            builder.Entity<UserAshtray>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.AshtrayId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.AshtrayId).HasColumnName("AshtrayId");
+            });
+
+            builder.Entity<UserCigarillo>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.CigarilloId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.CigarilloId).HasColumnName("CigarilloId");
+            });
+
+            builder.Entity<UserCutter>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.CutterId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.CutterId).HasColumnName("CutterId");
+            });
+
+            builder.Entity<UserCigarPocketCase>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.CigarPocketCaseId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.CigarPocketCaseId).HasColumnName("CigarPocketCaseId");
+            });
+
+            builder.Entity<UserLighter>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.LighterId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.LighterId).HasColumnName("LighterId");
+            });
+
+            builder.Entity<UserHumidor>(ent =>
+            {
+                ent.HasKey(e => new { e.UserId, e.HumidorId });
+
+                ent.Property(e => e.UserId).HasColumnName("UserId");
+                ent.Property(e => e.HumidorId).HasColumnName("HumidorId");
+            });
+
 
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new AshtrayConfiguration());
