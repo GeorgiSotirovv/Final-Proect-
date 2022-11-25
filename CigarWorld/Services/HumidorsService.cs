@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,41 @@ namespace CigarWorld.Services
         public HumidorsService(CigarWorldDbContext _context)
         {
             context = _context;
+        }
+
+        public async Task AddFavoriteHumidorAsync(int humidorId, string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID.");
+            }
+
+            var humidor = await context.Humidors.FirstOrDefaultAsync(a => a.Id == humidorId);
+
+            if (humidor == null)
+            {
+                throw new ArgumentException("Invalid Humidor ID.");
+            }
+
+            if (user.UserHumidors.Any(m => m.HumidorId == humidorId))
+            {
+                throw new ArgumentException("This Humidor is alredy added.");
+            }
+
+            if (!user.UserHumidors.Any(m => m.HumidorId == humidorId))
+            {
+                user.UserHumidors.Add(new UserHumidor()
+                {
+                    HumidorId = humidor.Id,
+                    UserId = user.Id,
+                    Humidor = humidor,
+                    ApplicationUser = user
+                });
+
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task AddHumidorAsync(AddHumidorViewModel model)

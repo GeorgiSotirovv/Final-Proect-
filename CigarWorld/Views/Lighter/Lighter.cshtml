@@ -13,22 +13,22 @@
             <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Lighter" asp-action="AddLighter">Add Lighter</a>
     </form>
 
-    @foreach (var cigar in Model)
+    @foreach (var lighter in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
             <img class="card-img-top" style="width: 18rem;"
-             src="@cigar.ImageUrl" alt="Ashtray Image">
+             src="@lighter.ImageUrl" alt="Ashtray Image">
             <div class="card-body">
 
-                <h5 class="card-title mt-1">@cigar.Brand</h5>
-                <p class="mb-0">Country of manufacturing: @cigar.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @cigar.Comment</p>
+                <h5 class="card-title mt-1">@lighter.Brand</h5>
+                <p class="mb-0">Country of manufacturing: @lighter.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @lighter.Comment</p>
             </div>
 
-           @* <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddToCollection" asp-route-bookId="@ashtray.Id">
+            <form class="input-group-sm" asp-controller="Lighter" asp-action="AddFavoriteLighter" asp-route-lighterId="@lighter.Id">
                 <input type="submit" value="Add to Collection" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
-            *@
+            
         </div>
     }
 </div>

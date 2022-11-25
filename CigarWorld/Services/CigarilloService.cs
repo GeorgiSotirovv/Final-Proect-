@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.Models;
 using Microsoft.EntityFrameworkCore;
@@ -31,13 +32,13 @@ namespace CigarWorld.Services
                 Comment = model.Comment,
                 FiterId = model.FiterId
             };
-            await context.Cigarillos.AddAsync(entity);
+            await context.Cigarillo.AddAsync(entity);
             await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<CigarilloViewModel>> GetAllCigarillosAsync()
         {
-            var entities = await context.Cigarillos
+            var entities = await context.Cigarillo
                 .Include(x => x.FilterType)
                 .ToListAsync();
 
@@ -53,9 +54,37 @@ namespace CigarWorld.Services
                 });
         }
 
-        //public Task AddFavoriteCigarilloAsync(int movieId, string userId)
-        //{
-            
-        //}
+        public async Task AddFavoriteCigarilloAsync(int cigarilloId, string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID.");
+            }
+
+            var cigarillo = await context.Cigarillo.FirstOrDefaultAsync(a => a.Id == cigarilloId);
+            if (cigarillo == null)
+            {
+                throw new ArgumentException("Invalid Cigarillo ID.");
+            }
+
+            if (user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarilloId))
+            {
+                throw new ArgumentException("This Case is alredy added.");
+            }
+
+            if (!user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarilloId))
+            {
+                user.UserCigarillos.Add(new UserCigarillo()
+                {
+                    CigarilloId = cigarillo.Id,
+                    UserId = user.Id,
+                    Cigarillo = cigarillo,
+                    ApplicationUser = user
+                });
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

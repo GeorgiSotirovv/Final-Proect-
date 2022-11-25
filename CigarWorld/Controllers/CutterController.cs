@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CigarWorld.Controllers
 {
@@ -52,6 +53,21 @@ namespace CigarWorld.Controllers
 
                 return View(model);
             }
+        }
+
+        public async Task<IActionResult> AddFavoriteCutter(int cutterId)
+        {
+            try
+            {
+                var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                await cutterService.AddFavoriteCutterAsync(cutterId, userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RedirectToAction("Cigar", "Cigar");
         }
     }
 }

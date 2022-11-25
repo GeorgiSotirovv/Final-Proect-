@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.Models;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,41 @@ namespace CigarWorld.Services
                     Type = m?.CutterType?.Name
 
                 });
+        }
+
+        public async Task AddFavoriteCutterAsync(int cutterId, string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID.");
+            }
+
+            var cigar = await context.Cutters.FirstOrDefaultAsync(a => a.Id == cutterId);
+
+            if (cigar == null)
+            {
+                throw new ArgumentException("Invalid Cutter ID.");
+            }
+
+            if (user.UserCutters.Any(m => m.CutterId == cutterId))
+            {
+                throw new ArgumentException("This Cutter is alredy added.");
+            }
+
+            if (!user.UserCutters.Any(m => m.CutterId == cutterId))
+            {
+                user.UserCutters.Add(new UserCutter()
+                {
+                    CutterId = cigar.Id,
+                    UserId = user.Id,
+                    Cutter = cigar,
+                    ApplicationUser = user
+                });
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

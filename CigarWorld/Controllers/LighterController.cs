@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CigarWorld.Controllers
 {
@@ -47,6 +48,21 @@ namespace CigarWorld.Controllers
 
                 return View(model);
             }
+        }
+
+        public async Task<IActionResult> AddFavoriteLighter(int lighterId)
+        {
+            try
+            {
+                var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                await lighterService.AddFavoriteLighterAsync(lighterId, userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return RedirectToAction("Cigar", "Cigar");
         }
     }
 }

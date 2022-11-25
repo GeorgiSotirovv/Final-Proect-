@@ -8,5 +8,7 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<LighterViewModel>> GetAllAsync();
 
         Task AddLighterAsync(AddLighterViewModel model);
+
+        Task AddFavoriteLighterAsync(int movieId, string userId);
     }
 }

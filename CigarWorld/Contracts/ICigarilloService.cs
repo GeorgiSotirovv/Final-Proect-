@@ -12,6 +12,6 @@ namespace CigarWorld.Contracts
 
         Task AddCigarilloAsync(AddCigarilloViewModel model);
 
-        //Task AddFavoriteCigarilloAsync(int movieId, string userId);
+        Task AddFavoriteCigarilloAsync(int movieId, string userId);
     }
 }

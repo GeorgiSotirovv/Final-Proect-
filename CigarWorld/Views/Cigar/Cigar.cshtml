@@ -17,7 +17,7 @@
     {
         <div class="card col-4" style="width: 50rem; ">
             <img class="card-img-top" style="width: 20rem;"
-             src="@cigar.ImageUrl" alt="Ashtray Image">
+             src="@cigar.ImageUrl" alt="Cigar Image">
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
@@ -30,10 +30,10 @@
                 <p class="mb-0">Comment: @cigar.Comment</p>
             </div>
 
-           @* <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddToCollection" asp-route-bookId="@ashtray.Id">
-                <input type="submit" value="Add to Collection" class="fs-6 btn btn-success mb-3 p-2" />
+            <form class="input-group-sm" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">
+                <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
-            *@
+            
         </div>
     }
 </div>

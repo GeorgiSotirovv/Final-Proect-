@@ -16,7 +16,7 @@ namespace CigarWorld.Data
 
         public DbSet<Cigar> Cigars { get; set; }
         public DbSet<Ashtray> Ashtrays { get; set; }
-        public DbSet<Cigarillo> Cigarillos { get; set; }
+        public DbSet<Cigarillo> Cigarillo { get; set; }
         public DbSet<Cutter> Cutters { get; set; }
         public DbSet<Humidor> Humidors { get; set; }
         public DbSet<CigarPocketCase> CigarPocketCases { get; set; }

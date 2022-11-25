@@ -14,6 +14,7 @@ namespace CigarWorld.Data.Models
         public ICollection<UserCigarPocketCase> UserCigarPocketCases { get; set; } = new HashSet<UserCigarPocketCase>();
         public ICollection<UserCigarillo> UserCigarillos { get; set; } = new HashSet<UserCigarillo>();
         public ICollection<UserHumidor> UserHumidors { get; set; } = new HashSet<UserHumidor>();
+        public ICollection<UserLighter> UserLighter { get; set; } = new HashSet<UserLighter>();
 
     }
 }

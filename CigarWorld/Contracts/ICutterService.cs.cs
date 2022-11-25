@@ -11,5 +11,7 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<CutterType>> GetTypesAsync();
 
         Task AddCutterAsync(AddCutterViewModel model);
+
+        Task AddFavoriteCutterAsync(int movieId, string userId);
     }
 }

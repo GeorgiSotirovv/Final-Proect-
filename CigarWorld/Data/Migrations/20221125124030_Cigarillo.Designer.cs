@@ -4,6 +4,7 @@ using CigarWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    partial class CigarWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221125124030_Cigarillo")]
+    partial class Cigarillo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "edc2ed1a-d6e8-414b-957f-cce15f332091",
+                            ConcurrencyStamp = "16393f5c-dc17-4647-9328-bfc52a499e6e",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB8mkJhyBHobKddJYBL83ruKK3yy3OLCffNfMMr0HkmgyPIoXRt+pEAHWqo0+aSRUg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELv53+cwgvkiWXotUlGy2uJTuzog/ri8Hfi436shELxgYY5aDZzTwvC5dA4LOkBumA==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "e773f879-5c51-4bb3-911e-324a179362d7",
+                            SecurityStamp = "bdf225ab-ff84-4ed7-8fbe-2c4a82363cbd",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -117,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "837198d6-986d-4e05-8982-dfbbb065c375",
+                            ConcurrencyStamp = "a8a01360-1c42-420f-b84c-a1a97c06815a",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGRFgVgZNZRmyZLTxEUu3mR4YVBThPmlgB+eP3ZgMHkba2Wapt9XfsaKkGaenBopbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAN22hjmglrHrK71EZ4hGfrbunWPYtcwjM3Wt1bJYFbqtQdas+K8XmZ4sUjlx72IlQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "4f946b08-e021-450c-b804-fe7cf1441dce",
+                            SecurityStamp = "126cf993-61ad-4f2d-a06b-32c5bbe4e28b",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -1106,7 +1108,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserLighter", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserLighter")
+                        .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1186,8 +1188,6 @@ namespace CigarWorld.Data.Migrations
                     b.Navigation("UserCutters");
 
                     b.Navigation("UserHumidors");
-
-                    b.Navigation("UserLighter");
                 });
 #pragma warning restore 612, 618
         }

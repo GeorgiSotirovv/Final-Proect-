@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.Models;
 using Microsoft.EntityFrameworkCore;
@@ -61,5 +62,39 @@ namespace CigarWorld.Services
                 });
         }
 
+        public async Task AddFavoriteCigarAsync(int cigarId, string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID.");
+            }
+
+            var cigar = await context.Cigars.FirstOrDefaultAsync(a => a.Id == cigarId);
+
+            if (cigar == null)
+            {
+                throw new ArgumentException("Invalid Cigar ID.");
+            }
+
+            if (user.UserCigars.Any(m => m.CigarId == cigarId))
+            {
+                throw new ArgumentException("This Case is alredy added.");
+            }
+
+            if (!user.UserCigars.Any(m => m.CigarId == cigarId))
+            {
+                user.UserCigars.Add(new UserCigar()
+                {
+                    CigarId = cigar.Id,
+                    UserId = user.Id,
+                    Cigar = cigar,
+                    ApplicationUser = user
+                });
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

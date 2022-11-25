@@ -11,5 +11,7 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<StrengthType>> GetStrengthTypeAsync();
 
         Task AddCigarsAsync(AddCigarViewModel model);
+
+        Task AddFavoriteCigarAsync(int movieId, string userId);
     }
 }

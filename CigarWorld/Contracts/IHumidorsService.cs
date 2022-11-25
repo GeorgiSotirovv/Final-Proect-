@@ -8,5 +8,7 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<HumidorViewModel>> GetAllAsync();
 
         Task AddHumidorAsync(AddHumidorViewModel model);
+
+        Task AddFavoriteHumidorAsync(int movieId, string userId);
     }
 }
