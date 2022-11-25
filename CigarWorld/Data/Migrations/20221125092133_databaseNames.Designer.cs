@@ -4,6 +4,7 @@ using CigarWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    partial class CigarWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221125092133_databaseNames")]
+    partial class databaseNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a28a4808-dacb-4de5-9eb1-b21f6adb0d23",
+                            ConcurrencyStamp = "7b5dd532-65a3-47ac-b404-a80b3d3a6f15",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIwk0moeu2k7UWkv2LVNFbZE6T5W3uIWib6CF8QNrGyTuJOSRaUVtUPnApEEbGgXsQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPJCYBkh/GHs594lDagY9mlZmTF0HdTCCRchF22++jNEZ0z/JWf/nFHUpXtz4Hu6HQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "d1007353-c4be-4ad5-b2ec-d94c869cef74",
+                            SecurityStamp = "d9853640-def5-440e-9f77-558a263639f3",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -117,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5986e200-70fd-428a-ac45-f0f5bee44a06",
+                            ConcurrencyStamp = "e8bd1ba6-6914-4e81-92e6-40a3b0e4303b",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOOJM/ebcn3LV0u12UWuoQxFVU0Z+nd6JUMV8rOBDHw8M8TOEZmxhYV7pxZhG32g/Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJx+XQfN+H0IKOXZR2SJaWcfZ5ZshLiXHGJRfFsMS8ZJOQ6MNKovBmBotF9wh2OH6A==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "ac6afd2f-1438-46ad-9051-a30281a9bf22",
+                            SecurityStamp = "0ce2ad4f-2084-4ab9-bccd-c76b35bbd633",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });

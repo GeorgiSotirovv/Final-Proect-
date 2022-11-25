@@ -9,6 +9,6 @@ namespace CigarWorld.Contracts
 
         Task AddCigarCasesAsync(AddCigarPocketCaseViewModel model);
 
-        //Task AddCigarCaseToCollectionAsync(int cigarPocketCaseId, string userId);
+        Task AddCigarCaseToFavoritesAsync(int cigarPocketCaseId, string userId);
     }
 }

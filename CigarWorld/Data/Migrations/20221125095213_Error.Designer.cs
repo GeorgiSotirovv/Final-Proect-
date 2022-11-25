@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    [Migration("20221124234042_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20221125095213_Error")]
+    partial class Error
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ff9bacf0-4376-42ae-845d-ad5e4e2d8436",
+                            ConcurrencyStamp = "a28a4808-dacb-4de5-9eb1-b21f6adb0d23",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJn73s4DOUx1kUbYj0EtiXuScakH0mJG8VbYOp+GoDBFZTvyOXg7XvFjMpQNJA6JLw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIwk0moeu2k7UWkv2LVNFbZE6T5W3uIWib6CF8QNrGyTuJOSRaUVtUPnApEEbGgXsQ==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "4eef386c-6e82-4c73-ae28-7ebd69d2b2f9",
+                            SecurityStamp = "d1007353-c4be-4ad5-b2ec-d94c869cef74",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -119,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d15cc1d-f376-4f4d-b98c-9838b7b811ce",
+                            ConcurrencyStamp = "5986e200-70fd-428a-ac45-f0f5bee44a06",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKrvkihy41DkYU3X8KiIGIzQmExk+8PzmhKgtQWvFr0hMa3SaH95gr4yhHVXivmyKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOOJM/ebcn3LV0u12UWuoQxFVU0Z+nd6JUMV8rOBDHw8M8TOEZmxhYV7pxZhG32g/Q==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "70a593bb-2ae8-4ff2-931d-ff9f1c2f6e6b",
+                            SecurityStamp = "ac6afd2f-1438-46ad-9051-a30281a9bf22",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -616,8 +616,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserAshtray", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("AshtrayId")
@@ -639,8 +639,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigar", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("CigarId")
@@ -662,8 +662,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarillo", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("CigarilloId")
@@ -685,8 +685,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarPocketCase", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("CigarPocketCaseId")
@@ -708,8 +708,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCutter", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("CutterId")
@@ -731,8 +731,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserHumidor", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("HumidorId")
@@ -754,8 +754,8 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserLighter", b =>
                 {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)")
                         .HasColumnName("UserId");
 
                     b.Property<int>("LighterId")
@@ -994,7 +994,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserAshtray", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserAshtrays")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1013,7 +1013,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigar", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("UserCigar")
+                        .WithMany("UserCigars")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1032,7 +1032,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarillo", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserCigarillos")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1051,7 +1051,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCigarPocketCase", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserCigarPocketCases")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1070,7 +1070,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserCutter", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserCutters")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1089,7 +1089,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserHumidor", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserHumidors")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1177,7 +1177,17 @@ namespace CigarWorld.Data.Migrations
 
             modelBuilder.Entity("CigarWorld.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("UserCigar");
+                    b.Navigation("UserAshtrays");
+
+                    b.Navigation("UserCigarPocketCases");
+
+                    b.Navigation("UserCigarillos");
+
+                    b.Navigation("UserCigars");
+
+                    b.Navigation("UserCutters");
+
+                    b.Navigation("UserHumidors");
                 });
 #pragma warning restore 612, 618
         }

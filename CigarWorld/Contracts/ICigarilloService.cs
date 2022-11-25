@@ -11,5 +11,7 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<FilterType>> GetTypesAsync();
 
         Task AddCigarilloAsync(AddCigarilloViewModel model);
+
+        //Task AddFavoriteCigarilloAsync(int movieId, string userId);
     }
 }

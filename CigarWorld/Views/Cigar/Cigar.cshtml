@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CutterViewModel>
+﻿@model IEnumerable<CigarViewModel>
 
 @{
-    ViewBag.Title = "All Cutters";
+    ViewBag.Title = "All Cigars";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -9,19 +9,23 @@
 
 <div class="text-center row">
 
-    <form class="input-group-sm" asp-controller="General" asp-action="AddCutter">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="General" asp-action="AddCutter">Add Cutter</a>
+    <form class="input-group-sm" asp-controller="Cigar" asp-action="AddCigar">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Cigar" asp-action="AddCigar">Add Cigar</a>
     </form>
 
     @foreach (var cigar in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
+        <div class="card col-4" style="width: 50rem; ">
+            <img class="card-img-top" style="width: 20rem;"
              src="@cigar.ImageUrl" alt="Ashtray Image">
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
-                <p class="mb-0">Type: @cigar.Type</p>
+                <p class="mb-0">Type: @cigar.Format</p>
+                <p class="mb-0">Strength: @cigar.Strength</p>
+                <p class="mb-0">Lenght: @cigar.Length</p>
+                <p class="mb-0">Ring : @cigar.Ring </p>
+                <p class="mb-0">Smoking duration : @cigar.SmokingDuration </p>
                 <p class="mb-0">Country of manufacturing: @cigar.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @cigar.Comment</p>
             </div>

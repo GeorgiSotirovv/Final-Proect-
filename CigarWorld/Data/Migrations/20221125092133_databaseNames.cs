@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CigarWorld.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class databaseNames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -290,7 +290,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserCigarPocketCase",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CigarPocketCaseId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -361,7 +361,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserHumidor",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     HumidorId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -386,7 +386,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserLighter",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     LighterId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -438,7 +438,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserAshtray",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     AshtrayId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -463,7 +463,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserCutter",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CutterId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -488,7 +488,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserCigarillo",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CigarilloId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -513,7 +513,7 @@ namespace CigarWorld.Data.Migrations
                 name: "UserCigar",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CigarId = table.Column<int>(type: "int", nullable: false),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -548,8 +548,8 @@ namespace CigarWorld.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Introduction", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 0, "ff9bacf0-4376-42ae-845d-ad5e4e2d8436", "admin@mail.com", false, "I am Admin", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEJn73s4DOUx1kUbYj0EtiXuScakH0mJG8VbYOp+GoDBFZTvyOXg7XvFjMpQNJA6JLw==", null, false, "Empty", "4eef386c-6e82-4c73-ae28-7ebd69d2b2f9", false, "Admin" },
-                    { "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e", 0, "3d15cc1d-f376-4f4d-b98c-9838b7b811ce", "guest@mail.com", false, "I am guest", false, null, "GUEST@MAIL.COM", "GUEST", "AQAAAAEAACcQAAAAEKrvkihy41DkYU3X8KiIGIzQmExk+8PzmhKgtQWvFr0hMa3SaH95gr4yhHVXivmyKw==", null, false, "Empty", "70a593bb-2ae8-4ff2-931d-ff9f1c2f6e6b", false, "Guest" }
+                    { "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 0, "7b5dd532-65a3-47ac-b404-a80b3d3a6f15", "admin@mail.com", false, "I am Admin", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEPJCYBkh/GHs594lDagY9mlZmTF0HdTCCRchF22++jNEZ0z/JWf/nFHUpXtz4Hu6HQ==", null, false, "Empty", "d9853640-def5-440e-9f77-558a263639f3", false, "Admin" },
+                    { "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e", 0, "e8bd1ba6-6914-4e81-92e6-40a3b0e4303b", "guest@mail.com", false, "I am guest", false, null, "GUEST@MAIL.COM", "GUEST", "AQAAAAEAACcQAAAAEJx+XQfN+H0IKOXZR2SJaWcfZ5ZshLiXHGJRfFsMS8ZJOQ6MNKovBmBotF9wh2OH6A==", null, false, "Empty", "0ce2ad4f-2084-4ab9-bccd-c76b35bbd633", false, "Guest" }
                 });
 
             migrationBuilder.InsertData(

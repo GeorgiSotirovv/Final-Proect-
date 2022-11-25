@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CigarPocketCaseViewModel>
+
+@{
+    ViewBag.Title = "All Cigar pocket cases";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+
+    <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddCigarPocketCase">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="CigarCase" asp-action="AddCigarPocketCase">Add Cigar Pocket Case</a>
+    </form>
+
+    @foreach (var CPC in Model)
+    {
+        <div class="card col-4" style="width: 50rem; ">
+            <img class="card-img-top" style="width: 20rem;"
+             src="@CPC.ImageUrl" alt="Ashtray Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@CPC.Brand</h5>
+                <p class="mb-0">Capacity: @CPC.Capacity</p>
+                <p class="mb-0">Material of Manufacture: @CPC.MaterialOfManufacture</p>
+                <p class="mb-0">Country of manufacturing: @CPC.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @CPC.Comment</p>
+            </div>
+
+            <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddFavoriteCigarPocketCase" asp-route-CigarPocketCaseId="@CPC.Id">
+                <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+
+        </div>
+    }
+</div>

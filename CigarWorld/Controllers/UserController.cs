@@ -102,7 +102,7 @@ namespace Watchlist.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Cigar", "General");
+                    return RedirectToAction("Cigar", "Cigar");
                 }
             }
 

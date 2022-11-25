@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.Models;
@@ -32,38 +33,39 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        //public async Task AddCigarCaseToCollectionAsync(int cigarPocketCaseId, string userId)
-        //{
-        //    var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-        //    if (user == null)
-        //    {
-        //        throw new ArgumentException("Invalid user ID.");
-        //    }
+        public async Task AddCigarCaseToFavoritesAsync(int cigarPocketCaseId, string userId)
+        {
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID.");
+            }
 
-        //    var cigarPocketCase = await context.CigarPocketCases.FirstOrDefaultAsync(a => a.Id == cigarPocketCaseId);
-        //    if (cigarPocketCase == null)
-        //    {
-        //        throw new ArgumentException("Invalid Case ID.");
-        //    }
+            var cigarPocketCase = await context.CigarPocketCases.FirstOrDefaultAsync(a => a.Id == cigarPocketCaseId);
+            if (cigarPocketCase == null)
+            {
+                throw new ArgumentException("Invalid Case ID.");
+            }
 
-        //    if (user.UserProducts.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
-        //    {
-        //        throw new ArgumentException("This Case is alredy added.");
-        //    }
+            if (user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
+            {
+                throw new ArgumentException("This Case is alredy added.");
+            }
 
-        //    if (!user.UserProducts.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
-        //    {
-        //        user.UserProducts.Add(new User()
-        //        {
-        //            CigarPocketCaseId = cigarPocketCase.Id,
-        //            ApplicationUserId = user.Id,
-        //            CigarPocketCase = cigarPocketCase,
-        //            ApplicationUser = user
-        //        });
+            if (!user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
+            {
+                user.UserCigarPocketCases.Add(new UserCigarPocketCase()
+                {
+                    CigarPocketCaseId = cigarPocketCase.Id,
+                    UserId = user.Id,
+                    CigarPocketCase = cigarPocketCase,
+                    ApplicationUser = user
+                });
 
-        //        await context.SaveChangesAsync();
-        //    }
-        //}
+                await context.SaveChangesAsync();
+            }
+        }
+
 
         public async Task<IEnumerable<CigarPocketCaseViewModel>> GetAllAsyncCigarCase()
         {

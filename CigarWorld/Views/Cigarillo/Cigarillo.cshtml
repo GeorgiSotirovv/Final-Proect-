@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CigarViewModel>
+﻿@model IEnumerable<CigarilloViewModel>
 
 @{
-    ViewBag.Title = "All Cigars";
+    ViewBag.Title = "All Cigarillo";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -9,8 +9,8 @@
 
 <div class="text-center row">
 
-    <form class="input-group-sm" asp-controller="General" asp-action="AddCigar">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="General" asp-action="AddCigar">Add Cigar</a>
+    <form class="input-group-sm" asp-controller="Cigarillo" asp-action="AddCigarillo">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Cigarillo" asp-action="AddCigarillo">Add AddCigarillo</a>
     </form>
 
     @foreach (var cigar in Model)
@@ -21,11 +21,7 @@
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
-                <p class="mb-0">Type: @cigar.Format</p>
-                <p class="mb-0">Strength: @cigar.Strength</p>
-                <p class="mb-0">Lenght: @cigar.Length</p>
-                <p class="mb-0">Ring : @cigar.Ring </p>
-                <p class="mb-0">Smoking duration : @cigar.SmokingDuration </p>
+                <p class="mb-0">Filter : @cigar.Filter</p>
                 <p class="mb-0">Country of manufacturing: @cigar.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @cigar.Comment</p>
             </div>
