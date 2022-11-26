@@ -120,6 +120,7 @@ namespace CigarWorld.Services
                     Comment = m.Cigar.Comment,
                     CountryOfManufacturing = m.Cigar.CountryOfManufacturing,
                     StrengthType = m.Cigar.StrengthType.Id,
+                    StrengthTypeName = m.Cigar.StrengthType.Name,
                     Format = m?.Cigar.Format,
                     Length = m.Cigar.Length,
                     Ring = m.Cigar.Ring,

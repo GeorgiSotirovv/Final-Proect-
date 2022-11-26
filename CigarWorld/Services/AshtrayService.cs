@@ -106,7 +106,8 @@ namespace CigarWorld.Services
                     ImageUrl = m.Ashtray.ImageUrl,
                     Comment = m.Ashtray.Comment,
                     CountryOfManufacturing = m.Ashtray.CountryOfManufacturing,
-                    AshtrayType = m.Ashtray.AshtrayType.Id
+                    AshtrayType = m.Ashtray.AshtrayType.Id,
+                    AshtrayTypeName = m.Ashtray.AshtrayType.Name
                 });
         }
 

@@ -25,6 +25,8 @@ namespace CigarWorld.Models.AddModels
 
         public int AshtrayType { get; set; } 
 
+        public string AshtrayTypeName { get; set; }
+
         public IEnumerable<AshtrayType> AshtrayTypes { get; set; } = new List<AshtrayType>();
     }
 }

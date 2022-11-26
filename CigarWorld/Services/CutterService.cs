@@ -112,7 +112,8 @@ namespace CigarWorld.Services
                     ImageUrl = m.Cutter.ImageUrl,
                     Comment = m.Cutter.Comment,
                     CountryOfManufacturing = m.Cutter.CountryOfManufacturing,
-                    CutterType = m.Cutter.CutterType.Id
+                    CutterType = m.Cutter.CutterType.Id,
+                    CutterTypeName = m.Cutter.CutterType.Name
                 });
         }
     }

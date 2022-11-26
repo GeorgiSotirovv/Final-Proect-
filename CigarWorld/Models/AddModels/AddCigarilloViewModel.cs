@@ -25,6 +25,8 @@ namespace CigarWorld.Models.AddModels
 
         public int FilterType { get; set; } 
 
+        public string FilterTypeName { get; set; } 
+
         public IEnumerable<FilterType> FilterTypes { get; set; } = new List<FilterType>();
     }
 }

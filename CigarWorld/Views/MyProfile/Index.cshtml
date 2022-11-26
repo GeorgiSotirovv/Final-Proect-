@@ -18,7 +18,7 @@
             <div class="card-body">
                 <h5 class="card-title mt-1">@ashtray.Brand</h5>
                 <p class="mb-0">Author: @ashtray.CountryOfManufacturing</p>
-                <p class="mb-0">Description: @ashtray.AshtrayType</p>
+                <p class="mb-0">Description: @ashtray.AshtrayTypeName</p>
                 <p>Category: @ashtray.Comment</p>
             </div>
         </div>
@@ -26,14 +26,14 @@
 
     @foreach (var cigar in Model.FavoriteCigar)
     {
-        <div class="card col-4" style="width: 50rem; ">
-            <img class="card-img-top" style="width: 20rem;"
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
              src="@cigar.ImageUrl" alt="Cigar Image">
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
                 <p class="mb-0">Type: @cigar.Format</p>
-                <p class="mb-0">Strength: @cigar.StrengthTypes</p>
+                <p class="mb-0">Strength: @cigar.StrengthTypeName</p>
                 <p class="mb-0">Lenght: @cigar.Length</p>
                 <p class="mb-0">Ring : @cigar.Ring </p>
                 <p class="mb-0">Smoking duration : @cigar.SmokingDuration </p>
@@ -46,8 +46,8 @@
 
     @foreach (var CPC in Model.FavoriteCigarPoketCase)
     {
-        <div class="card col-4" style="width: 50rem; ">
-            <img class="card-img-top" style="width: 20rem;"
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
              src="@CPC.ImageUrl" alt="Ashtray Image">
             <div class="card-body">
 
@@ -66,12 +66,12 @@
     @foreach (var cigarillo in Model.FavoriteCigarillo)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 20rem;"
+            <img class="card-img-top" style="width: 18rem;"
              src="@cigarillo.ImageUrl" alt="Cigarillo Image">
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigarillo.Brand</h5>
-                <p class="mb-0">Filter : @cigarillo.FilterType</p>
+                <p class="mb-0">Filter : @cigarillo.FilterTypeName</p>
                 <p class="mb-0">Country of manufacturing: @cigarillo.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @cigarillo.Comment</p>
             </div>
@@ -98,8 +98,8 @@
     }
     @foreach (var humidor in Model.FavoriteHumidor)
     {
-        <div class="card col-4" style="width: 50rem; ">
-            <img class="card-img-top" style="width: 20rem;"
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
              src="@humidor.ImageUrl" alt="Ashtray Image">
             <div class="card-body">
 

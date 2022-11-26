@@ -108,7 +108,8 @@ namespace CigarWorld.Services
                     ImageUrl = m.Cigarillo.ImageUrl,
                     Comment = m.Cigarillo.Comment,
                     CountryOfManufacturing = m.Cigarillo.CountryOfManufacturing,
-                    FilterType = m.Cigarillo.FilterType.Id
+                    FilterType = m.Cigarillo.FilterType.Id,
+                    FilterTypeName = m.Cigarillo.FilterType.Name
                 });
         }
     }
