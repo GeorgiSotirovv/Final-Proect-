@@ -85,6 +85,31 @@ namespace CigarWorld.Services
                 });
         }
 
+        public async Task<IEnumerable<AddAshtrayViewModel>> GetMineAshtrayAsync(string userId)
+        {
+            var user = await context.Users
+              .Where(u => u.Id == userId)
+              .Include(u => u.UserAshtrays)
+              .ThenInclude(um => um.Ashtray)
+               .ThenInclude(m => m.AshtrayType)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.UserAshtrays
+                .Select(m => new AddAshtrayViewModel()
+                {
+                    Brand = m.Ashtray.Brand,
+                    ImageUrl = m.Ashtray.ImageUrl,
+                    Comment = m.Ashtray.Comment,
+                    CountryOfManufacturing = m.Ashtray.CountryOfManufacturing,
+                    AshtrayType = m.Ashtray.AshtrayType.Id
+                });
+        }
+
         public async Task<IEnumerable<AshtrayType>> GetTypesAsync()
         {
             return await context.AshtrayTypes.ToListAsync();

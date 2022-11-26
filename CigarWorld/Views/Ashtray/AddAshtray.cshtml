@@ -35,7 +35,7 @@
             <div class="mb-3">
                 <label asp-for="@Model.TypeId" class="form-label">Type</label>
                 <select asp-for="@Model.TypeId" class="form-control">
-                    @foreach (var type in Model.AshtrayType)
+                    @foreach (var type in Model.AshtrayTypes)
                     {
                         <option value="@type.Id">@type.Name</option>
                     }

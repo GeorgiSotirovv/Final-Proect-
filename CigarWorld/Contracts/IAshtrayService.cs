@@ -13,5 +13,7 @@ namespace CigarWorld.Contracts
         Task AddAshtraysAsync(AddAshtrayViewModel model);
 
         Task AddAshtrayToFavoritesAsync(int ashtrayId, string userId);
+
+        Task<IEnumerable<AddAshtrayViewModel>> GetMineAshtrayAsync(string userId);
     }
 }

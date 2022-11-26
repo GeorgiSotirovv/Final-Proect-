@@ -23,6 +23,8 @@ namespace CigarWorld.Models.AddModels
 
         public int FiterId { get; set; }
 
+        public int FilterType { get; set; } 
+
         public IEnumerable<FilterType> FilterTypes { get; set; } = new List<FilterType>();
     }
 }

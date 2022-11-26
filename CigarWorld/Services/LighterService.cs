@@ -54,7 +54,7 @@ namespace CigarWorld.Services
 
         public async Task AddLighterAsync(AddLighterViewModel model)
         {
-            var entity = new Lighter() 
+            var entity = new Lighter()
             {
                 Brand = model.Brand,
                 CountryOfManufacturing = model.CountryOfManufacturing,
@@ -79,6 +79,29 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
+                });
+        }
+
+        public async Task<IEnumerable<AddLighterViewModel>> GetMineLightersAsync(string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserLighter)
+               .ThenInclude(um => um.Lighter)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.UserLighter
+                .Select(m => new AddLighterViewModel()
+                {
+                    Brand = m.Lighter.Brand,
+                    ImageUrl = m.Lighter.ImageUrl,
+                    Comment = m.Lighter.Comment,
+                    CountryOfManufacturing = m.Lighter.CountryOfManufacturing,
                 });
         }
     }

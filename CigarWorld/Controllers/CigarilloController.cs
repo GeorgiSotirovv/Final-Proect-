@@ -70,7 +70,7 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
-            return RedirectToAction("Cigar", "Cigar");
+            return RedirectToAction("Cigarillo", "Cigarillo");
         }
     }
 }

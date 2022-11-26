@@ -1,0 +1,136 @@
+﻿@model FavoriteProductsViewModels
+
+@{
+    ViewBag.Title = "My Favorite things";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<div class="text-center row">
+ 
+    @foreach (var ashtray in Model.FavoriteAshtray)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@ashtray.ImageUrl" alt="Ashtray Image">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@ashtray.Brand</h5>
+                <p class="mb-0">Author: @ashtray.CountryOfManufacturing</p>
+                <p class="mb-0">Description: @ashtray.AshtrayType</p>
+                <p>Category: @ashtray.Comment</p>
+            </div>
+        </div>
+    }
+
+    @foreach (var cigar in Model.FavoriteCigar)
+    {
+        <div class="card col-4" style="width: 50rem; ">
+            <img class="card-img-top" style="width: 20rem;"
+             src="@cigar.ImageUrl" alt="Cigar Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@cigar.Brand</h5>
+                <p class="mb-0">Type: @cigar.Format</p>
+                <p class="mb-0">Strength: @cigar.StrengthTypes</p>
+                <p class="mb-0">Lenght: @cigar.Length</p>
+                <p class="mb-0">Ring : @cigar.Ring </p>
+                <p class="mb-0">Smoking duration : @cigar.SmokingDuration </p>
+                <p class="mb-0">Country of manufacturing: @cigar.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @cigar.Comment</p>
+            </div>
+            
+        </div>
+    }
+
+    @foreach (var CPC in Model.FavoriteCigarPoketCase)
+    {
+        <div class="card col-4" style="width: 50rem; ">
+            <img class="card-img-top" style="width: 20rem;"
+             src="@CPC.ImageUrl" alt="Ashtray Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@CPC.Brand</h5>
+                <p class="mb-0">Capacity: @CPC.Capacity</p>
+                <p class="mb-0">Material of Manufacture: @CPC.MaterialOfManufacture</p>
+                <p class="mb-0">Country of manufacturing: @CPC.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @CPC.Comment</p>
+            </div>
+
+           
+
+        </div>
+    }
+
+    @foreach (var cigarillo in Model.FavoriteCigarillo)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 20rem;"
+             src="@cigarillo.ImageUrl" alt="Cigarillo Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@cigarillo.Brand</h5>
+                <p class="mb-0">Filter : @cigarillo.FilterType</p>
+                <p class="mb-0">Country of manufacturing: @cigarillo.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @cigarillo.Comment</p>
+            </div>
+
+           
+        </div>
+    }
+     @foreach (var cutter in Model.FavoriteCutter)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@cutter.ImageUrl" alt="Ashtray Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@cutter.Brand</h5>
+                <p class="mb-0">Type: @cutter.CutterType</p>
+                <p class="mb-0">Country of manufacturing: @cutter.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @cutter.Comment</p>
+            </div>
+
+            
+            
+        </div>
+    }
+    @foreach (var humidor in Model.FavoriteHumidor)
+    {
+        <div class="card col-4" style="width: 50rem; ">
+            <img class="card-img-top" style="width: 20rem;"
+             src="@humidor.ImageUrl" alt="Ashtray Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@humidor.Brand</h5>
+                <p class="mb-0">Height : @humidor.Height</p>
+                <p class="mb-0">Length : @humidor.Length</p>
+                <p class="mb-0">Weight : @humidor.Weight </p>
+                <p class="mb-0">Capacity : @humidor.Capacity </p>
+                <p class="mb-0">Country of manufacturing: @humidor.CountryOfManufacturing</p>
+                <p class="mb-0">Material of manufacture: @humidor.MaterialOfManufacture</p>
+            </div>
+
+            
+            
+        </div>
+    }
+
+    @foreach (var lighter in Model.FavoriteLighter)
+    {
+        <div class="card col-4" style="width: 20rem; ">
+            <img class="card-img-top" style="width: 18rem;"
+             src="@lighter.ImageUrl" alt="Ashtray Image">
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@lighter.Brand</h5>
+                <p class="mb-0">Country of manufacturing: @lighter.CountryOfManufacturing</p>
+                <p class="mb-0">Comment: @lighter.Comment</p>
+            </div>
+
+            
+            
+        </div>
+    }
+</div>

@@ -90,5 +90,30 @@ namespace CigarWorld.Services
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<AddCutterViewModel>> GetMineCuttersAsync(string userId)
+        {
+            var user = await context.Users
+              .Where(u => u.Id == userId)
+              .Include(u => u.UserCutters)
+              .ThenInclude(um => um.Cutter)
+              .ThenInclude(m => m.CutterType)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.UserCutters
+                .Select(m => new AddCutterViewModel()
+                {
+                    Brand = m.Cutter.Brand,
+                    ImageUrl = m.Cutter.ImageUrl,
+                    Comment = m.Cutter.Comment,
+                    CountryOfManufacturing = m.Cutter.CountryOfManufacturing,
+                    CutterType = m.Cutter.CutterType.Id
+                });
+        }
     }
 }

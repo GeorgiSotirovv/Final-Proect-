@@ -84,5 +84,30 @@ namespace CigarWorld.Services
                     MaterialOfManufacture = m.MaterialOfManufacture
                 });
         }
+
+        public async Task<IEnumerable<AddCigarPocketCaseViewModel>> GetMineCPCAsync(string userId)
+        {
+            var user = await context.Users
+              .Where(u => u.Id == userId)
+              .Include(u => u.UserCigarPocketCases)
+              .ThenInclude(um => um.CigarPocketCase)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.UserCigarPocketCases
+                .Select(m => new AddCigarPocketCaseViewModel()
+                {
+                    Brand = m.CigarPocketCase.Brand,
+                    ImageUrl = m.CigarPocketCase.ImageUrl,
+                    Comment = m.CigarPocketCase.Comment,
+                    CountryOfManufacturing = m.CigarPocketCase.CountryOfManufacturing,
+                    Capacity = m.CigarPocketCase.Capacity,
+                    MaterialOfManufacture= m.CigarPocketCase.MaterialOfManufacture
+                });
+        }
     }
 }

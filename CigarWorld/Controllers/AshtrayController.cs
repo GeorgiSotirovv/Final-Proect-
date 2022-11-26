@@ -29,7 +29,7 @@ namespace CigarWorld.Controllers
         {
             var model = new AddAshtrayViewModel()
             {
-                AshtrayType = await ashtrayService.GetTypesAsync()
+                AshtrayTypes = await ashtrayService.GetTypesAsync()
             };
 
             return View(model);
@@ -62,6 +62,7 @@ namespace CigarWorld.Controllers
 
             try
             {
+                
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 await ashtrayService.AddAshtrayToFavoritesAsync(ashtrayId, userId);
             }
@@ -72,5 +73,6 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Cigar", "Cigar");
         }
+
     }
 }

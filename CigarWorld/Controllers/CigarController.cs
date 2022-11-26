@@ -21,6 +21,7 @@ namespace CigarWorld.Controllers
             var model = await cigarService.GetAllCigarsAsync();
 
             return View(model);
+
         }
 
         [HttpGet]
@@ -59,7 +60,6 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> AddFavoriteCigar(int cigarId)
         {
-
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;

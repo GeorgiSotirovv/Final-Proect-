@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
 {
-    public class HumidorsService : IHumidorsService
+    public class HumidorService : IHumidorsService
     {
         private readonly CigarWorldDbContext context;
 
-        public HumidorsService(CigarWorldDbContext _context)
+        public HumidorService(CigarWorldDbContext _context)
         {
             context = _context;
         }
@@ -88,6 +88,34 @@ namespace CigarWorld.Services
                     Weight = m.Weight,
                     MaterialOfManufacture = m.MaterialOfManufacture,
                     Capacity = m.Capacity,
+                });
+        }
+
+        public async Task<IEnumerable<AddHumidorViewModel>> GetMineHumidorsAsync(string userId)
+        {
+            var user = await context.Users
+              .Where(u => u.Id == userId)
+              .Include(u => u.UserHumidors)
+              .ThenInclude(um => um.Humidor)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.UserHumidors
+                .Select(m => new AddHumidorViewModel()
+                {
+                    Brand = m.Humidor.Brand,
+                    Height = m.Humidor.Height,
+                    Length = m.Humidor.Length,
+                    Weight = m.Humidor.Weight,
+                    ImageUrl = m.Humidor.ImageUrl,
+                    Comment = m.Humidor.Comment,
+                    CountryOfManufacturing = m.Humidor.CountryOfManufacturing,
+                    Capacity = m.Humidor.Capacity,
+                    MaterialOfManufacture = m.Humidor.MaterialOfManufacture
                 });
         }
     }

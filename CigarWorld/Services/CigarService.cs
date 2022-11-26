@@ -96,5 +96,36 @@ namespace CigarWorld.Services
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<AddCigarViewModel>> GetMineCigarsAsync(string userId)
+        {
+
+            var user = await context.Users
+              .Where(u => u.Id == userId)
+              .Include(u => u.UserCigars)
+              .ThenInclude(um => um.Cigar)
+              .ThenInclude(m => m.StrengthType)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            return user.UserCigars
+                .Select(m => new AddCigarViewModel()
+                {
+                    Brand = m.Cigar.Brand,
+                    ImageUrl = m.Cigar.ImageUrl,
+                    Comment = m.Cigar.Comment,
+                    CountryOfManufacturing = m.Cigar.CountryOfManufacturing,
+                    StrengthType = m.Cigar.StrengthType.Id,
+                    Format = m?.Cigar.Format,
+                    Length = m.Cigar.Length,
+                    Ring = m.Cigar.Ring,
+                    SmokingDuration = m.Cigar.SmokingDuration,
+                });
+
+        }
     }
 }

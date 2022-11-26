@@ -13,5 +13,7 @@ namespace CigarWorld.Contracts
         Task AddCigarsAsync(AddCigarViewModel model);
 
         Task AddFavoriteCigarAsync(int movieId, string userId);
+
+        Task<IEnumerable<AddCigarViewModel>> GetMineCigarsAsync(string userId);
     }
 }

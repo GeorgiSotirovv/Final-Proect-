@@ -36,8 +36,9 @@ builder.Services.AddScoped<ICigarService, CigarService>();
 builder.Services.AddScoped<ICigarilloService, CigarilloService>();
 builder.Services.AddScoped<ICutterService, CutterService>();
 builder.Services.AddScoped<ILighterService, LighterService>();
-builder.Services.AddScoped<IHumidorsService, HumidorsService>();
+builder.Services.AddScoped<IHumidorsService, HumidorService>();
 builder.Services.AddScoped<ICigarCaseService, CigarCaseService>();
+builder.Services.AddScoped<IMyProfileService, MyProfileService>();
 
 
 var app = builder.Build();
