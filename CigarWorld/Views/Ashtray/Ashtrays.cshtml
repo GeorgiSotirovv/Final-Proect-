@@ -20,9 +20,19 @@
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@ashtray.Brand</h5>
-                <p class="mb-0">Type: @ashtray.Type</p>
-                <p class="mb-0">Country of manufacturing: @ashtray.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @ashtray.Comment</p>
+
+                <div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary id="details-button">Details</button>
+                    </div>
+                </div>
+
+
+                <div class="jumbotron d-none">
+                    <p class="mb-0">Type: @ashtray.Type</p>
+                    <p class="mb-0">Country of manufacturing: @ashtray.CountryOfManufacturing</p>
+                    <p class="mb-0">Comment: @ashtray.Comment</p>
+                </div>
             </div>
 
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">
@@ -32,3 +42,4 @@
         </div>
     }
 </div>
+

@@ -10,6 +10,8 @@
 
 <div class="text-center row">
  
+    <div class="card">
+
     @foreach (var ashtray in Model.FavoriteAshtray)
     {
         <div class="card col-4" style="width: 20rem; ">
@@ -57,9 +59,6 @@
                 <p class="mb-0">Country of manufacturing: @CPC.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @CPC.Comment</p>
             </div>
-
-           
-
         </div>
     }
 
@@ -133,4 +132,5 @@
             
         </div>
     }
+    </div>
 </div>
