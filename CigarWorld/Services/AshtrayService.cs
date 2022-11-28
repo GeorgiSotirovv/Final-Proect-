@@ -4,6 +4,8 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.BaseModels;
+using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -28,6 +30,7 @@ namespace CigarWorld.Services
                 ImageUrl = model.ImageUrl,
                 Comment = model.Comment,
                 AshtrayId = model.TypeId
+
             };
             await context.Ashtrays.AddAsync(entity);
             await context.SaveChangesAsync();
@@ -86,7 +89,33 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<IEnumerable<AddAshtrayViewModel>> GetMineAshtrayAsync(string userId)
+        //public async Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId)
+        //{
+        //    var user = await context.Users
+        //      .Where(u => u.Id == ashtrayId)
+        //      .Include(u => u.UserAshtrays)
+        //      .ThenInclude(um => um.Ashtray)
+        //       .ThenInclude(m => m.AshtrayType)
+        //      .FirstOrDefaultAsync();
+
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentException("Invalid user ID");
+        //    }
+
+        //    return user.UserAshtrays
+        //        .Select(m => new AddAshtrayViewModel()
+        //        {
+        //            Brand = m.Ashtray.Brand,
+        //            ImageUrl = m.Ashtray.ImageUrl,
+        //            Comment = m.Ashtray.Comment,
+        //            CountryOfManufacturing = m.Ashtray.CountryOfManufacturing,
+        //            AshtrayType = m.Ashtray.AshtrayType.Id,
+        //            AshtrayTypeName = m.Ashtray.AshtrayType.Name
+        //        });
+        //}
+
+        public async Task<IEnumerable<MyFavoriteAshtrayViewModel>> GetMineAshtrayAsync(string userId)
         {
             var user = await context.Users
               .Where(u => u.Id == userId)
@@ -101,14 +130,13 @@ namespace CigarWorld.Services
             }
 
             return user.UserAshtrays
-                .Select(m => new AddAshtrayViewModel()
+                .Select(m => new MyFavoriteAshtrayViewModel()
                 {
                     Brand = m.Ashtray.Brand,
                     ImageUrl = m.Ashtray.ImageUrl,
                     Comment = m.Ashtray.Comment,
                     CountryOfManufacturing = m.Ashtray.CountryOfManufacturing,
-                    AshtrayType = m.Ashtray.AshtrayType.Id,
-                    AshtrayTypeName = m.Ashtray.AshtrayType.Name
+                    AshtrayType = m.Ashtray.AshtrayType.Name
                 });
         }
 

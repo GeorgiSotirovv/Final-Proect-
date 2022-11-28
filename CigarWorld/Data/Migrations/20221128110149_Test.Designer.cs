@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    [Migration("20221125092133_databaseNames")]
-    partial class databaseNames
+    [Migration("20221128110149_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b5dd532-65a3-47ac-b404-a80b3d3a6f15",
+                            ConcurrencyStamp = "16310d5c-f8e7-4d4e-8a76-ed61a9c3f7ad",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPJCYBkh/GHs594lDagY9mlZmTF0HdTCCRchF22++jNEZ0z/JWf/nFHUpXtz4Hu6HQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBUL5Xfqo0o+KKQ7/uXOfedsPL6y6rNqZdxEJJmxtw315yR1LFykg3AJ3DteIhR4ww==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "d9853640-def5-440e-9f77-558a263639f3",
+                            SecurityStamp = "39516a1c-42ce-48c1-8f6f-7b160d85ca14",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -119,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8bd1ba6-6914-4e81-92e6-40a3b0e4303b",
+                            ConcurrencyStamp = "f84552e6-01d7-4a96-855d-432bba31341e",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJx+XQfN+H0IKOXZR2SJaWcfZ5ZshLiXHGJRfFsMS8ZJOQ6MNKovBmBotF9wh2OH6A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF77VF5Ms5CcG/aGyQOqgG404yhs209yUvpIXkr5K8y4BPatVpWSikE6WzhcR6fo8g==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "0ce2ad4f-2084-4ab9-bccd-c76b35bbd633",
+                            SecurityStamp = "0215a267-5413-47a6-b838-52e42101ae68",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -314,7 +314,7 @@ namespace CigarWorld.Data.Migrations
 
                     b.HasIndex("FiterId");
 
-                    b.ToTable("Cigarillos");
+                    b.ToTable("Cigarillo");
 
                     b.HasData(
                         new
@@ -775,6 +775,28 @@ namespace CigarWorld.Data.Migrations
                     b.ToTable("UserLighter");
                 });
 
+            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.AshtrayReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AshtrayId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Review")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AshtrayId");
+
+                    b.ToTable("AshtrayReview");
+                });
+
             modelBuilder.Entity("CigarWorld.Data.Models.StrengthType", b =>
                 {
                     b.Property<int>("Id")
@@ -1108,7 +1130,7 @@ namespace CigarWorld.Data.Migrations
             modelBuilder.Entity("CigarWorld.Data.Models.ManyToMany.UserLighter", b =>
                 {
                     b.HasOne("CigarWorld.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserLighter")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1122,6 +1144,15 @@ namespace CigarWorld.Data.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Lighter");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.AshtrayReview", b =>
+                {
+                    b.HasOne("CigarWorld.Data.Models.Ashtray", null)
+                        .WithMany("AshtrayReviews")
+                        .HasForeignKey("AshtrayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1188,6 +1219,13 @@ namespace CigarWorld.Data.Migrations
                     b.Navigation("UserCutters");
 
                     b.Navigation("UserHumidors");
+
+                    b.Navigation("UserLighter");
+                });
+
+            modelBuilder.Entity("CigarWorld.Data.Models.Ashtray", b =>
+                {
+                    b.Navigation("AshtrayReviews");
                 });
 #pragma warning restore 612, 618
         }

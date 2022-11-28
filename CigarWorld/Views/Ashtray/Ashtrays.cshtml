@@ -15,8 +15,10 @@
     @foreach (var ashtray in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@ashtray.ImageUrl" alt="Ashtray Image">
+            <a href = "/Ashtray/Details?id=@ashtray.Id">
+                <img class="card-img-top" style="width: 18rem;" 
+                src="@ashtray.ImageUrl" alt="Ashtray Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@ashtray.Brand</h5>
@@ -26,13 +28,7 @@
                         <button class="btn btn-primary id="details-button">Details</button>
                     </div>
                 </div>
-
-
-                <div class="jumbotron d-none">
-                    <p class="mb-0">Type: @ashtray.Type</p>
-                    <p class="mb-0">Country of manufacturing: @ashtray.CountryOfManufacturing</p>
-                    <p class="mb-0">Comment: @ashtray.Comment</p>
-                </div>
+                    <p class="mb-0">Type: @ashtray.Type</p>                
             </div>
 
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">

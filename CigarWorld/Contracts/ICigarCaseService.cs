@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
+using CigarWorld.Models.MyFavoriteViewModels;
 
 namespace CigarWorld.Contracts
 {
@@ -11,6 +12,6 @@ namespace CigarWorld.Contracts
 
         Task AddCigarCaseToFavoritesAsync(int cigarPocketCaseId, string userId);
 
-        Task<IEnumerable<AddCigarPocketCaseViewModel>> GetMineCPCAsync(string userId);
+        Task<IEnumerable<MyFavoriteCigarPocketCaseViewModel>> GetMineCPCAsync(string userId);
     }
 }

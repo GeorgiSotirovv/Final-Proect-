@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -91,7 +92,7 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<IEnumerable<AddHumidorViewModel>> GetMineHumidorsAsync(string userId)
+        public async Task<IEnumerable<MyFavoriteHomidorViewModel>> GetMineHumidorsAsync(string userId)
         {
             var user = await context.Users
               .Where(u => u.Id == userId)
@@ -105,7 +106,7 @@ namespace CigarWorld.Services
             }
 
             return user.UserHumidors
-                .Select(m => new AddHumidorViewModel()
+                .Select(m => new MyFavoriteHomidorViewModel()
                 {
                     Brand = m.Humidor.Brand,
                     Height = m.Humidor.Height,

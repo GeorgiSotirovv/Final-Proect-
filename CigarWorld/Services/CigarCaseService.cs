@@ -5,6 +5,7 @@ using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.Models;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -85,7 +86,7 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<IEnumerable<AddCigarPocketCaseViewModel>> GetMineCPCAsync(string userId)
+        public async Task<IEnumerable<MyFavoriteCigarPocketCaseViewModel>> GetMineCPCAsync(string userId)
         {
             var user = await context.Users
               .Where(u => u.Id == userId)
@@ -99,7 +100,7 @@ namespace CigarWorld.Services
             }
 
             return user.UserCigarPocketCases
-                .Select(m => new AddCigarPocketCaseViewModel()
+                .Select(m => new MyFavoriteCigarPocketCaseViewModel()
                 {
                     Brand = m.CigarPocketCase.Brand,
                     ImageUrl = m.CigarPocketCase.ImageUrl,

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CigarWorld.Data.Migrations
 {
-    public partial class databaseNames : Migration
+    public partial class AddDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -335,7 +335,7 @@ namespace CigarWorld.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cigarillos",
+                name: "Cigarillo",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -348,9 +348,9 @@ namespace CigarWorld.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cigarillos", x => x.Id);
+                    table.PrimaryKey("PK_Cigarillo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cigarillos_FilterTypes_FiterId",
+                        name: "FK_Cigarillo_FilterTypes_FiterId",
                         column: x => x.FiterId,
                         principalTable: "FilterTypes",
                         principalColumn: "Id",
@@ -502,9 +502,9 @@ namespace CigarWorld.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserCigarillo_Cigarillos_CigarilloId",
+                        name: "FK_UserCigarillo_Cigarillo_CigarilloId",
                         column: x => x.CigarilloId,
-                        principalTable: "Cigarillos",
+                        principalTable: "Cigarillo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -548,8 +548,8 @@ namespace CigarWorld.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Introduction", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 0, "7b5dd532-65a3-47ac-b404-a80b3d3a6f15", "admin@mail.com", false, "I am Admin", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEPJCYBkh/GHs594lDagY9mlZmTF0HdTCCRchF22++jNEZ0z/JWf/nFHUpXtz4Hu6HQ==", null, false, "Empty", "d9853640-def5-440e-9f77-558a263639f3", false, "Admin" },
-                    { "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e", 0, "e8bd1ba6-6914-4e81-92e6-40a3b0e4303b", "guest@mail.com", false, "I am guest", false, null, "GUEST@MAIL.COM", "GUEST", "AQAAAAEAACcQAAAAEJx+XQfN+H0IKOXZR2SJaWcfZ5ZshLiXHGJRfFsMS8ZJOQ6MNKovBmBotF9wh2OH6A==", null, false, "Empty", "0ce2ad4f-2084-4ab9-bccd-c76b35bbd633", false, "Guest" }
+                    { "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 0, "a01deb7f-597e-47ce-8632-66d75682aab3", "admin@mail.com", false, "I am Admin", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEIMqc+z5TtLZJdx9JHGBShq2UbUAvdA3GS09XdztRV3Ke1550h7ppoQuYyGS//kw+g==", null, false, "Empty", "46a0eade-b7d4-4cb9-b56a-037784ccb619", false, "Admin" },
+                    { "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e", 0, "7cd3d225-6a6b-44dd-ae74-8de2e802dc42", "guest@mail.com", false, "I am guest", false, null, "GUEST@MAIL.COM", "GUEST", "AQAAAAEAACcQAAAAEBYaiuRSNrbvPpm7CH4Ogh5s2e4t1Xhma76xfZPyrxAqS7vgNMUAsdHi81F8vkWTXw==", null, false, "Empty", "f06f0a68-e886-44bd-aa8c-42a770110bff", false, "Guest" }
                 });
 
             migrationBuilder.InsertData(
@@ -605,7 +605,7 @@ namespace CigarWorld.Data.Migrations
                 values: new object[] { 1, 1, "Lubinski", "Really nice and colorful ashtray.", "China", "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg" });
 
             migrationBuilder.InsertData(
-                table: "Cigarillos",
+                table: "Cigarillo",
                 columns: new[] { "Id", "Brand", "Comment", "CountryOfManufacturing", "FiterId", "ImageUrl" },
                 values: new object[] { 1, "Clubmaster", "This Cigarillos have a very nice taste and nice flavor.", "Germany", 1, "https://i.colnect.net/f/4259/015/Clubmaster-Mini.jpg" });
 
@@ -664,8 +664,8 @@ namespace CigarWorld.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cigarillos_FiterId",
-                table: "Cigarillos",
+                name: "IX_Cigarillo_FiterId",
+                table: "Cigarillo",
                 column: "FiterId");
 
             migrationBuilder.CreateIndex(
@@ -797,7 +797,7 @@ namespace CigarWorld.Data.Migrations
                 name: "Cigars");
 
             migrationBuilder.DropTable(
-                name: "Cigarillos");
+                name: "Cigarillo");
 
             migrationBuilder.DropTable(
                 name: "CigarPocketCases");

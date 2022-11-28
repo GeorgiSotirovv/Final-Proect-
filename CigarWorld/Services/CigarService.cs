@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.Models;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -97,7 +98,7 @@ namespace CigarWorld.Services
             }
         }
 
-        public async Task<IEnumerable<AddCigarViewModel>> GetMineCigarsAsync(string userId)
+        public async Task<IEnumerable<MyFavoriteCigarViewModel>> GetMineCigarsAsync(string userId)
         {
 
             var user = await context.Users
@@ -113,14 +114,13 @@ namespace CigarWorld.Services
             }
 
             return user.UserCigars
-                .Select(m => new AddCigarViewModel()
+                .Select(m => new MyFavoriteCigarViewModel()
                 {
                     Brand = m.Cigar.Brand,
                     ImageUrl = m.Cigar.ImageUrl,
                     Comment = m.Cigar.Comment,
                     CountryOfManufacturing = m.Cigar.CountryOfManufacturing,
-                    StrengthType = m.Cigar.StrengthType.Id,
-                    StrengthTypeName = m.Cigar.StrengthType.Name,
+                    StrengthType = m.Cigar.StrengthType.Name,
                     Format = m?.Cigar.Format,
                     Length = m.Cigar.Length,
                     Ring = m.Cigar.Ring,

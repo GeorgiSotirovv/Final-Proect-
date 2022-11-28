@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.Models;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -91,7 +92,7 @@ namespace CigarWorld.Services
             }
         }
 
-        public async Task<IEnumerable<AddCutterViewModel>> GetMineCuttersAsync(string userId)
+        public async Task<IEnumerable<MyFavoriteCutterViewModel>> GetMineCuttersAsync(string userId)
         {
             var user = await context.Users
               .Where(u => u.Id == userId)
@@ -106,14 +107,13 @@ namespace CigarWorld.Services
             }
 
             return user.UserCutters
-                .Select(m => new AddCutterViewModel()
+                .Select(m => new MyFavoriteCutterViewModel()
                 {
                     Brand = m.Cutter.Brand,
                     ImageUrl = m.Cutter.ImageUrl,
                     Comment = m.Cutter.Comment,
                     CountryOfManufacturing = m.Cutter.CountryOfManufacturing,
-                    CutterType = m.Cutter.CutterType.Id,
-                    CutterTypeName = m.Cutter.CutterType.Name
+                    Type = m.Cutter.CutterType.Name
                 });
         }
     }

@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.Models;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -87,7 +88,7 @@ namespace CigarWorld.Services
             }
         }
 
-        public async Task<IEnumerable<AddCigarilloViewModel>> GetMineCigarillosAsync(string userId)
+        public async Task<IEnumerable<MyFavoriteCigarilloViewModel>> GetMineCigarillosAsync(string userId)
         {
             var user = await context.Users
               .Where(u => u.Id == userId)
@@ -102,14 +103,13 @@ namespace CigarWorld.Services
             }
 
             return user.UserCigarillos
-                .Select(m => new AddCigarilloViewModel()
+                .Select(m => new MyFavoriteCigarilloViewModel()
                 {
                     Brand = m.Cigarillo.Brand,
                     ImageUrl = m.Cigarillo.ImageUrl,
                     Comment = m.Cigarillo.Comment,
                     CountryOfManufacturing = m.Cigarillo.CountryOfManufacturing,
-                    FilterType = m.Cigarillo.FilterType.Id,
-                    FilterTypeName = m.Cigarillo.FilterType.Name
+                    FilterType = m.Cigarillo.FilterType.Name
                 });
         }
     }

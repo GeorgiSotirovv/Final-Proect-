@@ -40,9 +40,6 @@ namespace CigarWorld.Models.AddModels
         [Required]
         public int StrengthId { get; set; }
 
-        public int StrengthType { get; set; } 
-        public string StrengthTypeName { get; set; } 
-
         public IEnumerable<StrengthType> StrengthTypes { get; set; } = new List<StrengthType>();
     }
 }

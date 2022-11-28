@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
+using CigarWorld.Models.MyFavoriteViewModels;
 
 namespace CigarWorld.Contracts
 {
@@ -11,6 +12,6 @@ namespace CigarWorld.Contracts
 
         Task AddFavoriteHumidorAsync(int movieId, string userId);
 
-        Task<IEnumerable<AddHumidorViewModel>> GetMineHumidorsAsync(string userId);
+        Task<IEnumerable<MyFavoriteHomidorViewModel>> GetMineHumidorsAsync(string userId);
     }
 }

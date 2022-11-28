@@ -99,17 +99,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90dc5361-4fe5-4e6a-890e-53aafadc6d09",
+                            ConcurrencyStamp = "d44e4e50-7a4e-47f4-b02d-407eb50bc502",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECdUOG+/Lt7uVU9Lvy26QUrB1fOjh4k+hTD0H5bN18fMeItrXb5AvEQVi2YYtRJ/QA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEONpaXeKi8u6LDPKIJlSH1dpFvHBcouJ2mBGiEf/3hVovDgiizMfDoPYqompjr3ySw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "1e0ce813-9003-4e88-b23c-6861be3e3ff9",
+                            SecurityStamp = "6af87779-c19b-46ca-88d9-76987b787187",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -117,17 +117,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4830ce43-2f18-4ede-9918-424e959edf90",
+                            ConcurrencyStamp = "9e0f7769-3b79-4d48-9124-f6f7b6190385",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMdBqJGkx0/Rtv0Yw/BiDn4KLrBvuU/JL5GxRiqUWCiXpxEpDcB9APKlfy3Ty3sqsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGRSH23rOVhlzBhpdPW1owaRBi5cvYKj8RnWkuRCzDDn+wxUVw1fnp89tcrNy68Ywg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "7a673356-a19b-4fac-ac54-0e7d74da3a91",
+                            SecurityStamp = "5f557079-67ea-4a2e-bebf-1c1b887bd963",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -141,7 +141,8 @@ namespace CigarWorld.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AshtrayId")
+                    b.Property<int?>("AshtrayId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Brand")

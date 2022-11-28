@@ -1,15 +1,12 @@
-﻿using CigarWorld.Data.Models.Reviews;
+﻿using CigarWorld.Data.Models;
+using CigarWorld.Data.Models.Reviews;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using static CigarWorld.Data.DataConstants.Ashtray;
 
-namespace CigarWorld.Data.Models
+namespace CigarWorld.Models.DetailsModels
 {
-    public class Ashtray
+    public class AshtrayDetailsViewModel
     {
-        [Key]
-        public int Id { get; set; }
-
 
         [Required]
         [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
@@ -26,13 +23,15 @@ namespace CigarWorld.Data.Models
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
 
-        [Required]
-        public int AshtrayId { get; set; }
+        public int TypeId { get; set; }
 
-        [ForeignKey(nameof(AshtrayId))]
+        public int AshtrayType { get; set; }
 
-        public AshtrayType? AshtrayType { get; set; }
+        public string AshtrayTypeName { get; set; }
 
-        //public IEnumerable<AshtrayReview> AshtrayReviews { get; set; } = new List<AshtrayReview>();
+        public IEnumerable<AshtrayType> AshtrayTypes { get; set; } = new List<AshtrayType>();
+
+        public IEnumerable<AshtrayReview> AshtrayReviews { get; set; } = new List<AshtrayReview>();
     }
 }
+

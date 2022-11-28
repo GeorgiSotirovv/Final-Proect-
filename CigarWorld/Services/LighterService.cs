@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.JustModels;
+using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace CigarWorld.Services
@@ -82,7 +83,7 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<IEnumerable<AddLighterViewModel>> GetMineLightersAsync(string userId)
+        public async Task<IEnumerable<MyFavoriteLighterViewModel>> GetMineLightersAsync(string userId)
         {
             var user = await context.Users
                .Where(u => u.Id == userId)
@@ -96,13 +97,18 @@ namespace CigarWorld.Services
             }
 
             return user.UserLighter
-                .Select(m => new AddLighterViewModel()
+                .Select(m => new MyFavoriteLighterViewModel()
                 {
                     Brand = m.Lighter.Brand,
                     ImageUrl = m.Lighter.ImageUrl,
                     Comment = m.Lighter.Comment,
                     CountryOfManufacturing = m.Lighter.CountryOfManufacturing,
                 });
+        }
+
+        Task<IEnumerable<AddLighterViewModel>> ILighterService.GetMineLightersAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

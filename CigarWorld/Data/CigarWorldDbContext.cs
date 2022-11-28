@@ -87,6 +87,7 @@ namespace CigarWorld.Data
             });
 
 
+
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new AshtrayConfiguration());
             builder.ApplyConfiguration(new AshtrayTypeConfiguration());
