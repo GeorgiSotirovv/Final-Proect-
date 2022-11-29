@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CigarWorld.Data.Models.Reviews;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static CigarWorld.Data.DataConstants.Cigarillo;
 
@@ -31,7 +32,6 @@ namespace CigarWorld.Data.Models
         [ForeignKey(nameof(FiterId))]
         public FilterType? FilterType { get; set; }
 
-
-        
+        public IEnumerable<CigarilloReview> AshtrayReviews { get; set; } = new List<CigarilloReview>();
     }
 }

@@ -4,6 +4,7 @@ using CigarWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    partial class CigarWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221129085644_SeedReviewTables")]
+    partial class SeedReviewTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8ed2db7e-8ef8-4a32-87f2-aa20f8e2f61e",
+                            ConcurrencyStamp = "e02c17f3-9469-4f86-bc33-5c09dbcb8790",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL4XSuR7Oz1E35vIDdIP1MK2CxPV0/Xi5Afau7+Au3JV7yXC9XF+iPwtmzdSs0R+0w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF9o6tch3YoNUSXmVAdKlumWa+gQARBeacNsrKbl3cHPA/GSpd7PvpPlE35FEAL4lg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "f7448d08-38b1-4959-8cc9-be52e80c0ca4",
+                            SecurityStamp = "eac0ef9d-10bc-4869-8ea1-4da36f5beb66",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -117,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d23bf0b5-0b84-4eac-8541-c5552a5aa886",
+                            ConcurrencyStamp = "67a80450-10cc-49d7-9245-b31cca08adaf",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH+XDEPh9QOKpCSafKflKoj8aXacKj4/ERJ40/QpLfUIeelkZcZAF0UmOZPZY4kU9A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENX9rtIl7HF/4rX+mYd9no/HJ2jPrctVT6T1foPDravvlaBu7OLgl0WmNLz8UzaANg==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "2730ea3c-a996-4f3c-8789-e34b4edbe587",
+                            SecurityStamp = "d74ce4a7-721e-45ab-8f5d-8f5ef0be46fb",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -790,8 +792,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AshtrayId");
-
                     b.ToTable("AshtrayReview");
 
                     b.HasData(
@@ -819,8 +819,6 @@ namespace CigarWorld.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CigarilloId");
 
                     b.ToTable("CigarilloReviews");
 
@@ -850,8 +848,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CigarPocketCaseId");
-
                     b.ToTable("CigarPocketCaseReview");
 
                     b.HasData(
@@ -879,8 +875,6 @@ namespace CigarWorld.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CigarId");
 
                     b.ToTable("CigarReview");
 
@@ -910,8 +904,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CutterId");
-
                     b.ToTable("CutterReview");
 
                     b.HasData(
@@ -940,8 +932,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HumidorId");
-
                     b.ToTable("HumidorReview");
 
                     b.HasData(
@@ -969,8 +959,6 @@ namespace CigarWorld.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LighterId");
 
                     b.ToTable("LighterReview");
 
@@ -1332,69 +1320,6 @@ namespace CigarWorld.Data.Migrations
                     b.Navigation("Lighter");
                 });
 
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.AshtrayReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.Ashtray", null)
-                        .WithMany("AshtrayReviews")
-                        .HasForeignKey("AshtrayId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.CigarilloReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.Cigarillo", null)
-                        .WithMany("AshtrayReviews")
-                        .HasForeignKey("CigarilloId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.CigarPocketCaseReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.CigarPocketCase", null)
-                        .WithMany("CigarPocketCaseReviews")
-                        .HasForeignKey("CigarPocketCaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.CigarReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.Cigar", null)
-                        .WithMany("CigarReviews")
-                        .HasForeignKey("CigarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.CutterReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.Cutter", null)
-                        .WithMany("CutterReviews")
-                        .HasForeignKey("CutterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.HumidorReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.Humidor", null)
-                        .WithMany("HumidorReviews")
-                        .HasForeignKey("HumidorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Reviews.LighterReview", b =>
-                {
-                    b.HasOne("CigarWorld.Data.Models.Lighter", null)
-                        .WithMany("LighterReviews")
-                        .HasForeignKey("LighterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1461,41 +1386,6 @@ namespace CigarWorld.Data.Migrations
                     b.Navigation("UserHumidors");
 
                     b.Navigation("UserLighter");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Ashtray", b =>
-                {
-                    b.Navigation("AshtrayReviews");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Cigar", b =>
-                {
-                    b.Navigation("CigarReviews");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Cigarillo", b =>
-                {
-                    b.Navigation("AshtrayReviews");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.CigarPocketCase", b =>
-                {
-                    b.Navigation("CigarPocketCaseReviews");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Cutter", b =>
-                {
-                    b.Navigation("CutterReviews");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Humidor", b =>
-                {
-                    b.Navigation("HumidorReviews");
-                });
-
-            modelBuilder.Entity("CigarWorld.Data.Models.Lighter", b =>
-                {
-                    b.Navigation("LighterReviews");
                 });
 #pragma warning restore 612, 618
         }

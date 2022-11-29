@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CigarWorld.Data.Models.Reviews;
+using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.CigarPocketCase;
 
 namespace CigarWorld.Data.Models
@@ -32,6 +33,6 @@ namespace CigarWorld.Data.Models
         public string Comment { get; set; } = null!;
 
 
-        
+        public IEnumerable<CigarPocketCaseReview> CigarPocketCaseReviews { get; set; } = new List<CigarPocketCaseReview>();
     }
 }

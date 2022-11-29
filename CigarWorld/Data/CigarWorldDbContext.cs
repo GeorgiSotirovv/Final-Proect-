@@ -25,6 +25,7 @@ namespace CigarWorld.Data
         public DbSet<StrengthType> StrengthTypes { get; set; }
         public DbSet<FilterType> FilterTypes { get; set; }
         public DbSet<CutterType> CutterTypes { get; set; }
+        public DbSet<CigarilloReview> CigarilloReviews { get; set; }
         public DbSet<AshtrayType> AshtrayTypes { get; set; }
 
 
@@ -100,6 +101,14 @@ namespace CigarWorld.Data
             builder.ApplyConfiguration(new CutterConfiguration());
             builder.ApplyConfiguration(new CutterTypeConfiguration());
             builder.ApplyConfiguration(new CigarPocketCaseConfiguration());
+
+            builder.ApplyConfiguration(new CigarilloReviewConfiguration());
+            builder.ApplyConfiguration(new CigarReviewConfiguration());
+            builder.ApplyConfiguration(new CigarPocketCaseReviewConfiguration());
+            builder.ApplyConfiguration(new CutterReviewConfiguration());
+            builder.ApplyConfiguration(new HumidorReviewConfiguration());
+            builder.ApplyConfiguration(new LighterReviewConfiguration());
+            builder.ApplyConfiguration(new AshtrayReviewConfiguration());
 
             base.OnModelCreating(builder);
         }

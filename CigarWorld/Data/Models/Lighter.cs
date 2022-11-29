@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CigarWorld.Data.Models.Reviews;
+using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.Lighter;
 
 namespace CigarWorld.Data.Models
@@ -24,6 +25,6 @@ namespace CigarWorld.Data.Models
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
 
-        
+        public IEnumerable<LighterReview> LighterReviews { get; set; } = new List<LighterReview>();
     }
 }

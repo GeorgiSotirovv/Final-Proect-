@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CigarWorld.Data.Models.Reviews;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static CigarWorld.Data.DataConstants.Cigar;
 
@@ -47,6 +48,6 @@ namespace CigarWorld.Data.Models
         [ForeignKey(nameof(StrengthId))]
         public StrengthType? StrengthType { get; set; }
 
-       
+        public IEnumerable<CigarReview> CigarReviews { get; set; } = new List<CigarReview>();
     }
 }

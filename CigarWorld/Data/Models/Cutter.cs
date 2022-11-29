@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CigarWorld.Data.Models.Reviews;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static CigarWorld.Data.DataConstants.Cutter;
 
@@ -31,7 +32,7 @@ namespace CigarWorld.Data.Models
         [ForeignKey(nameof(TypeId))]
         public CutterType? CutterType { get; set; }
 
+        public IEnumerable<CutterReview> CutterReviews { get; set; } = new List<CutterReview>();
 
-        
     }
 }

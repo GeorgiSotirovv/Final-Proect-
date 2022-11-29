@@ -1,0 +1,21 @@
+﻿using CigarWorld.Data.Models.Reviews;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace CigarWorld.Data.Configuration
+{
+    public class CigarilloReviewConfiguration : IEntityTypeConfiguration<CigarilloReview>
+    {
+        public void Configure(EntityTypeBuilder<CigarilloReview> builder)
+        {
+            builder
+
+                .HasData(new CigarilloReview()
+                {
+                    Id = 1,
+                    Review = "This Cigarillos are very good.",
+                    CigarilloId = 1
+                });
+        }
+    }
+}

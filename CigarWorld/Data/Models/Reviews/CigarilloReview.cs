@@ -8,7 +8,7 @@ namespace CigarWorld.Data.Models.Reviews
         public int Id { get; set; }
 
         [Required]
-        public string Review { get; set; }
+        public string Review { get; set; } = null!;
 
         [Required]
 
