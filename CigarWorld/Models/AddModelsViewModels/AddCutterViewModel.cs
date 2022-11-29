@@ -24,10 +24,6 @@ namespace CigarWorld.Models.AddModels
         [Required]
         public int TypeId { get; set; }
 
-        public int CutterType { get; set; } 
-
-        public string CutterTypeName { get; set; } = null!;
-
         public IEnumerable<CutterType> CutterTypes { get; set; } = new List<CutterType>();
     }
 }
