@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Data.Models;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 
@@ -7,7 +8,7 @@ namespace CigarWorld.Contracts
 {
     public interface ICigarilloService
     {
-        Task<IEnumerable<CigarilloViewModel>> GetAllCigarillosAsync();
+        Task<IEnumerable<AllCigarilloViewModel>> GetAllCigarillosAsync();
 
         Task<IEnumerable<FilterType>> GetTypesAsync();
 
@@ -16,5 +17,7 @@ namespace CigarWorld.Contracts
         Task AddFavoriteCigarilloAsync(int movieId, string userId);
 
         Task<IEnumerable<MyFavoriteCigarilloViewModel>> GetMineCigarillosAsync(string userId);
+
+        Task<CigarilloDetailsViewModel> GetDetailsAsync(int cigarilloId);
     }
 }

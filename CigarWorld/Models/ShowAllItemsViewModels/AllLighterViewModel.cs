@@ -1,9 +1,9 @@
-﻿using CigarWorld.Data.Models;
-using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.Ashtray;
-namespace CigarWorld.Models.BaseModels
+﻿using System.ComponentModel.DataAnnotations;
+using static CigarWorld.Data.DataConstants.Lighter;
+
+namespace CigarWorld.Models.JustModels
 {
-    public class AshtrayViewModel
+    public class AllLighterViewModel
     {
         [Required]
         public int Id { get; set; }
@@ -20,9 +20,6 @@ namespace CigarWorld.Models.BaseModels
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
-
-        public string Type { get; set; } = null!;
     }
 }

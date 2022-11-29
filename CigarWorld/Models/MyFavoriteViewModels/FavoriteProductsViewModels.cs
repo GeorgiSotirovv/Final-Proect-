@@ -1,6 +1,4 @@
-﻿using CigarWorld.Models.MyFavoriteViewModels;
-
-namespace CigarWorld.Models.AddModels
+﻿namespace CigarWorld.Models.MyFavoriteViewModels
 {
     public class FavoriteProductsViewModels
     {

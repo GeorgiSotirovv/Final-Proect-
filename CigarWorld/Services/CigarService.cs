@@ -3,6 +3,7 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -41,14 +42,14 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CigarViewModel>> GetAllCigarsAsync()
+        public async Task<IEnumerable<AllCigarViewModel>> GetAllCigarsAsync()
         {
             var entities = await context.Cigars
                 .Include(x => x.StrengthType)
                 .ToListAsync();
 
             return entities
-                .Select(m => new CigarViewModel()
+                .Select(m => new AllCigarViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
@@ -127,6 +128,33 @@ namespace CigarWorld.Services
                     SmokingDuration = m.Cigar.SmokingDuration,
                 });
 
+        }
+
+        public async Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId)
+        {
+            var cigar = await context.Cigars
+              .Where(u => u.Id == cigarId)
+              .Include(m => m.StrengthType)
+              .FirstOrDefaultAsync();
+
+            if (cigar == null)
+            {
+                throw new ArgumentException("Invalid Cigar ID");
+            }
+
+            return new CigarDetailsViewModel()
+            {
+                Brand = cigar.Brand,
+                CountryOfManufacturing = cigar.CountryOfManufacturing,
+                ImageUrl = cigar.ImageUrl,
+                Comment = cigar.Comment,
+                Format = cigar.Format,
+                Length = cigar.Length,
+                Ring = cigar.Ring,
+                SmokingDuration = cigar.SmokingDuration,
+                StrengthType = cigar?.StrengthType?.Name,
+                CigarReviews = cigar.CigarReviews
+            };
         }
     }
 }

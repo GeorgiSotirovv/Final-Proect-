@@ -3,6 +3,7 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -67,13 +68,13 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<LighterViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllLighterViewModel>> GetAllAsync()
         {
             var entities = await context.Lighters
                .ToListAsync();
 
             return entities
-                .Select(m => new LighterViewModel()
+                .Select(m => new AllLighterViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
@@ -106,9 +107,25 @@ namespace CigarWorld.Services
                 });
         }
 
-        Task<IEnumerable<AddLighterViewModel>> ILighterService.GetMineLightersAsync(string userId)
+        public async Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId) 
         {
-            throw new NotImplementedException();
+            var lighter = await context.Lighters
+              .Where(u => u.Id == lighterId)
+              .FirstOrDefaultAsync();
+
+            if (lighter == null)
+            {
+                throw new ArgumentException("Invalid humidor ID");
+            }
+
+            return new LighterDetailsViewModel()
+            {
+                Brand = lighter.Brand,
+                CountryOfManufacturing = lighter.CountryOfManufacturing,
+                ImageUrl = lighter.ImageUrl,
+                Comment = lighter.Comment,
+                LighterReviews = lighter.LighterReviews
+            };
         }
     }
 }

@@ -7,6 +7,8 @@ namespace CigarWorld.Models.DetailsModels
 {
     public class AshtrayDetailsViewModel
     {
+        [Required]
+        public int Id { get; set; }
 
         [Required]
         [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
@@ -23,11 +25,7 @@ namespace CigarWorld.Models.DetailsModels
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
 
-        public int TypeId { get; set; }
-
-        public int AshtrayType { get; set; }
-
-        public string AshtrayTypeName { get; set; }
+        public string Type { get; set; } = null!;
 
         public IEnumerable<AshtrayType> AshtrayTypes { get; set; } = new List<AshtrayType>();
 

@@ -1,10 +1,9 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
-using CigarWorld.Models.AddModels;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using CigarWorld.Models.MyFavoriteViewModels;
 
 namespace CigarWorld.Services
 {

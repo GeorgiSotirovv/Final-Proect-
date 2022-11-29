@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.Cigarillo;
-
-namespace CigarWorld.Models.Models
+﻿using CigarWorld.Data.Models;
+using System.ComponentModel.DataAnnotations;
+using static CigarWorld.Data.DataConstants.Ashtray;
+namespace CigarWorld.Models.BaseModels
 {
-    public class CigarilloViewModel
+    public class AllAshtrayViewModel
     {
         [Required]
         public int Id { get; set; }
@@ -17,13 +17,12 @@ namespace CigarWorld.Models.Models
         public string CountryOfManufacturing { get; set; } = null!;
 
         [Required]
-        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
-        public string Comment { get; set; } = null!;
-
-        [Required]
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        public string Filter { get; set; } = null!;
+        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
+        public string Comment { get; set; } = null!;
+
+        public string Type { get; set; } = null!;
     }
 }

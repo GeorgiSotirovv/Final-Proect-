@@ -3,6 +3,7 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -71,13 +72,13 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<HumidorViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllHumidorViewModel>> GetAllAsync()
         {
             var entities = await context.Humidors
                .ToListAsync();
 
             return entities
-                .Select(m => new HumidorViewModel()
+                .Select(m => new AllHumidorViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
@@ -90,6 +91,32 @@ namespace CigarWorld.Services
                     MaterialOfManufacture = m.MaterialOfManufacture,
                     Capacity = m.Capacity,
                 });
+        }
+
+        public async Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId)
+        {
+            var humidor = await context.Humidors
+              .Where(u => u.Id == humidorId)
+              .FirstOrDefaultAsync();
+
+            if (humidor == null)
+            {
+                throw new ArgumentException("Invalid humidor ID");
+            }
+
+            return new HumidorDetailsViewModel()
+            {
+                Brand = humidor.Brand,
+                CountryOfManufacturing = humidor.CountryOfManufacturing,
+                ImageUrl = humidor.ImageUrl,
+                Comment = humidor.Comment,
+                Height=humidor.Height,
+                Weight = humidor.Weight,
+                Length = humidor.Length,
+                MaterialOfManufacture = humidor.MaterialOfManufacture,
+                Capacity=humidor.Capacity,
+                
+            };
         }
 
         public async Task<IEnumerable<MyFavoriteHomidorViewModel>> GetMineHumidorsAsync(string userId)

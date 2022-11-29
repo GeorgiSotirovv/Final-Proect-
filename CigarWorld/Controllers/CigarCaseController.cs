@@ -71,7 +71,15 @@ namespace CigarWorld.Controllers
 
         public IActionResult Details(int Id)
         {
-            return View();
+            try
+            {
+                var model = cigarCaseService.GetDetailsAsync(Id).Result;
+                return View(model);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

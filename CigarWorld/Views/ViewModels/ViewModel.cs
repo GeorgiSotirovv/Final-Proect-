@@ -31,6 +31,6 @@ namespace CigarWorld.Views.ViewModels
 
             public IEnumerable<AshtrayType> AshtrayTypes { get; set; } = new List<AshtrayType>();
         }
-        public IEnumerable<CigarPocketCaseViewModel> CigarPocketCase { get; set; }
+        public IEnumerable<AllCigarPocketCaseViewModel> CigarPocketCase { get; set; }
     }
 }

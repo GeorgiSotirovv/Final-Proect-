@@ -1,4 +1,4 @@
-﻿using CigarWorld.Models.AddModels;
+﻿using CigarWorld.Models.MyFavoriteViewModels;
 
 namespace CigarWorld.Contracts
 {

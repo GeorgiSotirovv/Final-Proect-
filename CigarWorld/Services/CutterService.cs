@@ -3,6 +3,7 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -38,14 +39,14 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CutterViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllCutterViewModel>> GetAllAsync()
         {
             var entities = await context.Cutters
                 .Include(x => x.CutterType)
                 .ToListAsync();
 
             return entities
-                .Select(m => new CutterViewModel()
+                .Select(m => new AllCutterViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
@@ -115,6 +116,28 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.Cutter.CountryOfManufacturing,
                     Type = m.Cutter.CutterType.Name
                 });
+        }
+
+        public async Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId)
+        {
+            var cutter = await context.Cutters
+              .Where(u => u.Id == cutterId)
+              .Include(m => m.CutterType)
+              .FirstOrDefaultAsync();
+
+            if (cutter == null)
+            {
+                throw new ArgumentException("Invalid cutter ID");
+            }
+
+            return new CutterDetailsViewModel()
+            {
+                Brand = cutter.Brand,
+                ImageUrl = cutter.ImageUrl,
+                Comment = cutter.Comment,
+                CountryOfManufacturing = cutter.CountryOfManufacturing,
+                Type = cutter?.CutterType?.Name
+            };
         }
     }
 }

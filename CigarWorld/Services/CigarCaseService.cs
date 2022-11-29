@@ -3,6 +3,7 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
@@ -68,13 +69,13 @@ namespace CigarWorld.Services
         }
 
 
-        public async Task<IEnumerable<CigarPocketCaseViewModel>> GetAllAsyncCigarCase()
+        public async Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase()
         {
             var entities = await context.CigarPocketCases
                 .ToListAsync();
 
             return entities
-                .Select(m => new CigarPocketCaseViewModel()
+                .Select(m => new AllCigarPocketCaseViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
@@ -84,6 +85,30 @@ namespace CigarWorld.Services
                     Capacity = m.Capacity,
                     MaterialOfManufacture = m.MaterialOfManufacture
                 });
+        }
+
+        public async Task<CigarCaseDetailsViewModel> GetDetailsAsync(int CPCId)
+        {
+
+            var CPC = await context.CigarPocketCases
+              .Where(u => u.Id == CPCId)
+              .FirstOrDefaultAsync();
+
+            if (CPC == null)
+            {
+                throw new ArgumentException("Invalid Cigar Pocket Case ID");
+            }
+
+            return new CigarCaseDetailsViewModel()
+            {
+                Brand = CPC.Brand,
+                CountryOfManufacturing = CPC.CountryOfManufacturing,
+                ImageUrl = CPC.ImageUrl,
+                Comment = CPC.Comment,
+                MaterialOfManufacture = CPC.MaterialOfManufacture,
+                Capacity = CPC.Capacity,
+                CigarPocketCaseReviews = CPC.CigarPocketCaseReviews
+            };
         }
 
         public async Task<IEnumerable<MyFavoriteCigarPocketCaseViewModel>> GetMineCPCAsync(string userId)
@@ -107,7 +132,7 @@ namespace CigarWorld.Services
                     Comment = m.CigarPocketCase.Comment,
                     CountryOfManufacturing = m.CigarPocketCase.CountryOfManufacturing,
                     Capacity = m.CigarPocketCase.Capacity,
-                    MaterialOfManufacture= m.CigarPocketCase.MaterialOfManufacture
+                    MaterialOfManufacture = m.CigarPocketCase.MaterialOfManufacture
                 });
         }
     }

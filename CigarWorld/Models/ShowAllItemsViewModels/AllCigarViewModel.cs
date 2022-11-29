@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.Cigar;
 namespace CigarWorld.Models.Models
 {
-    public class CigarViewModel
+    public class AllCigarViewModel
     {
         [Required]
         public int Id { get; set; }

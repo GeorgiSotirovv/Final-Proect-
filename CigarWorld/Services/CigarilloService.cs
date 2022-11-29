@@ -3,6 +3,7 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -37,14 +38,14 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<CigarilloViewModel>> GetAllCigarillosAsync()
+        public async Task<IEnumerable<AllCigarilloViewModel>> GetAllCigarillosAsync()
         {
             var entities = await context.Cigarillo
                 .Include(x => x.FilterType)
                 .ToListAsync();
 
             return entities
-                .Select(m => new CigarilloViewModel()
+                .Select(m => new AllCigarilloViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
@@ -111,6 +112,29 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.Cigarillo.CountryOfManufacturing,
                     FilterType = m.Cigarillo.FilterType.Name
                 });
+        }
+
+        public async Task<CigarilloDetailsViewModel> GetDetailsAsync(int cigarilloId)
+        {
+            var cigarillo = await context.Cigarillo
+              .Where(u => u.Id == cigarilloId)
+              .Include(m => m.FilterType)
+              .FirstOrDefaultAsync();
+
+            if (cigarillo == null)
+            {
+                throw new ArgumentException("Invalid Cigar Pocket Case ID");
+            }
+
+            return new CigarilloDetailsViewModel()
+            {
+                Brand = cigarillo.Brand,
+                CountryOfManufacturing = cigarillo.CountryOfManufacturing,
+                ImageUrl = cigarillo.ImageUrl,
+                Comment = cigarillo.Comment,
+                Filter = cigarillo?.FilterType?.Name,
+                CigarilloReviews = cigarillo.CigarilloReviews
+            };
         }
     }
 }

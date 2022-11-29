@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static CigarWorld.Data.DataConstants.Lighter;
+using static CigarWorld.Data.DataConstants.Cutter;
 
-namespace CigarWorld.Models.JustModels
+namespace CigarWorld.Models.Models
 {
-    public class LighterViewModel
+    public class AllCutterViewModel
     {
         [Required]
         public int Id { get; set; }
@@ -20,6 +20,9 @@ namespace CigarWorld.Models.JustModels
         public string ImageUrl { get; set; } = null!;
 
         [Required]
+        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
+
+        public string Type { get; set; } = null!;
     }
 }

@@ -8,7 +8,7 @@ namespace CigarWorld.Contracts
 {
     public interface IAshtrayService
     {
-        Task<IEnumerable<AshtrayViewModel>> GetAllAshtrayAsync();
+        Task<IEnumerable<AllAshtrayViewModel>> GetAllAshtrayAsync();
 
         Task<IEnumerable<AshtrayType>> GetTypesAsync();
 
@@ -18,6 +18,6 @@ namespace CigarWorld.Contracts
 
         Task<IEnumerable<MyFavoriteAshtrayViewModel>> GetMineAshtrayAsync(string userId);
 
-        //Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId);
+        Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId);
     }
 }

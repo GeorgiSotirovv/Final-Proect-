@@ -71,49 +71,46 @@ namespace CigarWorld.Services
         }
 
 
-        public async Task<IEnumerable<AshtrayViewModel>> GetAllAshtrayAsync()
+        public async Task<IEnumerable<AllAshtrayViewModel>> GetAllAshtrayAsync()
         {
             var entities = await context.Ashtrays
                 .Include(x => x.AshtrayType)
                 .ToListAsync();
 
             return entities
-                .Select(m => new AshtrayViewModel()
+                .Select(m => new AllAshtrayViewModel()
                 {
                     Id = m.Id,
                     Brand = m.Brand,
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
-                    Type = m?.AshtrayType?.Name
+                    Type = m.AshtrayType.Name
                 });
         }
 
-        //public async Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId)
-        //{
-        //    var user = await context.Users
-        //      .Where(u => u.Id == ashtrayId)
-        //      .Include(u => u.UserAshtrays)
-        //      .ThenInclude(um => um.Ashtray)
-        //       .ThenInclude(m => m.AshtrayType)
-        //      .FirstOrDefaultAsync();
+        public async Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId)
+        {
+            var ashtray = await context.Ashtrays
+              .Where(u => u.Id == ashtrayId)
+              .Include(m => m.AshtrayType)
+              .FirstOrDefaultAsync();
 
-        //    if (user == null)
-        //    {
-        //        throw new ArgumentException("Invalid user ID");
-        //    }
+            if (ashtray == null)
+            {
+                throw new ArgumentException("Invalid ashtray ID");
+            }
 
-        //    return user.UserAshtrays
-        //        .Select(m => new AddAshtrayViewModel()
-        //        {
-        //            Brand = m.Ashtray.Brand,
-        //            ImageUrl = m.Ashtray.ImageUrl,
-        //            Comment = m.Ashtray.Comment,
-        //            CountryOfManufacturing = m.Ashtray.CountryOfManufacturing,
-        //            AshtrayType = m.Ashtray.AshtrayType.Id,
-        //            AshtrayTypeName = m.Ashtray.AshtrayType.Name
-        //        });
-        //}
+            return new AshtrayDetailsViewModel()
+            {
+                Brand = ashtray.Brand,
+                CountryOfManufacturing = ashtray.CountryOfManufacturing,
+                ImageUrl = ashtray.ImageUrl,
+                Comment = ashtray.Comment,
+                Type = ashtray?.AshtrayType.Name,
+                AshtrayReviews = ashtray.AshtrayReviews
+            };
+        }
 
         public async Task<IEnumerable<MyFavoriteAshtrayViewModel>> GetMineAshtrayAsync(string userId)
         {
