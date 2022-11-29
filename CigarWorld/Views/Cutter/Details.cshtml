@@ -1,1 +1,27 @@
-﻿Cutter
+﻿@model CutterDetailsViewModel
+
+@{
+    ViewBag.Title = "Details and Reviews";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<div class="text-center row">
+        <div class="card col-4" style="width: 20rem; ">
+
+                <img class="card-img-top" style="width: 18rem;" 
+                src="@Model.ImageUrl" alt="CutterImage">
+
+            <div class="card-body">
+
+                <h5 class="card-title mt-1">@Model.Brand</h5>
+                    <p class="mb-0">Type: @Model.Type</p>                
+                    <p class="mb-0">Comment: @Model.Comment</p>                
+                    <p class="mb-0">Country Of Manufacturing: @Model.CountryOfManufacturing</p>                           
+                    <p class="mb-0">Country Of Manufacturing: @Model.CountryOfManufacturing</p>                           
+            </div>
+        </div>
+</div>
+
