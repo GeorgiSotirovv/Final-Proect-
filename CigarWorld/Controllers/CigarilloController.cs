@@ -72,5 +72,11 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Cigarillo", "Cigarillo");
         }
+
+
+        public IActionResult Details(int Id)
+        {
+            return View();
+        }
     }
 }

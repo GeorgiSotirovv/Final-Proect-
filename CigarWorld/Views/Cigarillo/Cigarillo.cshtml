@@ -16,14 +16,14 @@
     @foreach (var cigarillo in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@cigarillo.ImageUrl" alt="Cigarillo Image">
+            <a href = "/Cigarillo/Details?id=@cigarillo.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                src="@cigarillo.ImageUrl" alt="Cigarillo Image">
+             </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigarillo.Brand</h5>
-                <p class="mb-0">Filter : @cigarillo.Filter</p>
-                <p class="mb-0">Country of manufacturing: @cigarillo.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @cigarillo.Comment</p>
+
             </div>
 
            <form class="input-group-sm" asp-controller="Cigarillo" asp-action="AddFavoriteCigarillo" asp-route-CigarilloId="@cigarillo.Id">

@@ -16,15 +16,14 @@
     @foreach (var CPC in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@CPC.ImageUrl" alt="Cigar Pocket Cases Image">
+             <a href = "/CigarCase/Details?id=@CPC.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                src="@CPC.ImageUrl" alt="Cigar Pocket Cases Image">
+             </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@CPC.Brand</h5>
-                <p class="mb-0">Capacity: @CPC.Capacity</p>
-                <p class="mb-0">Material of Manufacture: @CPC.MaterialOfManufacture</p>
-                <p class="mb-0">Country of manufacturing: @CPC.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @CPC.Comment</p>
+
             </div>
 
             <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddFavoriteCigarPocketCase" asp-route-CigarPocketCaseId="@CPC.Id">

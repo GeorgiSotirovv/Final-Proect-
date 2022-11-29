@@ -7,8 +7,9 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-center row">
 
+<div class="text-center row">
+    
     <form class="input-group-sm" asp-controller="Cigar" asp-action="AddCigar">
             <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Cigar" asp-action="AddCigar">Add Cigar</a>
     </form>
@@ -16,18 +17,20 @@
     @foreach (var cigar in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@cigar.ImageUrl" alt="Cigar Image">
+            <a href = "/Cigar/Details?id=@cigar.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                src="@cigar.ImageUrl" alt="Cigar Image">
+             </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
-                <p class="mb-0">Type: @cigar.Format</p>
-                <p class="mb-0">Strength: @cigar.Strength</p>
-                <p class="mb-0">Lenght: @cigar.Length</p>
-                <p class="mb-0">Ring : @cigar.Ring </p>
-                <p class="mb-0">Smoking duration : @cigar.SmokingDuration </p>
-                <p class="mb-0">Country of manufacturing: @cigar.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @cigar.Comment</p>
+ 
+                 <div>
+                    <div class="col-12 text-center">
+                        <button class="btn btn-primary id="details-button">Details</button>
+                    </div>
+                </div>
+
             </div>
 
             <form class="input-group-sm" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">

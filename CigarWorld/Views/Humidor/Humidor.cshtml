@@ -16,17 +16,14 @@
     @foreach (var humidor in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@humidor.ImageUrl" alt="Humidors Image">
+            <a href = "/Humidor/Details?id=@humidor.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                src="@humidor.ImageUrl" alt="Humidors Image">
+             </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@humidor.Brand</h5>
-                <p class="mb-0">Height : @humidor.Height</p>
-                <p class="mb-0">Length : @humidor.Length</p>
-                <p class="mb-0">Weight : @humidor.Weight </p>
-                <p class="mb-0">Capacity : @humidor.Capacity </p>
-                <p class="mb-0">Country of manufacturing: @humidor.CountryOfManufacturing</p>
-                <p class="mb-0">Material of manufacture: @humidor.MaterialOfManufacture</p>
+
             </div>
 
             <form class="input-group-sm" asp-controller="Humidor" asp-action="AddFavoriteHumidor" asp-route-humidorId="@humidor.Id">

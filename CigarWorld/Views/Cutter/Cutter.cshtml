@@ -16,14 +16,15 @@
     @foreach (var cutter in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
+            <a href = "/Cutter/Details?id=@cutter.Id">
             <img class="card-img-top" style="width: 18rem;"
              src="@cutter.ImageUrl" alt="Cutter Image">
+            </a>
+
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cutter.Brand</h5>
-                <p class="mb-0">Type: @cutter.Type</p>
-                <p class="mb-0">Country of manufacturing: @cutter.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @cutter.Comment</p>
+
             </div>
 
             <form class="input-group-sm" asp-controller="Cutter" asp-action="AddFavoriteCutter" asp-route-cutterId="@cutter.Id">

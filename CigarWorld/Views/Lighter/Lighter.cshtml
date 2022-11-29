@@ -16,13 +16,14 @@
     @foreach (var lighter in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
+            <a href = "/Lighter/Details?id=@lighter.Id">
             <img class="card-img-top" style="width: 18rem;"
              src="@lighter.ImageUrl" alt="Lighters Image">
+             </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@lighter.Brand</h5>
-                <p class="mb-0">Country of manufacturing: @lighter.CountryOfManufacturing</p>
-                <p class="mb-0">Comment: @lighter.Comment</p>
+
             </div>
 
             <form class="input-group-sm" asp-controller="Lighter" asp-action="AddFavoriteLighter" asp-route-lighterId="@lighter.Id">
