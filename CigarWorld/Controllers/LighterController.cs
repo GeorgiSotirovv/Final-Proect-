@@ -91,7 +91,7 @@ namespace CigarWorld.Controllers
         {
             await lighterService.RemoveFromDatabaseAsync(lighterId);
 
-            return RedirectToAction("Cigar", "Cigar");
+            return RedirectToAction("Lighter", "Lighter");
         }
     }
 }

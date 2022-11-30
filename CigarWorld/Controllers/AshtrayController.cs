@@ -17,7 +17,7 @@ namespace CigarWorld.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Ashtrays()
+        public async Task<IActionResult> Ashtray()
         {
             var model = await ashtrayService.GetAllAshtrayAsync();
 
@@ -94,6 +94,13 @@ namespace CigarWorld.Controllers
             await ashtrayService.RemoveFromCollectionAsync(ashtrayId, userId);
 
             return RedirectToAction("Cigar", "Cigar");
+        }
+
+        public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
+        {
+            await ashtrayService.RemoveFromDatabaseAsync(ashtrayId);
+
+            return RedirectToAction("Ashtray", "Ashtray");
         }
     }
 }

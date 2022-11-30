@@ -86,5 +86,12 @@ namespace CigarWorld.Controllers
                 throw;
             }
         }
+
+        public async Task<IActionResult> RemoveFromDataBase(int cigarilloId)
+        {
+            await cigarilloService.RemoveFromDatabaseAsync(cigarilloId);
+
+            return RedirectToAction("Cigarillo", "Cigarillo");
+        }
     }
 }

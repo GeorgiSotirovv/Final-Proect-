@@ -158,11 +158,11 @@ namespace CigarWorld.Services
             }
         }
 
-        public async Task RemoveFromDatabaseAsync(int CPCId)
+        public async Task RemoveFromDatabaseAsync(int cigarPocketCaseId)
         {
 
             var CPC = await context.CigarPocketCases
-                .Where(u => u.Id == CPCId)
+                .Where(u => u.Id == cigarPocketCaseId)
                 .FirstOrDefaultAsync();
 
 

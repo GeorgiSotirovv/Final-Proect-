@@ -86,5 +86,12 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Cigar", "Cigar");
         }
+
+        public async Task<IActionResult> RemoveFromDataBase(int humidorId)
+        {
+            await humidorsService.RemoveFromDatabaseAsync(humidorId);
+
+            return RedirectToAction("Humidor", "Humidor");
+        }
     }
 }
