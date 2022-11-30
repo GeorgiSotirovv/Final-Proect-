@@ -20,8 +20,10 @@ namespace CigarWorld.Contracts
 
         Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId);
 
-        Task RemoveFromCollectionAsync(int ashtrayId, string userId);
+        Task RemoveFromFavoritesAsync(int ashtrayId, string userId);
 
         Task RemoveFromDatabaseAsync(int ashtrayId);
+
+        Task Edit(int ashtrayId);
     }
 }

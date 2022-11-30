@@ -82,7 +82,7 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int humidorId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            await humidorsService.RemoveFromCollectionAsync(humidorId, userId);
+            //await humidorsService.RemoveFromCollectionAsync(humidorId, userId);
 
             return RedirectToAction("Cigar", "Cigar");
         }

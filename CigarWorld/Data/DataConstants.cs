@@ -14,7 +14,7 @@
             public const int MaxLengthLenght = 300;
 
             public const int MinRingLenght = 0;
-            public const int MaxRingLenght = 5;
+            public const int MaxRingLenght = 64;
 
             public const int MinSmokingDurationLenght = 20;
             public const int MaxSmokingDurationLenght = 300;

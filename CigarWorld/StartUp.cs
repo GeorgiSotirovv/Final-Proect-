@@ -4,6 +4,8 @@ using CigarWorld.Data.Models;
 using CigarWorld.Services;
 using Microsoft.EntityFrameworkCore;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -23,6 +25,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 
 })
     .AddEntityFrameworkStores<CigarWorldDbContext>();
+
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

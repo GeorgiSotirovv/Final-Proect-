@@ -5,6 +5,9 @@ namespace CigarWorld.Models.MyFavoriteViewModels
     public class BaseFavoriteModel
     {
         [Required]
+        public int Id { get; set; } 
+
+        [Required]
         public string Brand { get; set; } = null!;
 
         [Required]

@@ -142,7 +142,7 @@ namespace CigarWorld.Services
             return await context.AshtrayTypes.ToListAsync();
         }
 
-        public async Task RemoveFromCollectionAsync(int ashtrayId, string userId)
+        public async Task RemoveFromFavoritesAsync(int ashtrayId, string userId)
         {
             var user = await context.Users
                .Where(u => u.Id == userId)
@@ -183,6 +183,13 @@ namespace CigarWorld.Services
 
             await context.SaveChangesAsync();
 
+        }
+
+        public async Task Edit(int ashtrayId)
+        {
+            var ashtray = await context.Ashtrays
+                .Where(u => u.Id == ashtrayId)
+                .FirstOrDefaultAsync();
         }
     }
 }

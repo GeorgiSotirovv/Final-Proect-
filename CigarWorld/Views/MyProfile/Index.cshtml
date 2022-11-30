@@ -9,8 +9,6 @@
 
 
 <div class="text-center row">
- 
-    <div class="card">
 
     @foreach (var ashtray in Model.FavoriteAshtray)
     {
@@ -24,6 +22,10 @@
                 <p>Category: @ashtray.Comment</p>
             </div>
         </div>
+
+         <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromCollection" asp-route-Id="@ashtray.Id">
+                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
+         </form>
     }
 
     @foreach (var cigar in Model.FavoriteCigar)
@@ -75,7 +77,6 @@
                 <p class="mb-0">Comment: @cigarillo.Comment</p>
             </div>
 
-           
         </div>
     }
      @foreach (var cutter in Model.FavoriteCutter)
@@ -91,8 +92,6 @@
                 <p class="mb-0">Comment: @cutter.Comment</p>
             </div>
 
-            
-            
         </div>
     }
     @foreach (var humidor in Model.FavoriteHumidor)
@@ -111,8 +110,6 @@
                 <p class="mb-0">Material of manufacture: @humidor.MaterialOfManufacture</p>
             </div>
 
-            
-            
         </div>
     }
 
@@ -127,9 +124,6 @@
                 <p class="mb-0">Country of manufacturing: @lighter.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @lighter.Comment</p>
             </div>
-
-            
-            
         </div>
     }
     </div>

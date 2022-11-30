@@ -88,10 +88,10 @@ namespace CigarWorld.Controllers
             }
         }
 
-        public async Task<IActionResult> RemoveFromCollection(int ashtrayId)
+        public async Task<IActionResult> RemoveFromCollection(int Id)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            await ashtrayService.RemoveFromCollectionAsync(ashtrayId, userId);
+            await ashtrayService.RemoveFromFavoritesAsync(Id, userId);
 
             return RedirectToAction("Cigar", "Cigar");
         }
