@@ -135,5 +135,46 @@ namespace CigarWorld.Services
                     MaterialOfManufacture = m.CigarPocketCase.MaterialOfManufacture
                 });
         }
+
+        public async Task RemoveFromCollectionAsync(int CPCId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserCigarPocketCases)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var CPC = user.UserCigarPocketCases.FirstOrDefault(m => m.CigarPocketCaseId == CPCId);
+
+            if (CPC != null)
+            {
+                user.UserCigarPocketCases.Remove(CPC);
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveFromDatabaseAsync(int CPCId)
+        {
+
+            var CPC = await context.CigarPocketCases
+                .Where(u => u.Id == CPCId)
+                .FirstOrDefaultAsync();
+
+
+            if (CPC == null)
+            {
+                throw new ArgumentException("Invalid Cigar Pocket Case Id");
+            }
+
+            context.CigarPocketCases.Remove(CPC);
+
+            await context.SaveChangesAsync();
+
+        }
     }
 }

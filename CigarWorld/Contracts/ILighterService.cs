@@ -16,5 +16,9 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<MyFavoriteLighterViewModel>> GetMineLightersAsync(string userId);
 
         Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId);
+
+        Task RemoveFromFavoritesAsync(int lighterId, string userId);
+
+        Task RemoveFromDatabaseAsync(int lighterId);
     }
 }

@@ -139,5 +139,24 @@ namespace CigarWorld.Services
                 Type = cutter?.CutterType?.Name
             };
         }
+
+        public async Task RemoveFromDatabaseAsync(int cutterId)
+        {
+
+            var cutter = await context.Cutters
+                .Where(u => u.Id == cutterId)
+                .FirstOrDefaultAsync();
+
+
+            if (cutter == null)
+            {
+                throw new ArgumentException("Invalid Cutter Id");
+            }
+
+            context.Cutters.Remove(cutter);
+
+            await context.SaveChangesAsync();
+
+        }
     }
 }

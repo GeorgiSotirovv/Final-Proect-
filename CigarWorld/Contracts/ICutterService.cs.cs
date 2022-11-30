@@ -19,5 +19,9 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<MyFavoriteCutterViewModel>> GetMineCuttersAsync(string userId);
 
         Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId);
+
+        //Task RemoveFromCollectionAsync(int cutterId, string userId);
+
+        Task RemoveFromDatabaseAsync(int cutterId);
     }
 }

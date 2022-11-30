@@ -141,5 +141,48 @@ namespace CigarWorld.Services
         {
             return await context.AshtrayTypes.ToListAsync();
         }
+
+        public async Task RemoveFromCollectionAsync(int ashtrayId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserAshtrays)
+               .ThenInclude(um => um.Ashtray)
+                .ThenInclude(m => m.AshtrayType)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var ashtray = user.UserAshtrays.FirstOrDefault(m => m.AshtrayId == ashtrayId);
+
+            if (ashtray != null)
+            {
+                user.UserAshtrays.Remove(ashtray);
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveFromDatabaseAsync(int ashtrayId)
+        {
+
+            var ashtray = await context.Ashtrays
+                .Where(u => u.Id == ashtrayId)
+                .FirstOrDefaultAsync();
+
+
+            if (ashtray == null)
+            {
+                throw new ArgumentException("Invalid AShtray Id");
+            }
+
+            context.Ashtrays.Remove(ashtray);
+
+            await context.SaveChangesAsync();
+
+        }
     }
 }

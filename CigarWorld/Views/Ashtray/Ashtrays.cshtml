@@ -28,6 +28,10 @@
                     <p class="mb-0">Type: @ashtray.Type</p>                
             </div>
 
+            <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromCollection" asp-route-AshtrayId="@ashtray.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
+            </form>
+
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>

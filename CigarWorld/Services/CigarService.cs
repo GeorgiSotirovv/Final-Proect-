@@ -156,5 +156,23 @@ namespace CigarWorld.Services
                 CigarReviews = cigar.CigarReviews
             };
         }
+
+        public async Task RemoveFromDatabaseAsync(int cigarId)
+        {
+
+            var cigar = await context.Cigars
+                .Where(u => u.Id == cigarId)
+                .FirstOrDefaultAsync();
+
+
+            if (cigar == null)
+            {
+                throw new ArgumentException("Invalid Cigar Id");
+            }
+
+            context.Cigars.Remove(cigar);
+
+            await context.SaveChangesAsync();
+        }
     }
 }

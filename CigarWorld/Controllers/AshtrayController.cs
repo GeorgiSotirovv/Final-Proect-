@@ -87,5 +87,13 @@ namespace CigarWorld.Controllers
                 throw;
             }
         }
+
+        public async Task<IActionResult> RemoveFromCollection(int ashtrayId)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            await ashtrayService.RemoveFromCollectionAsync(ashtrayId, userId);
+
+            return RedirectToAction("Cigar", "Cigar");
+        }
     }
 }

@@ -146,5 +146,47 @@ namespace CigarWorld.Services
                     MaterialOfManufacture = m.Humidor.MaterialOfManufacture
                 });
         }
+
+        public async Task RemoveFromCollectionAsync(int humidorId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserHumidors)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var book = user.UserHumidors.FirstOrDefault(m => m.HumidorId == humidorId);
+
+            if (book != null)
+            {
+                user.UserHumidors.Remove(book);
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveFromDatabaseAsync(int humidorId)
+        {
+
+            var humidor = await context.Humidors
+                .Where(u => u.Id == humidorId)
+                .FirstOrDefaultAsync();
+
+
+            if (humidor == null)
+            {
+                throw new ArgumentException("Invalid Humidor Id");
+            }
+
+            context.Humidors.Remove(humidor);
+
+            await context.SaveChangesAsync();
+
+        }
+
     }
 }

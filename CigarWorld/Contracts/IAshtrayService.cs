@@ -19,5 +19,9 @@ namespace CigarWorld.Contracts
         Task<IEnumerable<MyFavoriteAshtrayViewModel>> GetMineAshtrayAsync(string userId);
 
         Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId);
+
+        Task RemoveFromCollectionAsync(int ashtrayId, string userId);
+
+        Task RemoveFromDatabaseAsync(int ashtrayId);
     }
 }

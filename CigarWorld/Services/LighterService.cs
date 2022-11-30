@@ -40,7 +40,7 @@ namespace CigarWorld.Services
                 throw new ArgumentException("This Lighter is alredy added.");
             }
 
-            if (!user.UserCigars.Any(m => m.CigarId == lighterId))
+            if (!user.UserLighter.Any(m => m.LighterId == lighterId))
             {
                 user.UserLighter.Add(new UserLighter()
                 {
@@ -107,7 +107,7 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId) 
+        public async Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId)
         {
             var lighter = await context.Lighters
               .Where(u => u.Id == lighterId)
@@ -126,6 +126,49 @@ namespace CigarWorld.Services
                 Comment = lighter.Comment,
                 LighterReviews = lighter.LighterReviews
             };
+        }
+
+        public async Task RemoveFromFavoritesAsync(int lighterId, string userId)
+        {
+            var user = await context.Users
+                .Where(u => u.Id == userId)
+                .Include(u => u.UserLighter)
+                .ThenInclude(um => um.Lighter)
+                .FirstOrDefaultAsync();
+
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var lighter = user.UserLighter.FirstOrDefault(m => m.LighterId == lighterId);
+
+
+            if (lighter != null)
+            {
+                user.UserLighter.Remove(lighter);
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task RemoveFromDatabaseAsync(int lighterId)
+        {
+            var lighter = await context.Lighters
+                .Where(u => u.Id == lighterId)
+                .FirstOrDefaultAsync();
+
+
+            if (lighter == null)
+            {
+                throw new ArgumentException("Invalid Lighter Id");
+            }
+
+            context.Lighters.Remove(lighter);
+
+            await context.SaveChangesAsync();
+
         }
     }
 }
