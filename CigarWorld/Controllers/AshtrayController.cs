@@ -108,7 +108,7 @@ namespace CigarWorld.Controllers
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await ashtrayService.RemoveFromFavoritesAsync(Id, userId);
 
-            return RedirectToAction("Cigar", "Cigar");
+            return RedirectToAction("Ashtray", "Ashtray");
         }
 
         public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
@@ -144,7 +144,7 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult Edit(int Id, EditAshtrayViewModel targetAshtary)
         {
-            ashtrayService.EdidAshtaryInformation(targetAshtary);
+            ashtrayService.EditAshtaryInformation(targetAshtary);
 
             return RedirectToAction("Ashtray", "Ashtray");
         }
@@ -154,6 +154,14 @@ namespace CigarWorld.Controllers
             var targetAshtrayId = ashtrayService.DeleteReview(ReviewId);
 
             return RedirectToAction("Details", "Ashtray", new { id = targetAshtrayId });
+        }
+
+        [HttpPost]
+        public IActionResult EditComment(string petko)
+        {
+            /*var targetAshtrayId = ashtrayService.DeleteReview(edit);*/
+
+            return RedirectToAction("Details", "Ashtray", new { id = 0 });
         }
     }
 }

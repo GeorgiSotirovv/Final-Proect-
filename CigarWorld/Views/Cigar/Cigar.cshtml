@@ -25,7 +25,11 @@
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
 
+                <p class="mb-0">Type: @cigar.Strength</p> 
+
             </div>
+
+             <a class="fs-6 btn btn-success mb-3 p-2" href="/Cigar/Edit?id=@cigar.Id" aria-required="true">Edit</a>
 
             <form class="input-group-sm" asp-controller="Cigar" asp-action="RemoveFromDataBase" asp-route-CigarId="@cigar.Id">
                 <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />

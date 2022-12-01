@@ -1,0 +1,80 @@
+﻿@model EditCigarViewModel
+
+@{
+    ViewBag.Title = "Edit Cigar";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+
+            <div hidden>
+                <input asp-for="@Model.Id" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.Brand" class="form-label">Brand </label>
+                <input asp-for="@Model.Brand" class="form-control" aria-required="true"  placeholder="Cohiba, Habana, etc."/>
+                <span asp-validation-for="Brand" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.CountryOfManufacturing" class="form-label">Country of manufacturing </label>
+                <input asp-for="@Model.CountryOfManufacturing" class="form-control" aria-required="true" placeholder="Cuba, Columbia"/>
+                <span asp-validation-for="CountryOfManufacturing" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Format" class="form-label">Format</label>
+                <input asp-for="@Model.Format" class="form-control" aria-required="true" placeholder="Corona, Robusto"/>
+                <span asp-validation-for="Format" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Length" class="form-label">Length </label>
+                <input asp-for="@Model.Length" class="form-control" aria-required="true" placeholder="The unit of measure is mm"/>
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Ring" class="form-label">Ring</label>
+                <input asp-for="@Model.Ring" class="form-control" aria-required="true" placeholder="The maximum number is 64"/>
+                <span asp-validation-for="Ring" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.SmokingDuration" class="form-label">SmokingDuration</label>
+                <input asp-for="@Model.SmokingDuration" class="form-control" value="" placeholder="The unit of time is minutes"/> 
+                <span asp-validation-for="SmokingDuration" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.ImageUrl" class="form-label">Image URL</label>
+                <input asp-for="@Model.ImageUrl" class="form-control" aria-required="true" placeholder="Please place here you Url with the picture."/>
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Comment" class="form-label">Comment</label>
+                <textarea asp-for="@Model.Comment" class="form-control" aria-required="true" rows="5" placeholder="This cigar is ..."></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.StrengthId" class="form-label">Type</label>
+                <select asp-for="@Model.StrengthId" class="form-control">
+                    @foreach (var type in Model.StrengthTypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="StrengthTypes" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Edit"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

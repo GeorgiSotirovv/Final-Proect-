@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Data.Models;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 
@@ -18,10 +19,16 @@ namespace CigarWorld.Contracts
 
         Task<IEnumerable<MyFavoriteCigarViewModel>> GetMineCigarsAsync(string userId);
 
-        Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId);
+        Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId, string userName);
 
         //Task RemoveFromFavoritesAsync(int cigarId, string userId);
 
         Task RemoveFromDatabaseAsync(int cigarId);
+
+        Task EditCigar(int cigarId);
+
+        Task<EditCigarViewModel> GetInformationForCigar(int cigarId);
+
+        public void EditCigarInformation(EditCigarViewModel targetCigar);
     }
 }

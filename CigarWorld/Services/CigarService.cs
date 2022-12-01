@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -130,10 +131,11 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId)
+        public async Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId, string userName)
         {
             var cigar = await context.Cigars
               .Where(u => u.Id == cigarId)
+              .Include(u => u.CigarReviews)
               .Include(m => m.StrengthType)
               .FirstOrDefaultAsync();
 
@@ -153,7 +155,8 @@ namespace CigarWorld.Services
                 Ring = cigar.Ring,
                 SmokingDuration = cigar.SmokingDuration,
                 StrengthType = cigar?.StrengthType?.Name,
-                CigarReviews = cigar.CigarReviews
+                CigarReviews = cigar.CigarReviews,
+                UserName = userName
             };
         }
 
@@ -173,6 +176,61 @@ namespace CigarWorld.Services
             context.Cigars.Remove(cigar);
 
             await context.SaveChangesAsync();
+        }
+
+        public async Task EditCigar(int cigarId)
+        {
+            var ashtray = await context.Cigars
+                .Where(u => u.Id == cigarId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditCigarViewModel> GetInformationForCigar(int cigarId)
+        {
+            var cigar = await context.Cigars
+                .Where(u => u.Id == cigarId)
+                .FirstOrDefaultAsync();
+
+            var result = new EditCigarViewModel
+            {
+                Id = cigar.Id,
+                Brand = cigar.Brand,
+                Comment = cigar.Comment,
+                CountryOfManufacturing = cigar.CountryOfManufacturing,
+                ImageUrl = cigar.ImageUrl,
+                Format = cigar.Format,
+                Length = cigar.Length,
+                Ring = cigar.Ring,
+                SmokingDuration = cigar.SmokingDuration,
+                StrengthId = cigar.StrengthId
+            };
+
+            return result;
+        }
+
+        public void EditCigarInformation(EditCigarViewModel targetCigar)
+        {
+            var cigar = context.Cigars.
+                Where(u => u.Id == targetCigar.Id)
+                .FirstOrDefault();
+
+            if (cigar == null)
+            {
+                throw new ArgumentException("Invalid Cigar");
+            }
+
+            cigar.Brand = targetCigar.Brand;
+            cigar.CountryOfManufacturing = targetCigar.CountryOfManufacturing;
+            cigar.ImageUrl = targetCigar.ImageUrl;
+            cigar.Comment = targetCigar.Comment;
+            cigar.Length = targetCigar.Length;
+            cigar.SmokingDuration = targetCigar.SmokingDuration;
+            cigar.Ring = targetCigar.Ring;
+            cigar.Format = targetCigar.Format;
+            cigar.StrengthId = targetCigar.StrengthId;
+            cigar.Comment = targetCigar.Comment;
+
+            context.SaveChanges();
         }
     }
 }

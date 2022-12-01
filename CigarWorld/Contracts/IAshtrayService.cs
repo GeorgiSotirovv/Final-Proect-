@@ -29,10 +29,12 @@ namespace CigarWorld.Contracts
 
         Task <EditAshtrayViewModel> GetInformationForAshtray(int ashtrayId);
 
-        public void EdidAshtaryInformation(EditAshtrayViewModel targetAshtray);
+        public void EditAshtaryInformation(EditAshtrayViewModel targetAshtray);
 
         public AshtrayDetailsViewModel AddReview(AshtrayDetailsViewModel targetAshtray, string UserName);
 
         public int DeleteReview(int reviewId);
+
+        //public void EditComment(int ashtrayId);
     }
 }

@@ -217,7 +217,7 @@ namespace CigarWorld.Services
             return result;
         }
 
-        public void EdidAshtaryInformation(EditAshtrayViewModel targetAshtray)
+        public void EditAshtaryInformation(EditAshtrayViewModel targetAshtray)
         {
             var ashtray = context.Ashtrays.
                 Where(u => u.Id == targetAshtray.Id)
@@ -266,5 +266,26 @@ namespace CigarWorld.Services
             context.SaveChanges();
             return (targetAshtreyId);
         }
+
+        //public void EditComment(int ashtrayId)
+        //{
+        //    var ashtray = context.AshtrayReviews.
+        //         Where(u => u.Id == ashtrayId)
+
+        //         .FirstOrDefault();
+
+        //    if (ashtray == null)
+        //    {
+        //        throw new ArgumentException("Invalid Ashtray");
+        //    }
+
+        //    ashtray.Brand = targetAshtray.Brand;
+        //    ashtray.CountryOfManufacturing = targetAshtray.CountryOfManufacturing;
+        //    ashtray.ImageUrl = targetAshtray.ImageUrl;
+        //    ashtray.Comment = targetAshtray.Comment;
+        //    ashtray.AshtrayId = targetAshtray.TypeId;
+
+        //    context.SaveChanges();
+        //}
     }
 }
