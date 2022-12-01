@@ -14,7 +14,8 @@ namespace CigarWorld.Data.Configuration
                 {
                     Id = 1,
                     Review = "This lighter is different from the rest because the flame is more stronger than the ordinary lighter",
-                    LighterId = 1
+                    LighterId = 1,
+                    Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138"
                 });
         }
     }

@@ -14,7 +14,8 @@ namespace CigarWorld.Data.Configuration
                 {
                     Id = 1,
                     Review = "Very nice and colorfull ashtray.",
-                    AshtrayId = 1
+                    AshtrayId = 1,
+                    Commenter = "Admin"
                 });
         }
     }

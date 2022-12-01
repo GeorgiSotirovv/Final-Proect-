@@ -15,6 +15,7 @@ namespace CigarWorld.Data
 
         }
 
+        //Items
         public DbSet<Cigar> Cigars { get; set; }
         public DbSet<Ashtray> Ashtrays { get; set; }
         public DbSet<Cigarillo> Cigarillo { get; set; }
@@ -22,11 +23,21 @@ namespace CigarWorld.Data
         public DbSet<Humidor> Humidors { get; set; }
         public DbSet<CigarPocketCase> CigarPocketCases { get; set; }
         public DbSet<Lighter> Lighters { get; set; }
+
+        //Types
         public DbSet<StrengthType> StrengthTypes { get; set; }
         public DbSet<FilterType> FilterTypes { get; set; }
         public DbSet<CutterType> CutterTypes { get; set; }
-        public DbSet<CigarilloReview> CigarilloReviews { get; set; }
         public DbSet<AshtrayType> AshtrayTypes { get; set; }
+
+        //Reviews
+        public DbSet<AshtrayReview> AshtrayReviews { get; set; }
+        public DbSet<CigarilloReview> CigarilloReviews { get; set; }
+        public DbSet<CigarReview> CigarReviews { get; set; }
+        public DbSet<HumidorReview> HumidorReviews { get; set; }
+        public DbSet<CutterReview> CutterReviews { get; set; }
+        public DbSet<LighterReview> LighterReviews { get; set; }
+        public DbSet<CigarPocketCaseReview> CigarPocketCaseReviews { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

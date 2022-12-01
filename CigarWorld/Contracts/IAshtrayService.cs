@@ -2,6 +2,7 @@
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.BaseModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 
 namespace CigarWorld.Contracts
@@ -18,12 +19,20 @@ namespace CigarWorld.Contracts
 
         Task<IEnumerable<MyFavoriteAshtrayViewModel>> GetMineAshtrayAsync(string userId);
 
-        Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId);
+        Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId, string userName);
 
         Task RemoveFromFavoritesAsync(int ashtrayId, string userId);
 
         Task RemoveFromDatabaseAsync(int ashtrayId);
 
-        Task Edit(int ashtrayId);
+        Task EditAshtray(int ashtrayId);
+
+        Task <EditAshtrayViewModel> GetInformationForAshtray(int ashtrayId);
+
+        public void EdidAshtaryInformation(EditAshtrayViewModel targetAshtray);
+
+        public AshtrayDetailsViewModel AddReview(AshtrayDetailsViewModel targetAshtray, string UserName);
+
+        public int DeleteReview(int reviewId);
     }
 }

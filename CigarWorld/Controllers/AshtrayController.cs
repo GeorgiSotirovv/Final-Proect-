@@ -1,5 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -74,11 +76,14 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Cigar", "Cigar");
         }
 
+        [HttpGet]
         public IActionResult Details(int Id)
         {
             try
             {
-                var model = ashtrayService.GetDetailsAsync(Id).Result;
+                var curUser = this.User.Identity.Name;
+
+                var model = ashtrayService.GetDetailsAsync(Id, curUser).Result;
                 return View(model);
 
             }
@@ -86,6 +91,16 @@ namespace CigarWorld.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public IActionResult Details(AshtrayDetailsViewModel targetAshtray)
+        {
+            var curUser = this.User.Identity.Name;
+
+            ashtrayService.AddReview(targetAshtray, curUser);
+
+            return RedirectToAction("Details", "Ashtray", new { id = targetAshtray.Id });
         }
 
         public async Task<IActionResult> RemoveFromCollection(int Id)
@@ -101,6 +116,44 @@ namespace CigarWorld.Controllers
             await ashtrayService.RemoveFromDatabaseAsync(ashtrayId);
 
             return RedirectToAction("Ashtray", "Ashtray");
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var targetAshtary = await ashtrayService.GetInformationForAshtray(Id);
+
+
+
+            var model = new EditAshtrayViewModel()
+            {
+                Id = Id,
+                Brand = targetAshtary.Brand,
+                Comment = targetAshtary.Comment,
+                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
+                AshtrayTypes = targetAshtary.AshtrayTypes,
+                ImageUrl = targetAshtary.ImageUrl,
+                TypeId = targetAshtary.TypeId
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int Id, EditAshtrayViewModel targetAshtary)
+        {
+            ashtrayService.EdidAshtaryInformation(targetAshtary);
+
+            return RedirectToAction("Ashtray", "Ashtray");
+        }
+
+        public IActionResult DeleteComment(int ReviewId)
+        {
+            var targetAshtrayId = ashtrayService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "Ashtray", new { id = targetAshtrayId });
         }
     }
 }

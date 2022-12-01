@@ -4,6 +4,7 @@ using CigarWorld.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CigarWorld.Data.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
-    partial class CigarWorldDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221201113047_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,17 +101,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "afc9df9b-a1b9-41ef-98de-166b820382a8",
+                            ConcurrencyStamp = "0148d12d-a64a-400b-b843-65a645649fe9",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMAPz0BH16/zNVA8RIXY20A6e1PO79HgbrgauA9B2bG/3OmdF1RGL0gtN3+CwZY7Qg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH0oD7PHS+ptr4LX+Yw92CxZgud4UytkoDxBUxe5mfAe8gGlz/5jNIa/JnxdJ/QO/A==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "02aca9b9-273d-4c68-9882-f726a4d16e5e",
+                            SecurityStamp = "c22dcfdf-9519-4617-8daf-eeea45e51300",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -117,17 +119,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5635a572-5b45-4eb4-bebb-2d476f1f06f6",
+                            ConcurrencyStamp = "de4431ed-f8b7-479c-aa1d-4f900753bc82",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBWtQLuHLdsvOVEO8cqIS3UxMn0Bpo2bRrAUJzLpS2sCz8VU0fa/yIHq2YhAVkpnmw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHpwTduGbYdDxgPHSRSz1e7rQoww+1PqWkdW/fX1UD5YTADEMXYIngbFoPb+3FppMw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "c9fb9464-57d4-4a9a-9b4c-2cd3d3234e8e",
+                            SecurityStamp = "ac575cfa-1ab2-441a-85c3-dcc9a06008bd",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });
@@ -784,10 +786,6 @@ namespace CigarWorld.Data.Migrations
                     b.Property<int>("AshtrayId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Review")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -803,7 +801,6 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = 1,
                             AshtrayId = 1,
-                            Commenter = "Admin",
                             Review = "Very nice and colorfull ashtray."
                         });
                 });
@@ -818,10 +815,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.Property<int>("CigarilloId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Review")
                         .IsRequired()
@@ -838,7 +831,6 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = 1,
                             CigarilloId = 1,
-                            Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             Review = "This Cigarillos are very good."
                         });
                 });
@@ -853,10 +845,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.Property<int>("CigarPocketCaseId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Review")
                         .IsRequired()
@@ -873,7 +861,6 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = 1,
                             CigarPocketCaseId = 1,
-                            Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             Review = " The Crafting is very good."
                         });
                 });
@@ -888,10 +875,6 @@ namespace CigarWorld.Data.Migrations
 
                     b.Property<int>("CigarId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Review")
                         .IsRequired()
@@ -908,7 +891,6 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = 1,
                             CigarId = 1,
-                            Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             Review = "This cigar is perfect for evenings."
                         });
                 });
@@ -920,10 +902,6 @@ namespace CigarWorld.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CutterId")
                         .HasColumnType("int");
@@ -942,7 +920,6 @@ namespace CigarWorld.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             CutterId = 1,
                             Review = "This is very nice and sharp cutter."
                         });
@@ -955,10 +932,6 @@ namespace CigarWorld.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HumidorId")
                         .HasColumnType("int");
@@ -977,7 +950,6 @@ namespace CigarWorld.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             HumidorId = 1,
                             Review = "Very solid humidor with good crafting."
                         });
@@ -990,10 +962,6 @@ namespace CigarWorld.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Commenter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LighterId")
                         .HasColumnType("int");
@@ -1012,7 +980,6 @@ namespace CigarWorld.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             LighterId = 1,
                             Review = "This lighter is different from the rest because the flame is more stronger than the ordinary lighter"
                         });

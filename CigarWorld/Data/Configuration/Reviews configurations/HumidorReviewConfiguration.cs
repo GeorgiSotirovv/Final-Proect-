@@ -14,7 +14,8 @@ namespace CigarWorld.Data.Configuration
                 {
                     Id = 1,
                     Review = "Very solid humidor with good crafting.",
-                    HumidorId = 1
+                    HumidorId = 1,
+                    Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138"
                 });
         }
     }

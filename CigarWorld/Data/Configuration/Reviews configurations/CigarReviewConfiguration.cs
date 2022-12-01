@@ -14,7 +14,8 @@ namespace CigarWorld.Data.Configuration
                 {
                     Id = 1,
                     Review = "This cigar is perfect for evenings.",
-                    CigarId = 1
+                    CigarId = 1,
+                    Commenter = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138"
                 });
         }
     }
