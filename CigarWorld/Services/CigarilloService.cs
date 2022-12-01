@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -114,16 +115,17 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<CigarilloDetailsViewModel> GetDetailsAsync(int cigarilloId)
+        public async Task<CigarilloDetailsViewModel> GetDetailsAsync(int cigarilloId, string userName)
         {
             var cigarillo = await context.Cigarillo
               .Where(u => u.Id == cigarilloId)
+              .Include(m => m.CigarilloReviews)
               .Include(m => m.FilterType)
               .FirstOrDefaultAsync();
 
             if (cigarillo == null)
             {
-                throw new ArgumentException("Invalid Cigar Pocket Case ID");
+                throw new ArgumentException("Invalid Cigarillo Id");
             }
 
             return new CigarilloDetailsViewModel()
@@ -133,7 +135,8 @@ namespace CigarWorld.Services
                 ImageUrl = cigarillo.ImageUrl,
                 Comment = cigarillo.Comment,
                 Filter = cigarillo?.FilterType?.Name,
-                CigarilloReviews = cigarillo.CigarilloReviews
+                CigarilloReviews = cigarillo.CigarilloReviews,
+                UserName = userName
             };
         }
 
@@ -155,6 +158,54 @@ namespace CigarWorld.Services
 
             await context.SaveChangesAsync();
 
+        }
+
+        public async Task EditCigarillo(int cigarilloId)
+        {
+            var cigarillo = await context.Cigarillo
+                .Where(u => u.Id == cigarilloId)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditCigarilloViewModel> GetInformationForCigarillo(int cigarilloId)
+        {
+            var cigarillo = await context.Cigarillo
+                .Where(u => u.Id == cigarilloId)
+                .FirstOrDefaultAsync();
+
+
+            var result = new EditCigarilloViewModel
+            {
+                Id = cigarillo.Id,
+                Brand = cigarillo.Brand,
+                Comment = cigarillo.Comment,
+                CountryOfManufacturing = cigarillo.CountryOfManufacturing,
+                ImageUrl = cigarillo.ImageUrl,
+                FiterId = cigarillo.FiterId,
+                FilterTypes = this.GetTypesAsync().Result
+            };
+
+            return result;
+        }
+
+        public void EditCigarilloInformation(EditCigarilloViewModel targetCigarillo)
+        {
+            var ashtray = context.Cigarillo.
+                Where(u => u.Id == targetCigarillo.Id)
+                .FirstOrDefault();
+
+            if (ashtray == null)
+            {
+                throw new ArgumentException("Invalid Cigarillo");
+            }
+
+            ashtray.Brand = targetCigarillo.Brand;
+            ashtray.CountryOfManufacturing = targetCigarillo.CountryOfManufacturing;
+            ashtray.ImageUrl = targetCigarillo.ImageUrl;
+            ashtray.Comment = targetCigarillo.Comment;
+            ashtray.FiterId = targetCigarillo.FiterId;
+
+            context.SaveChanges();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -78,7 +79,9 @@ namespace CigarWorld.Controllers
         {
             try
             {
-                var model = cigarilloService.GetDetailsAsync(Id).Result;
+                var curUser = this.User.Identity.Name;
+
+                var model = cigarilloService.GetDetailsAsync(Id, curUser).Result;
                 return View(model);
             }
             catch (Exception)
@@ -92,6 +95,36 @@ namespace CigarWorld.Controllers
             await cigarilloService.RemoveFromDatabaseAsync(cigarilloId);
 
             return RedirectToAction("Cigarillo", "Cigarillo");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var targetAshtary = await cigarilloService.GetInformationForCigarillo(Id);
+
+
+
+            var model = new EditCigarilloViewModel()
+            {
+                Id = Id,
+                Brand = targetAshtary.Brand,
+                Comment = targetAshtary.Comment,
+                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
+                FilterTypes = targetAshtary.FilterTypes,
+                ImageUrl = targetAshtary.ImageUrl,
+                FiterId = targetAshtary.FiterId
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int Id, EditCigarilloViewModel targetCigarillo)
+        {
+            cigarilloService.EditCigarilloInformation(targetCigarillo);
+
+            return RedirectToAction("CigarCase", "Cigarillo");
         }
     }
 }

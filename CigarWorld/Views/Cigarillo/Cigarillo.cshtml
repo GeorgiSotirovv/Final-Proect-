@@ -24,7 +24,10 @@
 
                 <h5 class="card-title mt-1">@cigarillo.Brand</h5>
 
+                <p class="mb-0">Type: @cigarillo.Filter</p> 
             </div>
+
+            <a class="fs-6 btn btn-success mb-3 p-2" href="/Cigarillo/Edit?id=@cigarillo.Id" aria-required="true">Edit</a>
 
             <form class="input-group-sm" asp-controller="Cigarillo" asp-action="RemoveFromDataBase" asp-route-CigarilloId="@cigarillo.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />

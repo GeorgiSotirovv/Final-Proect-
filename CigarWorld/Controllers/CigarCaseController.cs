@@ -124,7 +124,7 @@ namespace CigarWorld.Controllers
         {
             cigarCaseService.EditCigarPocketCaseInformation(targetCPC);
 
-            return RedirectToAction("CigarPocketCase", "CigarPocketCase");
+            return RedirectToAction("CigarPocketCase", "CigarCase");
         }
     }
 }
