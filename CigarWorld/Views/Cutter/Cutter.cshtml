@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AllCutterViewModel>
+﻿@model IEnumerable<EditCutterViewModel>
 
 @{
     ViewBag.Title = "All Cutters";
@@ -26,6 +26,8 @@
                 <h5 class="card-title mt-1">@cutter.Brand</h5>
 
             </div>
+
+            <a class="fs-6 btn btn-success mb-3 p-2" href="/Cutter/Edit?id=@cutter.Id" aria-required="true">Edit</a>
 
             <form class="input-group-sm" asp-controller="Cutter" asp-action="RemoveFromDataBase" asp-route-cutterId="@cutter.Id">
                 <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />

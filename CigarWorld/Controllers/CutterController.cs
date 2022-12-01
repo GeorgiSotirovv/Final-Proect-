@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -87,6 +88,36 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromDataBase(int cutterId)
         {
             await cutterService.RemoveFromDatabaseAsync(cutterId);
+
+            return RedirectToAction("Cutter", "Cutter");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var targetAshtary = await cutterService.GetInformationForCutter(Id);
+
+
+
+            var model = new EditCutterViewModel()
+            {
+                Id = Id,
+                Brand = targetAshtary.Brand,
+                Comment = targetAshtary.Comment,
+                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
+                CutterTypes = targetAshtary.CutterTypes,
+                ImageUrl = targetAshtary.ImageUrl,
+                TypeId = targetAshtary.TypeId
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int Id, EditCutterViewModel targetAshtary)
+        {
+            cutterService.EditCutterInformation(targetAshtary);
 
             return RedirectToAction("Cutter", "Cutter");
         }

@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Data.Models;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
 
@@ -23,5 +24,11 @@ namespace CigarWorld.Contracts
         //Task RemoveFromFavoritesAsync(int cutterId, string userId);
 
         Task RemoveFromDatabaseAsync(int cutterId);
+
+        Task EditCutter(int cutterId);
+
+        Task<EditCutterViewModel> GetInformationForCutter(int cutterId);
+
+        public void EditCutterInformation(EditCutterViewModel cutterId);
     }
 }
