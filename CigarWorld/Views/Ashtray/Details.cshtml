@@ -44,10 +44,15 @@
                     @foreach (var review in Model.AshtrayReviews)
                     {
                         <li>
-                            <a>@review.Review</a>
+                            <p id="edit"><b>@review.Review</b></p>
                             @if (Model.UserName == review.Commenter || Model.UserName == "Admin")
                             {
-                                <a href = "/Ashtray/DeleteComment?ReviewId=@review.Id">Delete Review</a>
+                                <div id="container">
+                                <a href="/Ashtray/DeleteComment?ReviewId=@review.Id">Delete Review</a>
+                                    
+                                    <button type="submit" id="edit-button">Edit</button>
+                                    <button type="submit" id="end-editing">Done</button>
+                                </div>
                             }
                         </li>
                     }
@@ -68,7 +73,7 @@
                         <span asp-validation-for="AddReviewToAshtray" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
-                        <input class="btn btn-primary" type="submit" value="Details" />
+                        <input class="btn btn-primary" type="submit" value="Add review" />
                     </div>
                 </form>
             </div>

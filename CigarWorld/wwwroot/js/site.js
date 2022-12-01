@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const paragraph = document.getElementById("edit");
+const edit_button = document.getElementById("edit-button");
+const end_button = document.getElementById("end-editing");
 
-// Write your JavaScript code.
+edit_button.addEventListener("click", function () {
+    paragraph.contentEditable = true;
+    paragraph.style.backgroundColor = "#dddbdb";
+});
+
+end_button.addEventListener("click", function () {
+    paragraph.contentEditable = false;
+    paragraph.style.backgroundColor = "#ffe44d";
+})
