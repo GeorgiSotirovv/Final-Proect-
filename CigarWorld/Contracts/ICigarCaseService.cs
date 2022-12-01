@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 
@@ -20,5 +21,11 @@ namespace CigarWorld.Contracts
        // Task RemoveFromFavoritesAsync(int CPCId, string userId);
 
         Task RemoveFromDatabaseAsync(int CPCId);
+
+        Task EditCigarPocketCase(int CPCId);
+
+        Task<EditCigarPocketCaseViewModel> GetInformationForCigarPocketCase(int CPCId);
+
+        public void EditCigarPocketCaseInformation(EditCigarPocketCaseViewModel targetCPC);
     }
 }

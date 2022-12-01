@@ -202,7 +202,8 @@ namespace CigarWorld.Services
                 Length = cigar.Length,
                 Ring = cigar.Ring,
                 SmokingDuration = cigar.SmokingDuration,
-                StrengthId = cigar.StrengthId
+                StrengthId = cigar.StrengthId,
+                StrengthTypes = this.GetStrengthTypeAsync().Result
             };
 
             return result;

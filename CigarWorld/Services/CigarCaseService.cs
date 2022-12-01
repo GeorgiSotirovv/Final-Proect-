@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.Models;
 using CigarWorld.Models.MyFavoriteViewModels;
@@ -68,7 +69,6 @@ namespace CigarWorld.Services
             }
         }
 
-
         public async Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase()
         {
             var entities = await context.CigarPocketCases
@@ -111,6 +111,7 @@ namespace CigarWorld.Services
             };
         }
 
+      
         public async Task<IEnumerable<MyFavoriteCigarPocketCaseViewModel>> GetMineCPCAsync(string userId)
         {
             var user = await context.Users
@@ -176,5 +177,57 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
 
         }
+
+
+        public async Task EditCigarPocketCase(int CPCId)
+        {
+            var ashtray = await context.CigarPocketCases
+                 .Where(u => u.Id == CPCId)
+                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditCigarPocketCaseViewModel> GetInformationForCigarPocketCase(int CPCId)
+        {
+            var CPC = await context.CigarPocketCases
+                .Where(u => u.Id == CPCId)
+                .FirstOrDefaultAsync();
+
+
+            var result = new EditCigarPocketCaseViewModel
+            {
+                Id = CPC.Id,
+                Brand = CPC.Brand,
+                Comment = CPC.Comment,
+                CountryOfManufacturing = CPC.CountryOfManufacturing,
+                ImageUrl = CPC.ImageUrl,
+                MaterialOfManufacture = CPC.MaterialOfManufacture,
+                Capacity = CPC.Capacity
+            };
+
+            return result;
+        }
+
+        public void EditCigarPocketCaseInformation(EditCigarPocketCaseViewModel targetCPC)
+        {
+            var ashtray = context.CigarPocketCases.
+               Where(u => u.Id == targetCPC.Id)
+               .FirstOrDefault();
+
+            if (ashtray == null)
+            {
+                throw new ArgumentException("Invalid cigar pocket case");
+            }
+
+            ashtray.Brand = targetCPC.Brand;
+            ashtray.CountryOfManufacturing = targetCPC.CountryOfManufacturing;
+            ashtray.ImageUrl = targetCPC.ImageUrl;
+            ashtray.Comment = targetCPC.Comment;
+            ashtray.MaterialOfManufacture = targetCPC.MaterialOfManufacture;
+            ashtray.Capacity = targetCPC.Capacity;
+
+            context.SaveChanges();
+        }
+
+
     }
 }
