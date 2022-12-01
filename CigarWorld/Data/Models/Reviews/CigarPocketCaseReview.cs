@@ -12,5 +12,8 @@ namespace CigarWorld.Data.Models.Reviews
 
         [Required]
         public int CigarPocketCaseId { get; set; }
+
+        [Required]
+        public string Commenter { get; set; } = null!;
     }
 }

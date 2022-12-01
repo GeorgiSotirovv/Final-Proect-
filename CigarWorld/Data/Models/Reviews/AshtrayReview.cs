@@ -13,7 +13,9 @@ namespace CigarWorld.Data.Models.Reviews
         public string Review { get; set; } = null!;
 
         [Required]
-
         public int AshtrayId { get; set; }
+
+        [Required]
+        public string Commenter { get; set; } = null!;
     }
 }

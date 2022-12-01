@@ -24,5 +24,7 @@ namespace CigarWorld.Models.DetailsModels
         public string Comment { get; set; } = null!;
 
         public IEnumerable<CigarPocketCaseReview> CigarPocketCaseReviews { get; set; } = new List<CigarPocketCaseReview>();
+
+        public string UserId { get; set; }
     }
 }

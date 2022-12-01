@@ -28,6 +28,9 @@
                     <p class="mb-0">Type: @ashtray.Type</p>                
             </div>
 
+            
+            <a class="fs-6 btn btn-success mb-3 p-2" href="/Ashtray/Edit?id=@ashtray.Id" aria-required="true">Edit</a>
+
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromDataBase" asp-route-AshtrayId="@ashtray.Id">
                  <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
             </form>

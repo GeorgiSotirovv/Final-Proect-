@@ -30,6 +30,10 @@ namespace CigarWorld.Models.DetailsModels
         public IEnumerable<AshtrayType> AshtrayTypes { get; set; } = new List<AshtrayType>();
 
         public IEnumerable<AshtrayReview> AshtrayReviews { get; set; } = new List<AshtrayReview>();
+
+        public string AddReviewToAshtray { get; set; }
+
+        public string UserName { get; set; }
     }
 }
 

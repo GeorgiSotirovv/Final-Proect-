@@ -13,5 +13,8 @@ namespace CigarWorld.Data.Models.Reviews
         [Required]
 
         public int CutterId { get; set; }
+
+        [Required]
+        public string Commenter { get; set; } = null!;
     }
 }

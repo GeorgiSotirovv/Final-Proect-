@@ -2,9 +2,11 @@
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
+using CigarWorld.Data.Models.Reviews;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.BaseModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -89,10 +91,11 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId)
+        public async Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId, string userName)
         {
             var ashtray = await context.Ashtrays
               .Where(u => u.Id == ashtrayId)
+              .Include(m => m.AshtrayReviews)
               .Include(m => m.AshtrayType)
               .FirstOrDefaultAsync();
 
@@ -108,7 +111,8 @@ namespace CigarWorld.Services
                 ImageUrl = ashtray.ImageUrl,
                 Comment = ashtray.Comment,
                 Type = ashtray?.AshtrayType.Name,
-                AshtrayReviews = ashtray.AshtrayReviews
+                AshtrayReviews = ashtray.AshtrayReviews,
+                UserName = userName
             };
         }
 
@@ -185,11 +189,82 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task Edit(int ashtrayId)
+        public async Task EditAshtray(int ashtrayId)
         {
             var ashtray = await context.Ashtrays
                 .Where(u => u.Id == ashtrayId)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditAshtrayViewModel> GetInformationForAshtray(int ashtrayId)
+        {
+            var ashtray = await context.Ashtrays
+                .Where(u => u.Id == ashtrayId)
+                .FirstOrDefaultAsync();
+
+
+            var result = new EditAshtrayViewModel
+            {
+                Id = ashtray.Id,
+                Brand = ashtray.Brand,
+                Comment = ashtray.Comment,
+                CountryOfManufacturing = ashtray.CountryOfManufacturing,
+                ImageUrl = ashtray.ImageUrl,
+                TypeId = ashtray.AshtrayId,
+                AshtrayTypes = this.GetTypesAsync().Result
+            };
+
+            return result;
+        }
+
+        public void EdidAshtaryInformation(EditAshtrayViewModel targetAshtray)
+        {
+            var ashtray = context.Ashtrays.
+                Where(u => u.Id == targetAshtray.Id)
+                .FirstOrDefault();
+
+            if (ashtray == null)
+            {
+                throw new ArgumentException("Invalid Ashtray");
+            }
+
+            ashtray.Brand = targetAshtray.Brand;
+            ashtray.CountryOfManufacturing = targetAshtray.CountryOfManufacturing;
+            ashtray.ImageUrl = targetAshtray.ImageUrl;
+            ashtray.Comment = targetAshtray.Comment;
+            ashtray.AshtrayId = targetAshtray.TypeId;
+
+            context.SaveChanges();
+        }
+
+        public AshtrayDetailsViewModel AddReview(AshtrayDetailsViewModel targetAshtray, string UserName)
+        {
+            var entity = new AshtrayReview()
+            {
+                AshtrayId = targetAshtray.Id,
+                Review = targetAshtray.AddReviewToAshtray,
+                Commenter = UserName
+            };
+
+             context.AshtrayReviews.Add(entity);
+             context.SaveChanges();
+
+            targetAshtray.AddReviewToAshtray = String.Empty;
+
+            return targetAshtray;
+        }
+
+        public int DeleteReview(int reviewId)
+        {
+            var targetReview = context.AshtrayReviews
+                .Where(x => x.Id == reviewId)
+                .FirstOrDefault();
+
+            var targetAshtreyId = targetReview.AshtrayId;
+
+            context.AshtrayReviews.Remove(targetReview);
+            context.SaveChanges();
+            return (targetAshtreyId);
         }
     }
 }
