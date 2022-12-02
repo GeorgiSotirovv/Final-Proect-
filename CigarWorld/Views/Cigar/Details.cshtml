@@ -52,12 +52,12 @@
 
                             @if (Model.UserName == review.Commenter || Model.UserName == "Admin")
                             {
-                                <form method="post" action="/Ashtray/DeleteComment?ReviewId=@review.Id">
+                                <form method="post" action="/Cigar/DeleteComment?ReviewId=@review.Id">
                                     <button type="submit">Delete Review</button>
                                 </form>
 
                                 <button method="post" id="edit-button">Edit</button>
-                                <form method="post" action="/Ashtray/EditComment">
+                                <form method="post" action="/Cigar/EditComment">
                                     <input id="petko" name="petko" value="@review.Review" />
                                     <button hidden type="submit" id="end-editing">Done</button>
                                 </form>

@@ -2,6 +2,7 @@
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
+using CigarWorld.Data.Models.Reviews;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
@@ -232,6 +233,36 @@ namespace CigarWorld.Services
             cigar.Comment = targetCigar.Comment;
 
             context.SaveChanges();
+        }
+
+        public CigarDetailsViewModel AddReview(CigarDetailsViewModel targetCigar, string UserName)
+        {
+            var entity = new CigarReview()
+            {
+                CigarId = targetCigar.Id,
+                Review = targetCigar.AddReviewToCigar,
+                Commenter = UserName
+            };
+
+            context.CigarReviews.Add(entity);
+            context.SaveChanges();
+
+            targetCigar.AddReviewToCigar = String.Empty;
+
+            return targetCigar;
+        }
+
+        public int DeleteReview(int reviewId)
+        {
+            var targetReview = context.CigarReviews
+             .Where(x => x.Id == reviewId)
+             .FirstOrDefault();
+
+            var targetCigarId = targetReview.CigarId;
+
+            context.CigarReviews.Remove(targetReview);
+            context.SaveChanges();
+            return (targetCigarId);
         }
     }
 }

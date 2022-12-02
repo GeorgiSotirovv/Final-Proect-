@@ -97,9 +97,9 @@ namespace CigarWorld.Controllers
         {
             var curUser = this.User.Identity.Name;
 
-            //cigarService.AddReview(targetAshtray, curUser);
+            cigarService.AddReview(targetCigar, curUser);
 
-            return RedirectToAction("Details", "Ashtray", new { id = targetCigar.Id });
+            return RedirectToAction("Details", "Cigar", new { id = targetCigar.Id });
         }
 
 
@@ -141,6 +141,13 @@ namespace CigarWorld.Controllers
             cigarService.EditCigarInformation(targetAshtary);
 
             return RedirectToAction("Cigar", "Cigar");
+        }
+
+        public IActionResult DeleteComment(int ReviewId)
+        {
+            var targetCigarId = cigarService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "Cigar", new { id = targetCigarId });
         }
     }
 }
