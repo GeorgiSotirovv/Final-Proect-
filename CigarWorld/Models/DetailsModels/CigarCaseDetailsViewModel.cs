@@ -30,6 +30,6 @@ namespace CigarWorld.Models.DetailsModels
 
         public string AddReviewToCigarPocketCase { get; set; } = null!;
 
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
     }
 }

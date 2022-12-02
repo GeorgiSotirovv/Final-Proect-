@@ -31,9 +31,9 @@ namespace CigarWorld.Models.DetailsModels
 
         public IEnumerable<AshtrayReview> AshtrayReviews { get; set; } = new List<AshtrayReview>();
 
-        public string AddReviewToAshtray { get; set; }
+        public string AddReviewToAshtray { get; set; } = null!;
 
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
     }
 }
 

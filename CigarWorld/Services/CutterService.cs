@@ -2,6 +2,7 @@
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
+using CigarWorld.Data.Models.Reviews;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
@@ -119,10 +120,11 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId)
+        public async Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId, string curUser)
         {
             var cutter = await context.Cutters
               .Where(u => u.Id == cutterId)
+              .Include(m => m.CutterReviews)
               .Include(m => m.CutterType)
               .FirstOrDefaultAsync();
 
@@ -137,7 +139,9 @@ namespace CigarWorld.Services
                 ImageUrl = cutter.ImageUrl,
                 Comment = cutter.Comment,
                 CountryOfManufacturing = cutter.CountryOfManufacturing,
-                Type = cutter?.CutterType?.Name
+                Type = cutter?.CutterType?.Name,
+                CutterReviews = cutter.CutterReviews,
+                UserName = curUser
             };
         }
 
@@ -205,6 +209,37 @@ namespace CigarWorld.Services
             cutter.TypeId = targetCutter.TypeId;
 
             context.SaveChanges();
+        }
+
+        public CutterDetailsViewModel AddReview(CutterDetailsViewModel targetCutter, string UserName)
+        {
+            var entity = new CutterReview()
+            {
+                CutterId = targetCutter.Id,
+                Review = targetCutter.AddReviewToCutter,
+                Commenter = UserName
+            };
+
+            context.CutterReviews.Add(entity);
+            context.SaveChanges();
+
+            targetCutter.AddReviewToCutter = String.Empty;
+
+            return targetCutter;
+        }
+
+        public int DeleteReview(int reviewId)
+        {
+            var targetReview = context.CutterReviews
+                .Where(x => x.Id == reviewId)
+                .FirstOrDefault();
+
+            var targetCutterId = targetReview.CutterId;
+
+            context.CutterReviews.Remove(targetReview);
+            context.SaveChanges();
+
+            return (targetCutterId);
         }
     }
 }

@@ -7,6 +7,9 @@ namespace CigarWorld.Models.DetailsModels
     public class CutterDetailsViewModel
     {
         [Required]
+        public int Id { get; set; } 
+
+        [Required]
         public string Brand { get; set; } = null!;
 
         [Required]
@@ -24,5 +27,9 @@ namespace CigarWorld.Models.DetailsModels
         public IEnumerable<CutterType> CutterTypes { get; set; } = new List<CutterType>();
 
         public IEnumerable<CutterReview> CutterReviews { get; set; } = new List<CutterReview>();
+
+        public string AddReviewToCutter { get; set; } = null!;
+
+        public string UserName { get; set; } = null!;
     }
 }

@@ -40,8 +40,8 @@ namespace CigarWorld.Models.DetailsModels
 
         public IEnumerable<CigarReview> CigarReviews { get; set; } = new List<CigarReview>();
 
-        public string AddReviewToCigar { get; set; }
+        public string AddReviewToCigar { get; set; } = null!;
 
-        public string UserName { get; set; }
+        public string UserName { get; set; } = null!;
     }
 }

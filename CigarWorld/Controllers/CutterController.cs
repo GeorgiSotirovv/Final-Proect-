@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -76,7 +77,9 @@ namespace CigarWorld.Controllers
         {
             try
             {
-                var model = cutterService.GetDetailsAsync(Id).Result;
+                var curUser = this.User.Identity.Name;
+
+                var model = cutterService.GetDetailsAsync(Id, curUser).Result;
                 return View(model);
             }
             catch (Exception)
@@ -84,6 +87,17 @@ namespace CigarWorld.Controllers
                 throw;
             }
         }
+
+        [HttpPost]
+        public IActionResult Details(CutterDetailsViewModel targetCutter)
+        {
+            var curUser = this.User.Identity.Name;
+
+            cutterService.AddReview(targetCutter, curUser);
+
+            return RedirectToAction("Details", "Cutter", new { id = targetCutter.Id });
+        }
+
 
         public async Task<IActionResult> RemoveFromDataBase(int cutterId)
         {
@@ -115,11 +129,18 @@ namespace CigarWorld.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int Id, EditCutterViewModel targetAshtary)
+        public IActionResult Edit(int Id, EditCutterViewModel targetCutter)
         {
-            cutterService.EditCutterInformation(targetAshtary);
+            cutterService.EditCutterInformation(targetCutter);
 
             return RedirectToAction("Cutter", "Cutter");
+        }
+
+        public IActionResult DeleteComment(int ReviewId)
+        {
+            var targetCutterId = cutterService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "Cutter", new { id = targetCutterId });
         }
     }
 }
