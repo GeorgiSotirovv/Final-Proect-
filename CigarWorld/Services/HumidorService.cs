@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -188,5 +189,62 @@ namespace CigarWorld.Services
 
         }
 
+        public async Task EditHumidor(int humidorId)
+        {
+            var humidor = await context.Humidors
+               .Where(u => u.Id == humidorId)
+               .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditHumidorViewModel> GetInformationForHumidor(int humidorId)
+        {
+            var humidor = await context.Humidors
+                .Where(u => u.Id == humidorId)
+                .FirstOrDefaultAsync();
+
+
+            var result = new EditHumidorViewModel
+            {
+                Id = humidor.Id,
+                Brand = humidor.Brand,
+                Comment = humidor.Comment,
+                CountryOfManufacturing = humidor.CountryOfManufacturing,
+                ImageUrl = humidor.ImageUrl,
+                Height = humidor.Height,
+                Length = humidor.Length,
+                Weight = humidor.Weight,
+                Capacity = humidor.Capacity,
+                MaterialOfManufacture = humidor.MaterialOfManufacture
+            };
+
+            return result;
+        }
+
+        public async void EditHumidorInformation(EditHumidorViewModel targetHumidor)
+        {
+            var humidor = context.Humidors.
+               Where(u => u.Id == targetHumidor.Id)
+               .FirstOrDefault();
+
+            if (humidor == null)
+            {
+                throw new ArgumentException("Invalid Ashtray");
+            }
+
+            humidor.Brand = targetHumidor.Brand;
+            humidor.CountryOfManufacturing = targetHumidor.CountryOfManufacturing;
+            humidor.ImageUrl = targetHumidor.ImageUrl;
+            humidor.Comment = targetHumidor.Comment;
+            humidor.MaterialOfManufacture = targetHumidor.MaterialOfManufacture;
+            humidor.Capacity = targetHumidor.Capacity;
+            humidor.Height = targetHumidor.Height;
+            humidor.Length = targetHumidor.Length;
+            humidor.Weight = targetHumidor.Weight;
+
+            context.SaveChanges();
+        }
+
+
+        
     }
 }
