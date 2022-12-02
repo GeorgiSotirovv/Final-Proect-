@@ -7,6 +7,9 @@ using System.Security.Claims;
 
 namespace CigarWorld.Controllers
 {
+
+    //I had a problem with commtis and with this change I commit in order to save my progres :)
+
     public class CutterController : Controller
     {
         private readonly ICutterService cutterService;
