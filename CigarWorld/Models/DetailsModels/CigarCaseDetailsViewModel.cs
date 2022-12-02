@@ -6,6 +6,9 @@ namespace CigarWorld.Models.DetailsModels
     public class CigarCaseDetailsViewModel
     {
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         public string Brand { get; set; } = null!;
 
         [Required]
@@ -25,6 +28,8 @@ namespace CigarWorld.Models.DetailsModels
 
         public IEnumerable<CigarPocketCaseReview> CigarPocketCaseReviews { get; set; } = new List<CigarPocketCaseReview>();
 
-        public string UserId { get; set; }
+        public string AddReviewToCigarPocketCase { get; set; } = null!;
+
+        public string UserName { get; set; }
     }
 }

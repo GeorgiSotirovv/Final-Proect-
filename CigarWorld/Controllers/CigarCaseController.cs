@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using CigarWorld.Models.EditViewModels;
+using CigarWorld.Models.DetailsModels;
 
 namespace CigarWorld.Controllers
 {
@@ -66,21 +67,36 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
-            return RedirectToAction("Cigar","Cigar");
+            return RedirectToAction("CigarCase", "CigarCase");
         }
 
+        [HttpGet]
         public IActionResult Details(int Id)
         {
             try
             {
-                var model = cigarCaseService.GetDetailsAsync(Id).Result;
+                var curUser = this.User.Identity.Name;
+
+                var model = cigarCaseService.GetDetailsAsync(Id, curUser).Result;
                 return View(model);
+
             }
             catch (Exception)
             {
                 throw;
             }
         }
+
+        [HttpPost]
+        public IActionResult Details(CigarCaseDetailsViewModel targetCPC)
+        {
+            var curUser = this.User.Identity.Name;
+
+            cigarCaseService.AddReview(targetCPC, curUser);
+
+            return RedirectToAction("Details", "CigarCase", new { id = targetCPC.Id });
+        }
+
 
         public async Task<IActionResult> RemoveFromCollection(int CPCId)
         {
@@ -125,6 +141,13 @@ namespace CigarWorld.Controllers
             cigarCaseService.EditCigarPocketCaseInformation(targetCPC);
 
             return RedirectToAction("CigarPocketCase", "CigarCase");
+        }
+
+        public IActionResult DeleteComment(int ReviewId)
+        {
+            var targetAshtrayId = cigarCaseService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "CigarCase", new { id = targetAshtrayId });
         }
     }
 }

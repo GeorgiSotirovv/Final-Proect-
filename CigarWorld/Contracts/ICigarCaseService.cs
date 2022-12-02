@@ -12,11 +12,11 @@ namespace CigarWorld.Contracts
 
         Task AddCigarCasesAsync(AddCigarPocketCaseViewModel model);
 
-        Task AddCigarCaseToFavoritesAsync(int cigarPocketCaseId, string userId);
+        Task AddCigarCaseToFavoritesAsync(int cigarPocketCaseId, string userName);
 
         Task<IEnumerable<MyFavoriteCigarPocketCaseViewModel>> GetMineCPCAsync(string userId);
 
-        Task<CigarCaseDetailsViewModel> GetDetailsAsync(int CPCId);
+        Task<CigarCaseDetailsViewModel> GetDetailsAsync(int CPCId, string userId);
 
        // Task RemoveFromFavoritesAsync(int CPCId, string userId);
 
@@ -27,5 +27,9 @@ namespace CigarWorld.Contracts
         Task<EditCigarPocketCaseViewModel> GetInformationForCigarPocketCase(int CPCId);
 
         public void EditCigarPocketCaseInformation(EditCigarPocketCaseViewModel targetCPC);
+
+        public CigarCaseDetailsViewModel AddReview(CigarCaseDetailsViewModel targetCPC, string UserName);
+
+        public int DeleteReview(int reviewId);
     }
 }

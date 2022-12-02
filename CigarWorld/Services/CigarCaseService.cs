@@ -2,6 +2,7 @@
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
+using CigarWorld.Data.Models.Reviews;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
@@ -87,11 +88,12 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<CigarCaseDetailsViewModel> GetDetailsAsync(int CPCId)
+        public async Task<CigarCaseDetailsViewModel> GetDetailsAsync(int CPCId, string userName)
         {
 
             var CPC = await context.CigarPocketCases
               .Where(u => u.Id == CPCId)
+              .Include(m => m.CigarPocketCaseReviews)
               .FirstOrDefaultAsync();
 
             if (CPC == null)
@@ -107,7 +109,8 @@ namespace CigarWorld.Services
                 Comment = CPC.Comment,
                 MaterialOfManufacture = CPC.MaterialOfManufacture,
                 Capacity = CPC.Capacity,
-                CigarPocketCaseReviews = CPC.CigarPocketCaseReviews
+                CigarPocketCaseReviews = CPC.CigarPocketCaseReviews,
+                UserName = userName
             };
         }
 
@@ -228,6 +231,34 @@ namespace CigarWorld.Services
             context.SaveChanges();
         }
 
+        public CigarCaseDetailsViewModel AddReview(CigarCaseDetailsViewModel targetCPC, string UserName)
+        {
+            var entity = new CigarPocketCaseReview()
+            {
+                CigarPocketCaseId = targetCPC.Id,
+                Review = targetCPC.AddReviewToCigarPocketCase,
+                Commenter = UserName
+            };
 
+            context.CigarPocketCaseReviews.Add(entity);
+            context.SaveChanges();
+
+            targetCPC.AddReviewToCigarPocketCase = String.Empty;
+
+            return targetCPC;
+        }
+
+        public int DeleteReview(int reviewId)
+        {
+            var targetReview = context.CigarPocketCaseReviews
+                .Where(x => x.Id == reviewId)
+                .FirstOrDefault();
+
+            var targetAshtreyId = targetReview.CigarPocketCaseId;
+
+            context.CigarPocketCaseReviews.Remove(targetReview);
+            context.SaveChanges();
+            return (targetAshtreyId);
+        }
     }
 }
