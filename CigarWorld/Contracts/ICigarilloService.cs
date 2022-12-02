@@ -30,5 +30,9 @@ namespace CigarWorld.Contracts
         Task<EditCigarilloViewModel> GetInformationForCigarillo(int cigarilloId);
 
         public void EditCigarilloInformation(EditCigarilloViewModel targetAshtray);
+
+        public CigarilloDetailsViewModel AddReview(CigarilloDetailsViewModel targetCigarillo, string UserName);
+
+        public int DeleteReview(int reviewId);
     }
 }

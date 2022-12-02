@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -74,7 +75,7 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Cigarillo", "Cigarillo");
         }
 
-
+        [HttpGet]
         public IActionResult Details(int Id)
         {
             try
@@ -88,6 +89,16 @@ namespace CigarWorld.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public IActionResult Details(CigarilloDetailsViewModel targetCigarillo)
+        {
+            var curUser = this.User.Identity.Name;
+
+            cigarilloService.AddReview(targetCigarillo, curUser);
+
+            return RedirectToAction("Details", "Cigarillo", new { id = targetCigarillo.Id });
         }
 
         public async Task<IActionResult> RemoveFromDataBase(int cigarilloId)
@@ -125,6 +136,13 @@ namespace CigarWorld.Controllers
             cigarilloService.EditCigarilloInformation(targetCigarillo);
 
             return RedirectToAction("CigarCase", "Cigarillo");
+        }
+
+        public IActionResult DeleteComment(int ReviewId)
+        {
+            var targetAshtrayId = cigarilloService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "Cigarillo", new { id = targetAshtrayId });
         }
     }
 }
