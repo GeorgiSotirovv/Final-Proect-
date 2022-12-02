@@ -4,6 +4,7 @@ using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -169,6 +170,51 @@ namespace CigarWorld.Services
 
             await context.SaveChangesAsync();
 
+        }
+
+        public async Task EditLighter(int lighterId)
+        {
+            var ashtray = await context.Lighters
+                 .Where(u => u.Id == lighterId)
+                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<EditLighterViewModel> GetInformationForLighter(int lighterId)
+        {
+            var lighter = await context.Lighters
+                .Where(u => u.Id == lighterId)
+                .FirstOrDefaultAsync();
+
+
+            var result = new EditLighterViewModel
+            {
+                Id = lighter.Id,
+                Brand = lighter.Brand,
+                Comment = lighter.Comment,
+                CountryOfManufacturing = lighter.CountryOfManufacturing,
+                ImageUrl = lighter.ImageUrl
+            };
+
+            return result;
+        }
+
+        public void EditLighterInformation(EditLighterViewModel targetLighter)
+        {
+            var ashtray = context.Lighters.
+                Where(u => u.Id == targetLighter.Id)
+                .FirstOrDefault();
+
+            if (ashtray == null)
+            {
+                throw new ArgumentException("Invalid Lighter");
+            }
+
+            ashtray.Brand = targetLighter.Brand;
+            ashtray.CountryOfManufacturing = targetLighter.CountryOfManufacturing;
+            ashtray.ImageUrl = targetLighter.ImageUrl;
+            ashtray.Comment = targetLighter.Comment;
+
+            context.SaveChanges();
         }
     }
 }

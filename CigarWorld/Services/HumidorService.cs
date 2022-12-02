@@ -228,7 +228,7 @@ namespace CigarWorld.Services
 
             if (humidor == null)
             {
-                throw new ArgumentException("Invalid Ashtray");
+                throw new ArgumentException("Invalid Humidor");
             }
 
             humidor.Brand = targetHumidor.Brand;

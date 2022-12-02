@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Models.JustModels;
 using CigarWorld.Models.MyFavoriteViewModels;
 
@@ -20,5 +21,11 @@ namespace CigarWorld.Contracts
         //Task RemoveFromFavoritesAsync(int lighterId, string userId);
 
         Task RemoveFromDatabaseAsync(int lighterId);
+
+        Task EditLighter(int lighterId);
+
+        Task<EditLighterViewModel> GetInformationForLighter(int lighterId);
+
+        public void EditLighterInformation(EditLighterViewModel targetLighter);
     }
 }

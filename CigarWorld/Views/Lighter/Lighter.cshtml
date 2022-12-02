@@ -26,6 +26,8 @@
 
             </div>
 
+             <a class="fs-6 btn btn-success mb-3 p-2" href="/Lighter/Edit?id=@lighter.Id" aria-required="true">Edit</a>
+
             <form class="input-group-sm" asp-controller="Lighter" asp-action="RemoveFromDataBase" asp-route-lighterId="@lighter.Id">
                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
             </form>
