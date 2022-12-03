@@ -16,7 +16,7 @@ namespace CigarWorld.Contracts
 
         Task<IEnumerable<MyFavoriteLighterViewModel>> GetMineLightersAsync(string userId);
 
-        Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId);
+        Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId, string userName);
 
         //Task RemoveFromFavoritesAsync(int lighterId, string userId);
 
@@ -27,5 +27,9 @@ namespace CigarWorld.Contracts
         Task<EditLighterViewModel> GetInformationForLighter(int lighterId);
 
         public void EditLighterInformation(EditLighterViewModel targetLighter);
+
+        public LighterDetailsViewModel AddReview(LighterDetailsViewModel targetHumidor, string UserName);
+
+        public int DeleteReview(int reviewId);
     }
 }

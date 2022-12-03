@@ -2,6 +2,7 @@
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
+using CigarWorld.Data.Models.Reviews;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
@@ -108,7 +109,7 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId)
+        public async Task<LighterDetailsViewModel> GetDetailsAsync(int lighterId, string userName)
         {
             var lighter = await context.Lighters
               .Where(u => u.Id == lighterId)
@@ -116,7 +117,7 @@ namespace CigarWorld.Services
 
             if (lighter == null)
             {
-                throw new ArgumentException("Invalid humidor ID");
+                throw new ArgumentException("Invalid Lighter Id");
             }
 
             return new LighterDetailsViewModel()
@@ -125,7 +126,8 @@ namespace CigarWorld.Services
                 CountryOfManufacturing = lighter.CountryOfManufacturing,
                 ImageUrl = lighter.ImageUrl,
                 Comment = lighter.Comment,
-                LighterReviews = lighter.LighterReviews
+                LighterReviews = lighter.LighterReviews,
+                UserName = userName
             };
         }
 
@@ -215,6 +217,36 @@ namespace CigarWorld.Services
             ashtray.Comment = targetLighter.Comment;
 
             context.SaveChanges();
+        }
+
+        public LighterDetailsViewModel AddReview(LighterDetailsViewModel targetLighter, string UserName)
+        {
+            var entity = new LighterReview()
+            {
+                LighterId = targetLighter.Id,
+                Review = targetLighter.AddReviewToLighter,
+                Commenter = UserName
+            };
+
+            context.LighterReviews.Add(entity);
+            context.SaveChanges();
+
+            targetLighter.AddReviewToLighter = String.Empty;
+
+            return targetLighter;
+        }
+
+        public int DeleteReview(int reviewId)
+        {
+            var targetReview = context.LighterReviews
+                .Where(x => x.Id == reviewId)
+                .FirstOrDefault();
+
+            var targetLeghterId = targetReview.LighterId;
+
+            context.LighterReviews.Remove(targetReview);
+            context.SaveChanges();
+            return (targetLeghterId);
         }
     }
 }

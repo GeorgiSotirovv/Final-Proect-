@@ -1,9 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CigarWorld.Data.Models.Reviews;
+using System.ComponentModel.DataAnnotations;
 
 namespace CigarWorld.Models.DetailsModels
 {
     public class HumidorDetailsViewModel
     {
+        [Required]
+        public int Id { get; set; }
+
+
         [Required]
         public string Brand { get; set; } = null!;
 
@@ -30,5 +35,11 @@ namespace CigarWorld.Models.DetailsModels
 
         [Required]
         public string Comment { get; set; } = null!;
+
+        public IEnumerable<HumidorReview> HumidorReviews { get; set; } = new List<HumidorReview>();
+
+        public string AddReviewToHumidor { get; set; } = null!;
+
+        public string UserName { get; set; } = null!;
     }
 }

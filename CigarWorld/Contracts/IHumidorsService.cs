@@ -16,7 +16,7 @@ namespace CigarWorld.Contracts
 
         Task<IEnumerable<MyFavoriteHomidorViewModel>> GetMineHumidorsAsync(string userId);
 
-        Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId);
+        Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId, string curUser);
 
         //Task RemoveFromFavoritesAsync(int humidorId, string userId);
 
@@ -27,5 +27,9 @@ namespace CigarWorld.Contracts
         Task<EditHumidorViewModel> GetInformationForHumidor(int humidorId);
 
         public void EditHumidorInformation(EditHumidorViewModel targetHumidor);
+
+        public HumidorDetailsViewModel AddReview(HumidorDetailsViewModel targetHumidor, string UserName);
+
+        public int DeleteReview(int reviewId);
     }
 }

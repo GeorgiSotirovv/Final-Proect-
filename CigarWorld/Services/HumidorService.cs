@@ -2,6 +2,7 @@
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Data.Models.ManyToMany;
+using CigarWorld.Data.Models.Reviews;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
@@ -94,10 +95,11 @@ namespace CigarWorld.Services
                 });
         }
 
-        public async Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId)
+        public async Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId, string userName)
         {
             var humidor = await context.Humidors
               .Where(u => u.Id == humidorId)
+              .Include(m => m.HumidorReviews)
               .FirstOrDefaultAsync();
 
             if (humidor == null)
@@ -116,7 +118,8 @@ namespace CigarWorld.Services
                 Length = humidor.Length,
                 MaterialOfManufacture = humidor.MaterialOfManufacture,
                 Capacity=humidor.Capacity,
-                
+                HumidorReviews = humidor.HumidorReviews,
+                UserName = userName
             };
         }
 
@@ -244,7 +247,34 @@ namespace CigarWorld.Services
             context.SaveChanges();
         }
 
+        public HumidorDetailsViewModel AddReview(HumidorDetailsViewModel targetHumidor, string UserName)
+        {
+            var entity = new HumidorReview()
+            {
+                HumidorId = targetHumidor.Id,
+                Review = targetHumidor.AddReviewToHumidor,
+                Commenter = UserName
+            };
 
-        
+            context.HumidorReviews.Add(entity);
+            context.SaveChanges();
+
+            targetHumidor.AddReviewToHumidor = String.Empty;
+
+            return targetHumidor;
+        }
+
+        public int DeleteReview(int reviewId)
+        {
+            var targetReview = context.HumidorReviews
+               .Where(x => x.Id == reviewId)
+               .FirstOrDefault();
+
+            var targetHumidorId = targetReview.HumidorId;
+
+            context.HumidorReviews.Remove(targetReview);
+            context.SaveChanges();
+            return (targetHumidorId);
+        }
     }
 }

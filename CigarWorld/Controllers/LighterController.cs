@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -66,18 +67,30 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Cigar", "Cigar");
         }
 
-
+        [HttpGet]
         public IActionResult Details(int Id)
         {
             try
             {
-                var model = lighterService.GetDetailsAsync(Id).Result;
+                var curUser = this.User.Identity.Name;
+
+                var model = lighterService.GetDetailsAsync(Id, curUser).Result;
                 return View(model);
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public IActionResult Details(LighterDetailsViewModel targetLighter)
+        {
+            var curUser = this.User.Identity.Name;
+
+            lighterService.AddReview(targetLighter, curUser);
+
+            return RedirectToAction("Details", "Lighter", new { id = targetLighter.Id });
         }
 
         public async Task<IActionResult> RemoveFromCollection(int lighterId)
@@ -121,6 +134,13 @@ namespace CigarWorld.Controllers
             lighterService.EditLighterInformation(targetAshtary);
 
             return RedirectToAction("Lighter", "Lighter");
+        }
+
+        public IActionResult DeleteComment(int ReviewId)
+        {
+            var targetLighterId = lighterService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "Lighter", new { id = targetLighterId });
         }
     }
 }
