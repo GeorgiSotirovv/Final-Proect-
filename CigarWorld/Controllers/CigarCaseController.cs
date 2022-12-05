@@ -101,9 +101,9 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int CPCId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            //await cigarCaseService.RemoveFromCollectionAsync(CPCId, userId);
+            await cigarCaseService.RemoveFromFavoritesAsync(CPCId, userId);
 
-            return RedirectToAction("Cigar", "Cigar");
+            return RedirectToAction("MyCollection", "MyProfile");
         }
 
         public async Task<IActionResult> RemoveFromDataBase(int cigarPocketCaseId)

@@ -95,6 +95,29 @@ namespace CigarWorld.Services
                 });
         }
 
+        public async Task RemoveFromFavoritesAsync(int humidorId, string userId)
+        {
+            var user = await context.Users
+              .Where(u => u.Id == userId)
+              .Include(u => u.UserHumidors)
+              .ThenInclude(um => um.Humidor)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user Id");
+            }
+
+            var ashtray = user.UserHumidors.FirstOrDefault(m => m.HumidorId == humidorId);
+
+            if (ashtray != null)
+            {
+                user.UserHumidors.Remove(ashtray);
+
+                await context.SaveChangesAsync();
+            }
+        }
+
         public async Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId, string userName)
         {
             var humidor = await context.Humidors
@@ -139,6 +162,7 @@ namespace CigarWorld.Services
             return user.UserHumidors
                 .Select(m => new MyFavoriteHomidorViewModel()
                 {
+                    Id = m.HumidorId,
                     Brand = m.Humidor.Brand,
                     Height = m.Humidor.Height,
                     Length = m.Humidor.Length,
@@ -276,5 +300,7 @@ namespace CigarWorld.Services
             context.SaveChanges();
             return (targetHumidorId);
         }
+
+       
     }
 }

@@ -75,6 +75,14 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Cigarillo", "Cigarillo");
         }
 
+        public async Task<IActionResult> RemoveFromCollection(int cigarilloId)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            await cigarilloService.RemoveFromFavoritesAsync(cigarilloId, userId);
+
+            return RedirectToAction("MyCollection", "MyProfile");
+        }
+
         [HttpGet]
         public IActionResult Details(int Id)
         {

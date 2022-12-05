@@ -119,6 +119,7 @@ namespace CigarWorld.Services
             return user.UserCigars
                 .Select(m => new MyFavoriteCigarViewModel()
                 {
+                    Id = m.CigarId,
                     Brand = m.Cigar.Brand,
                     ImageUrl = m.Cigar.ImageUrl,
                     Comment = m.Cigar.Comment,
@@ -130,6 +131,30 @@ namespace CigarWorld.Services
                     SmokingDuration = m.Cigar.SmokingDuration,
                 });
 
+        }
+
+        public async Task RemoveFromFavoritesAsync(int cigarId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserCigars)
+               .ThenInclude(um => um.Cigar)
+                .ThenInclude(m => m.StrengthType)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user Id");
+            }
+
+            var cigar = user.UserCigars.FirstOrDefault(m => m.CigarId == cigarId);
+
+            if (cigar != null)
+            {
+                user.UserCigars.Remove(cigar);
+
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId, string userName)
@@ -264,5 +289,7 @@ namespace CigarWorld.Services
             context.SaveChanges();
             return (targetCigarId);
         }
+
+       
     }
 }

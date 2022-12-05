@@ -108,12 +108,36 @@ namespace CigarWorld.Services
             return user.UserCigarillos
                 .Select(m => new MyFavoriteCigarilloViewModel()
                 {
+                    Id = m.CigarilloId,
                     Brand = m.Cigarillo.Brand,
                     ImageUrl = m.Cigarillo.ImageUrl,
                     Comment = m.Cigarillo.Comment,
                     CountryOfManufacturing = m.Cigarillo.CountryOfManufacturing,
                     FilterType = m.Cigarillo.FilterType.Name
                 });
+        }
+
+        public async Task RemoveFromFavoritesAsync(int cigarilloId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserCigarillos)
+               .ThenInclude(um => um.Cigarillo)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var cigarillo = user.UserCigarillos.FirstOrDefault(m => m.CigarilloId == cigarilloId);
+
+            if (cigarillo != null)
+            {
+                user.UserCigarillos.Remove(cigarillo);
+
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<CigarilloDetailsViewModel> GetDetailsAsync(int cigarilloId, string userName)

@@ -21,7 +21,7 @@ namespace CigarWorld.Contracts
 
         Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId, string curUser);
 
-        //Task RemoveFromFavoritesAsync(int cutterId, string userId);
+        Task RemoveFromFavoritesAsync(int cutterId, string userId);
 
         Task RemoveFromDatabaseAsync(int cutterId);
 

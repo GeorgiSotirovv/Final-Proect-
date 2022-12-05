@@ -102,6 +102,7 @@ namespace CigarWorld.Services
             return user.UserLighter
                 .Select(m => new MyFavoriteLighterViewModel()
                 {
+                    Id = m.LighterId,
                     Brand = m.Lighter.Brand,
                     ImageUrl = m.Lighter.ImageUrl,
                     Comment = m.Lighter.Comment,
@@ -142,7 +143,7 @@ namespace CigarWorld.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
             var lighter = user.UserLighter.FirstOrDefault(m => m.LighterId == lighterId);

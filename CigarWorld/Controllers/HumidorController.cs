@@ -96,17 +96,17 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int humidorId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            //await humidorsService.RemoveFromCollectionAsync(humidorId, userId);
+            await humidorsService.RemoveFromFavoritesAsync(humidorId, userId);
 
-            return RedirectToAction("Humidor", "Humidor");
+            return RedirectToAction("MyCollection", "MyProfile");
         }
-
         public async Task<IActionResult> RemoveFromDataBase(int humidorId)
         {
             await humidorsService.RemoveFromDatabaseAsync(humidorId);
 
             return RedirectToAction("Humidor", "Humidor");
         }
+
 
 
         [HttpGet]

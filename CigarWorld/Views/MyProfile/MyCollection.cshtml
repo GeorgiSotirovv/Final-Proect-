@@ -70,6 +70,10 @@
                 <p class="mb-0">Country of manufacturing: @CPC.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @CPC.Comment</p>
             </div>
+
+            <form class="input-group-sm" asp-controller="CigarCase" asp-action="RemoveFromCollection" asp-route-CPCId="@CPC.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+            </form>
         </div>
     }
 
@@ -85,7 +89,9 @@
                 <p class="mb-0">Country of manufacturing: @cigarillo.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @cigarillo.Comment</p>
             </div>
-
+             <form class="input-group-sm" asp-controller="Cigarillo" asp-action="RemoveFromCollection" asp-route-cigarilloId="@cigarillo.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+            </form>
         </div>
     }
      @foreach (var cutter in Model.FavoriteCutter)
@@ -100,7 +106,9 @@
                 <p class="mb-0">Country of manufacturing: @cutter.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @cutter.Comment</p>
             </div>
-
+             <form class="input-group-sm" asp-controller="Cutter" asp-action="RemoveFromCollection" asp-route-cutterId="@cutter.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+            </form>
         </div>
     }
     @foreach (var humidor in Model.FavoriteHumidor)
@@ -118,7 +126,9 @@
                 <p class="mb-0">Country of manufacturing: @humidor.CountryOfManufacturing</p>
                 <p class="mb-0">Material of manufacture: @humidor.MaterialOfManufacture</p>
             </div>
-
+             <form class="input-group-sm" asp-controller="Humidor" asp-action="RemoveFromCollection" asp-route-humidorId="@humidor.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+            </form>
         </div>
     }
 
@@ -133,7 +143,10 @@
                 <p class="mb-0">Country of manufacturing: @lighter.CountryOfManufacturing</p>
                 <p class="mb-0">Comment: @lighter.Comment</p>
             </div>
+             <form class="input-group-sm" asp-controller="Lighter" asp-action="RemoveFromCollection" asp-route-lighterId="@lighter.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+            </form>
         </div>
     }
-    </div>
+    
 </div>

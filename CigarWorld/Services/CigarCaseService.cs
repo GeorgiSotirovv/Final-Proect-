@@ -70,6 +70,30 @@ namespace CigarWorld.Services
             }
         }
 
+        public async Task RemoveFromFavoritesAsync(int CPCId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserCigarPocketCases)
+               .ThenInclude(um => um.CigarPocketCase)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user ID");
+            }
+
+            var CPC = user.UserCigarPocketCases.FirstOrDefault(m => m.CigarPocketCaseId == CPCId);
+
+            if (CPC != null)
+            {
+                user.UserCigarPocketCases.Remove(CPC);
+
+                await context.SaveChangesAsync();
+            }
+        }
+
+
         public async Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase()
         {
             var entities = await context.CigarPocketCases
@@ -131,6 +155,7 @@ namespace CigarWorld.Services
             return user.UserCigarPocketCases
                 .Select(m => new MyFavoriteCigarPocketCaseViewModel()
                 {
+                    Id = m.CigarPocketCaseId,
                     Brand = m.CigarPocketCase.Brand,
                     ImageUrl = m.CigarPocketCase.ImageUrl,
                     Comment = m.CigarPocketCase.Comment,
@@ -260,5 +285,7 @@ namespace CigarWorld.Services
             context.SaveChanges();
             return (targetCPCId);
         }
+
+        
     }
 }

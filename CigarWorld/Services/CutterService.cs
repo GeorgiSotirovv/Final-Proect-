@@ -112,12 +112,37 @@ namespace CigarWorld.Services
             return user.UserCutters
                 .Select(m => new MyFavoriteCutterViewModel()
                 {
+                    Id = m.CutterId,
                     Brand = m.Cutter.Brand,
                     ImageUrl = m.Cutter.ImageUrl,
                     Comment = m.Cutter.Comment,
                     CountryOfManufacturing = m.Cutter.CountryOfManufacturing,
                     Type = m.Cutter.CutterType.Name
                 });
+        }
+
+        public async Task RemoveFromFavoritesAsync(int cutterId, string userId)
+        {
+            var user = await context.Users
+               .Where(u => u.Id == userId)
+               .Include(u => u.UserCutters)
+               .ThenInclude(um => um.Cutter)
+                .ThenInclude(m => m.CutterType)
+               .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                throw new ArgumentException("Invalid user Id");
+            }
+
+            var ashtray = user.UserCutters.FirstOrDefault(m => m.CutterId == cutterId);
+
+            if (ashtray != null)
+            {
+                user.UserCutters.Remove(ashtray);
+
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId, string curUser)
@@ -241,5 +266,7 @@ namespace CigarWorld.Services
 
             return (targetCutterId);
         }
+
+        
     }
 }

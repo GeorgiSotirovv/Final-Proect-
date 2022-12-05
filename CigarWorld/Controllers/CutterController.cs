@@ -8,8 +8,6 @@ using System.Security.Claims;
 namespace CigarWorld.Controllers
 {
 
-    //I had a problem with commtis and with this change I commit in order to save my progres :)
-
     public class CutterController : Controller
     {
         private readonly ICutterService cutterService;
@@ -101,12 +99,19 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Details", "Cutter", new { id = targetCutter.Id });
         }
 
-
         public async Task<IActionResult> RemoveFromDataBase(int cutterId)
         {
             await cutterService.RemoveFromDatabaseAsync(cutterId);
 
             return RedirectToAction("Cutter", "Cutter");
+        }
+
+        public async Task<IActionResult> RemoveFromCollection(int cutterId)
+        {
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            await cutterService.RemoveFromFavoritesAsync(cutterId, userId);
+
+            return RedirectToAction("MyCollection", "MyProfile");
         }
 
         [HttpGet]

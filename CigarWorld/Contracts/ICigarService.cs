@@ -21,7 +21,7 @@ namespace CigarWorld.Contracts
 
         Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId, string userName);
 
-        //Task RemoveFromFavoritesAsync(int cigarId, string userId);
+        Task RemoveFromFavoritesAsync(int cigarId, string userId);
 
         Task RemoveFromDatabaseAsync(int cigarId);
 
