@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CigarWorld.Data.Migrations
+namespace CigarWorld.Migrations
 {
-    public partial class AddDatabase : Migration
+    public partial class InitMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -287,6 +287,27 @@ namespace CigarWorld.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CigarPocketCaseReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CigarPocketCaseId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CigarPocketCaseReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CigarPocketCaseReviews_CigarPocketCases_CigarPocketCaseId",
+                        column: x => x.CigarPocketCaseId,
+                        principalTable: "CigarPocketCases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserCigarPocketCase",
                 columns: table => new
                 {
@@ -358,6 +379,27 @@ namespace CigarWorld.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HumidorReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HumidorId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HumidorReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HumidorReviews_Humidors_HumidorId",
+                        column: x => x.HumidorId,
+                        principalTable: "Humidors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserHumidor",
                 columns: table => new
                 {
@@ -378,6 +420,27 @@ namespace CigarWorld.Data.Migrations
                         name: "FK_UserHumidor_Humidors_HumidorId",
                         column: x => x.HumidorId,
                         principalTable: "Humidors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LighterReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LighterId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LighterReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LighterReviews_Lighters_LighterId",
+                        column: x => x.LighterId,
+                        principalTable: "Lighters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -435,6 +498,27 @@ namespace CigarWorld.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AshtrayReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AshtrayId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AshtrayReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AshtrayReviews_Ashtrays_AshtrayId",
+                        column: x => x.AshtrayId,
+                        principalTable: "Ashtrays",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserAshtray",
                 columns: table => new
                 {
@@ -455,6 +539,27 @@ namespace CigarWorld.Data.Migrations
                         name: "FK_UserAshtray_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CutterReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CutterId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CutterReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CutterReviews_Cutters_CutterId",
+                        column: x => x.CutterId,
+                        principalTable: "Cutters",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -485,6 +590,27 @@ namespace CigarWorld.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CigarilloReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CigarilloId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CigarilloReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CigarilloReviews_Cigarillo_CigarilloId",
+                        column: x => x.CigarilloId,
+                        principalTable: "Cigarillo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserCigarillo",
                 columns: table => new
                 {
@@ -505,6 +631,27 @@ namespace CigarWorld.Data.Migrations
                         name: "FK_UserCigarillo_Cigarillo_CigarilloId",
                         column: x => x.CigarilloId,
                         principalTable: "Cigarillo",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CigarReviews",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Review = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CigarId = table.Column<int>(type: "int", nullable: false),
+                    Commenter = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CigarReviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CigarReviews_Cigars_CigarId",
+                        column: x => x.CigarId,
+                        principalTable: "Cigars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -548,8 +695,8 @@ namespace CigarWorld.Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Introduction", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 0, "a01deb7f-597e-47ce-8632-66d75682aab3", "admin@mail.com", false, "I am Admin", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEIMqc+z5TtLZJdx9JHGBShq2UbUAvdA3GS09XdztRV3Ke1550h7ppoQuYyGS//kw+g==", null, false, "Empty", "46a0eade-b7d4-4cb9-b56a-037784ccb619", false, "Admin" },
-                    { "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e", 0, "7cd3d225-6a6b-44dd-ae74-8de2e802dc42", "guest@mail.com", false, "I am guest", false, null, "GUEST@MAIL.COM", "GUEST", "AQAAAAEAACcQAAAAEBYaiuRSNrbvPpm7CH4Ogh5s2e4t1Xhma76xfZPyrxAqS7vgNMUAsdHi81F8vkWTXw==", null, false, "Empty", "f06f0a68-e886-44bd-aa8c-42a770110bff", false, "Guest" }
+                    { "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 0, "c3bc24ee-2b67-4c8b-982e-1582c554977c", "admin@mail.com", false, "I am Admin", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEGIkNbFALADIroXTf/avVJrwSu6Z0SkacKu6fGOpMmKkl6qARwjt2pXQe27WQ25bYw==", null, false, "Empty", "62208ba3-932a-4e0c-a481-1059487b8338", false, "Admin" },
+                    { "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e", 0, "91cedbee-e459-477c-a72f-97b19b3e6774", "guest@mail.com", false, "I am guest", false, null, "GUEST@MAIL.COM", "GUEST", "AQAAAAEAACcQAAAAEKbTYT9ZkNnUgUCBdW0YMFHuUH75eSSQwUq5BWSycFHpW3Vxc7GBWbg+P5hvFSKvIw==", null, false, "Empty", "a6e39e14-d998-46bb-8dcb-ae3c3310c3a8", false, "Guest" }
                 });
 
             migrationBuilder.InsertData(
@@ -605,6 +752,11 @@ namespace CigarWorld.Data.Migrations
                 values: new object[] { 1, 1, "Lubinski", "Really nice and colorful ashtray.", "China", "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg" });
 
             migrationBuilder.InsertData(
+                table: "CigarPocketCaseReviews",
+                columns: new[] { "Id", "CigarPocketCaseId", "Commenter", "Review" },
+                values: new object[] { 1, 1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", " The Crafting is very good." });
+
+            migrationBuilder.InsertData(
                 table: "Cigarillo",
                 columns: new[] { "Id", "Brand", "Comment", "CountryOfManufacturing", "FiterId", "ImageUrl" },
                 values: new object[] { 1, "Clubmaster", "This Cigarillos have a very nice taste and nice flavor.", "Germany", 1, "https://i.colnect.net/f/4259/015/Clubmaster-Mini.jpg" });
@@ -618,6 +770,41 @@ namespace CigarWorld.Data.Migrations
                 table: "Cutters",
                 columns: new[] { "Id", "Brand", "Comment", "CountryOfManufacturing", "ImageUrl", "TypeId" },
                 values: new object[] { 1, "Cohiba", "Really nice and sharp cutter.", "Chuba", "https://mikescigars.com/media/catalog/product/cache/0fe343e181b5504db207ac8c729e73b7/h/t/Cohiba-Cutter-each.jpg", 1 });
+
+            migrationBuilder.InsertData(
+                table: "HumidorReviews",
+                columns: new[] { "Id", "Commenter", "HumidorId", "Review" },
+                values: new object[] { 1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 1, "Very solid humidor with good crafting." });
+
+            migrationBuilder.InsertData(
+                table: "LighterReviews",
+                columns: new[] { "Id", "Commenter", "LighterId", "Review" },
+                values: new object[] { 1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 1, "This lighter is different from the rest because the flame is more stronger than the ordinary lighter" });
+
+            migrationBuilder.InsertData(
+                table: "AshtrayReviews",
+                columns: new[] { "Id", "AshtrayId", "Commenter", "Review" },
+                values: new object[] { 1, 1, "Admin", "Very nice and colorfull ashtray." });
+
+            migrationBuilder.InsertData(
+                table: "CigarReviews",
+                columns: new[] { "Id", "CigarId", "Commenter", "Review" },
+                values: new object[] { 1, 1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", "This cigar is perfect for evenings." });
+
+            migrationBuilder.InsertData(
+                table: "CigarilloReviews",
+                columns: new[] { "Id", "CigarilloId", "Commenter", "Review" },
+                values: new object[] { 1, 1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", "This Cigarillos are very good." });
+
+            migrationBuilder.InsertData(
+                table: "CutterReviews",
+                columns: new[] { "Id", "Commenter", "CutterId", "Review" },
+                values: new object[] { 1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138", 1, "This is very nice and sharp cutter." });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AshtrayReviews_AshtrayId",
+                table: "AshtrayReviews",
+                column: "AshtrayId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ashtrays_AshtrayId",
@@ -669,14 +856,44 @@ namespace CigarWorld.Data.Migrations
                 column: "FiterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CigarilloReviews_CigarilloId",
+                table: "CigarilloReviews",
+                column: "CigarilloId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CigarPocketCaseReviews_CigarPocketCaseId",
+                table: "CigarPocketCaseReviews",
+                column: "CigarPocketCaseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CigarReviews_CigarId",
+                table: "CigarReviews",
+                column: "CigarId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cigars_StrengthId",
                 table: "Cigars",
                 column: "StrengthId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CutterReviews_CutterId",
+                table: "CutterReviews",
+                column: "CutterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cutters_TypeId",
                 table: "Cutters",
                 column: "TypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HumidorReviews_HumidorId",
+                table: "HumidorReviews",
+                column: "HumidorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LighterReviews_LighterId",
+                table: "LighterReviews",
+                column: "LighterId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserAshtray_ApplicationUserId",
@@ -752,6 +969,9 @@ namespace CigarWorld.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AshtrayReviews");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -765,6 +985,24 @@ namespace CigarWorld.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CigarilloReviews");
+
+            migrationBuilder.DropTable(
+                name: "CigarPocketCaseReviews");
+
+            migrationBuilder.DropTable(
+                name: "CigarReviews");
+
+            migrationBuilder.DropTable(
+                name: "CutterReviews");
+
+            migrationBuilder.DropTable(
+                name: "HumidorReviews");
+
+            migrationBuilder.DropTable(
+                name: "LighterReviews");
 
             migrationBuilder.DropTable(
                 name: "UserAshtray");

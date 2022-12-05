@@ -26,38 +26,38 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddAshtray()
-        {
-            var model = new AddAshtrayViewModel()
-            {
-                AshtrayTypes = await ashtrayService.GetTypesAsync()
-            };
+        //[HttpGet]
+        //public async Task<IActionResult> AddAshtray()
+        //{
+        //    var model = new AddAshtrayViewModel()
+        //    {
+        //        AshtrayTypes = await ashtrayService.GetTypesAsync()
+        //    };
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
 
-            try
-            {
-                await ashtrayService.AddAshtraysAsync(model);
+        //    try
+        //    {
+        //        await ashtrayService.AddAshtraysAsync(model);
 
-                return RedirectToAction("Cigar", "Cigar");
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Something went wrong");
+        //        return RedirectToAction("Ashtray", "Ashtray");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        ModelState.AddModelError("", "Something went wrong");
 
-                return View(model);
-            }
-        }
+        //        return View(model);
+        //    }
+        //}
 
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
@@ -73,7 +73,7 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
-            return RedirectToAction("Cigar", "Cigar");
+            return RedirectToAction("Ashtray", "Ashtray");
         }
 
         [HttpGet]

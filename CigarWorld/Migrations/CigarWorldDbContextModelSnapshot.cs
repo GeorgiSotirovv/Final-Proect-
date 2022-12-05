@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CigarWorld.Data.Migrations
+namespace CigarWorld.Migrations
 {
     [DbContext(typeof(CigarWorldDbContext))]
     partial class CigarWorldDbContextModelSnapshot : ModelSnapshot
@@ -99,17 +99,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "afc9df9b-a1b9-41ef-98de-166b820382a8",
+                            ConcurrencyStamp = "c3bc24ee-2b67-4c8b-982e-1582c554977c",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@MAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMAPz0BH16/zNVA8RIXY20A6e1PO79HgbrgauA9B2bG/3OmdF1RGL0gtN3+CwZY7Qg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGIkNbFALADIroXTf/avVJrwSu6Z0SkacKu6fGOpMmKkl6qARwjt2pXQe27WQ25bYw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "02aca9b9-273d-4c68-9882-f726a4d16e5e",
+                            SecurityStamp = "62208ba3-932a-4e0c-a481-1059487b8338",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -117,17 +117,17 @@ namespace CigarWorld.Data.Migrations
                         {
                             Id = "ac1f591e-d6b3-f4ef-bc1f-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5635a572-5b45-4eb4-bebb-2d476f1f06f6",
+                            ConcurrencyStamp = "91cedbee-e459-477c-a72f-97b19b3e6774",
                             Email = "guest@mail.com",
                             EmailConfirmed = false,
                             Introduction = "I am guest",
                             LockoutEnabled = false,
                             NormalizedEmail = "GUEST@MAIL.COM",
                             NormalizedUserName = "GUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBWtQLuHLdsvOVEO8cqIS3UxMn0Bpo2bRrAUJzLpS2sCz8VU0fa/yIHq2YhAVkpnmw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKbTYT9ZkNnUgUCBdW0YMFHuUH75eSSQwUq5BWSycFHpW3Vxc7GBWbg+P5hvFSKvIw==",
                             PhoneNumberConfirmed = false,
                             ProfilePictureUrl = "Empty",
-                            SecurityStamp = "c9fb9464-57d4-4a9a-9b4c-2cd3d3234e8e",
+                            SecurityStamp = "a6e39e14-d998-46bb-8dcb-ae3c3310c3a8",
                             TwoFactorEnabled = false,
                             UserName = "Guest"
                         });

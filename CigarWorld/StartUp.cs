@@ -2,6 +2,7 @@ using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -24,6 +25,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireDigit = false;
 
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CigarWorldDbContext>();
 
 
@@ -31,6 +33,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
+    options.LoginPath = "/User/Logout";
 });
 
 builder.Services.AddControllersWithViews();
@@ -43,6 +46,14 @@ builder.Services.AddScoped<ILighterService, LighterService>();
 builder.Services.AddScoped<IHumidorsService, HumidorService>();
 builder.Services.AddScoped<ICigarCaseService, CigarCaseService>();
 builder.Services.AddScoped<IMyProfileService, MyProfileService>();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("MyPolicy", policy =>
+    {
+        policy.RequireRole("Admin");
+    });
+});
 
 
 var app = builder.Build();
@@ -67,9 +78,22 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
+
 app.MapRazorPages();
 
 app.Run();
