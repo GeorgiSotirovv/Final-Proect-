@@ -47,11 +47,15 @@
             </div>
 
 
-            <a class="fs-6 btn btn-success mb-3 p-2" href="/Ashtray/Edit?id=@ashtray.Id" aria-required="true">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="fs-6 btn btn-success mb-3 p-2" href="/Admin/Ashtray/Edit?id=@ashtray.Id" aria-required="true">Edit</a>
+            
 
-            <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromDataBase" asp-route-AshtrayId="@ashtray.Id">
+            <form class="input-group-sm" asp-area="Admin" asp-controller="Ashtray" asp-action="RemoveFromDataBase" asp-route-AshtrayId="@ashtray.Id">
                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
             </form>
+            }
 
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />

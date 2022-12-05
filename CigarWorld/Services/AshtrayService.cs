@@ -24,6 +24,7 @@ namespace CigarWorld.Services
 
         public async Task AddAshtraysAsync(AddAshtrayViewModel model)
         {
+            //Areas.Admin.Models.Add.
 
             var entity = new Ashtray()
             {

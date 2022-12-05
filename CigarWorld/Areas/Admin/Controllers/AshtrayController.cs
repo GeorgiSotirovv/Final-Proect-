@@ -1,11 +1,14 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Area("Admin")]
     public class AshtrayController : AdminController
     {
         private readonly IAshtrayService ashtrayService;
@@ -27,6 +30,7 @@ namespace CigarWorld.Areas.Admin.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
         {
@@ -39,7 +43,7 @@ namespace CigarWorld.Areas.Admin.Controllers
             {
                 await ashtrayService.AddAshtraysAsync(model);
 
-                return RedirectToAction("Ashtray", "Ashtray");
+                return RedirectToAction("Ashtray", "Ashtray", new {area = ""});
             }
             catch (Exception)
             {
@@ -49,9 +53,46 @@ namespace CigarWorld.Areas.Admin.Controllers
             }
         }
 
-        public IActionResult Index() 
-        { 
-            return View();
+
+        public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
+        {
+            await ashtrayService.RemoveFromDatabaseAsync(ashtrayId);
+
+            TempData[GlobalDeleteMessage] = "You Delited Ashtray Successfully!";
+
+            return RedirectToAction("Ashtray", "Ashtray", new { area = "" });
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var targetAshtary = await ashtrayService.GetInformationForAshtray(Id);
+
+
+
+            var model = new EditAshtrayViewModel()
+            {
+                Id = Id,
+                Brand = targetAshtary.Brand,
+                Comment = targetAshtary.Comment,
+                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
+                AshtrayTypes = targetAshtary.AshtrayTypes,
+                ImageUrl = targetAshtary.ImageUrl,
+                TypeId = targetAshtary.TypeId
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        //[Route("Admin/[Controller]/[Action]/{id}")]
+        public IActionResult Edit(int Id, EditAshtrayViewModel targetAshtary)
+        {
+            ashtrayService.EditAshtaryInformation(targetAshtary);
+
+            return RedirectToAction("Ashtray", "Ashtray", new { area = "" });
         }
     }
-}
+}                            

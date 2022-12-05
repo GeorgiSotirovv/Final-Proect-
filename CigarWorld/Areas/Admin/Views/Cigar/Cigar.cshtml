@@ -28,6 +28,10 @@
         </div>
     }
 
+    <form class="input-group-sm" asp-controller="Cigar" asp-action="AddCigar">
+        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Cigar" asp-action="AddCigar">Add Cigar</a>
+    </form>
+
     @foreach (var cigar in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
@@ -45,7 +49,10 @@
 
             <a class="fs-6 btn btn-success mb-3 p-2" href="/Cigar/Edit?id=@cigar.Id" aria-required="true">Edit</a>
 
-            
+            <form class="input-group-sm" asp-controller="Cigar" asp-action="RemoveFromDataBase" asp-route-CigarId="@cigar.Id">
+                <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+            </form>
+
             <form class="input-group-sm" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
