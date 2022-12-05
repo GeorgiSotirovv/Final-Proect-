@@ -1,9 +1,11 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Models.AddModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CigarWorld.Areas.Administration.Controllers
+namespace CigarWorld.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AshtrayController : AdminController
     {
         private readonly IAshtrayService ashtrayService;

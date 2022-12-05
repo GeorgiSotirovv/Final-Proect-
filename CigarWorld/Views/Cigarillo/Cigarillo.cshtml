@@ -8,23 +8,35 @@
 <hr />
 
 <div class="text-center row">
+    @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteMessage]
+        </div>
+    }
 
     <form class="input-group-sm" asp-controller="Cigarillo" asp-action="AddCigarillo">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Cigarillo" asp-action="AddCigarillo">Add AddCigarillo</a>
+        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Cigarillo" asp-action="AddCigarillo">Add AddCigarillo</a>
     </form>
 
     @foreach (var cigarillo in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <a href = "/Cigarillo/Details?id=@cigarillo.Id">
+            <a href="/Cigarillo/Details?id=@cigarillo.Id">
                 <img class="card-img-top" style="width: 18rem;"
-                src="@cigarillo.ImageUrl" alt="Cigarillo Image">
-             </a>
+                 src="@cigarillo.ImageUrl" alt="Cigarillo Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigarillo.Brand</h5>
 
-                <p class="mb-0">Type: @cigarillo.Filter</p> 
+                <p class="mb-0">Type: @cigarillo.Filter</p>
             </div>
 
             <a class="fs-6 btn btn-success mb-3 p-2" href="/Cigarillo/Edit?id=@cigarillo.Id" aria-required="true">Edit</a>

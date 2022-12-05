@@ -5,6 +5,7 @@ using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Controllers
 {
@@ -48,6 +49,8 @@ namespace CigarWorld.Controllers
             try
             {
                 await ashtrayService.AddAshtraysAsync(model);
+
+                TempData[GlobalAddMessage] = "You added Ashtray Successfully!";
 
                 return RedirectToAction("Ashtray", "Ashtray");
             }
@@ -114,6 +117,8 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
         {
             await ashtrayService.RemoveFromDatabaseAsync(ashtrayId);
+
+            TempData[GlobalDeleteMessage] = "You Delited Ashtray Successfully!";
 
             return RedirectToAction("Ashtray", "Ashtray");
         }

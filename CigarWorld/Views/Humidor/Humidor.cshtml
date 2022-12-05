@@ -8,18 +8,30 @@
 <hr />
 
 <div class="text-center row">
+    @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteMessage]
+        </div>
+    }
 
     <form class="input-group-sm" asp-controller="Humidor" asp-action="AddHumidor">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
+        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
     </form>
 
     @foreach (var humidor in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <a href = "/Humidor/Details?id=@humidor.Id">
+            <a href="/Humidor/Details?id=@humidor.Id">
                 <img class="card-img-top" style="width: 18rem;"
-                src="@humidor.ImageUrl" alt="Humidors Image">
-             </a>
+                 src="@humidor.ImageUrl" alt="Humidors Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@humidor.Brand</h5>
@@ -35,7 +47,7 @@
             <form class="input-group-sm" asp-controller="Humidor" asp-action="AddFavoriteHumidor" asp-route-humidorId="@humidor.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
-            
+
         </div>
     }
 </div>

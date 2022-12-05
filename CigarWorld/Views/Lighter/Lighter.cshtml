@@ -8,25 +8,36 @@
 <hr />
 
 <div class="text-center row">
-
+    @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteMessage]
+        </div>
+    }
     <form class="input-group-sm" asp-controller="Lighter" asp-action="AddLighter">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Lighter" asp-action="AddLighter">Add Lighter</a>
+        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Lighter" asp-action="AddLighter">Add Lighter</a>
     </form>
 
     @foreach (var lighter in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <a href = "/Lighter/Details?id=@lighter.Id">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@lighter.ImageUrl" alt="Lighters Image">
-             </a>
+            <a href="/Lighter/Details?id=@lighter.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@lighter.ImageUrl" alt="Lighters Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@lighter.Brand</h5>
 
             </div>
 
-             <a class="fs-6 btn btn-success mb-3 p-2" href="/Lighter/Edit?id=@lighter.Id" aria-required="true">Edit</a>
+            <a class="fs-6 btn btn-success mb-3 p-2" href="/Lighter/Edit?id=@lighter.Id" aria-required="true">Edit</a>
 
             <form class="input-group-sm" asp-controller="Lighter" asp-action="RemoveFromDataBase" asp-route-lighterId="@lighter.Id">
                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
@@ -35,7 +46,7 @@
             <form class="input-group-sm" asp-controller="Lighter" asp-action="AddFavoriteLighter" asp-route-lighterId="@lighter.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
-            
+
         </div>
     }
 </div>

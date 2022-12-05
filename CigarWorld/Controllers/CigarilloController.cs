@@ -4,6 +4,7 @@ using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Controllers
 {
@@ -49,6 +50,8 @@ namespace CigarWorld.Controllers
             {
                 await cigarilloService.AddCigarilloAsync(model);
 
+                TempData[GlobalAddMessage] = "You added Cigarillo Successfully!";
+
                 return RedirectToAction(nameof(Cigarillo));
             }
             catch (Exception)
@@ -78,7 +81,9 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int cigarilloId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
             await cigarilloService.RemoveFromFavoritesAsync(cigarilloId, userId);
+
 
             return RedirectToAction("MyCollection", "MyProfile");
         }
@@ -112,6 +117,8 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromDataBase(int cigarilloId)
         {
             await cigarilloService.RemoveFromDatabaseAsync(cigarilloId);
+
+            TempData[GlobalDeleteMessage] = "You Delited Cigarillo Successfully!";
 
             return RedirectToAction("Cigarillo", "Cigarillo");
         }

@@ -9,36 +9,48 @@
 
 
 <div class="text-center row">
+    @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteMessage]
+        </div>
+    }
 
     <form class="input-group-sm">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Ashtray" asp-action="AddAshtray">Add Ashtray</a>
+        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Ashtray" asp-action="AddAshtray">Add Ashtray</a>
     </form>
 
     @foreach (var ashtray in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <a href = "/Ashtray/Details?id=@ashtray.Id">
-                <img class="card-img-top" style="width: 18rem;" 
-                src="@ashtray.ImageUrl" alt="Ashtray Image">
+            <a href="/Ashtray/Details?id=@ashtray.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@ashtray.ImageUrl" alt="Ashtray Image">
             </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@ashtray.Brand</h5>
 
-                    <p class="mb-0">Type: @ashtray.Type</p>                
+                <p class="mb-0">Type: @ashtray.Type</p>
             </div>
 
-            
+
             <a class="fs-6 btn btn-success mb-3 p-2" href="/Ashtray/Edit?id=@ashtray.Id" aria-required="true">Edit</a>
 
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromDataBase" asp-route-AshtrayId="@ashtray.Id">
-                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
+                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
             </form>
 
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
-            
+
         </div>
     }
 </div>
