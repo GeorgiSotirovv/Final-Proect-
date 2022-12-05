@@ -64,10 +64,8 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
-
             try
             {
-                
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 await ashtrayService.AddAshtrayToFavoritesAsync(ashtrayId, userId);
             }
@@ -75,6 +73,8 @@ namespace CigarWorld.Controllers
             {
                 throw;
             }
+
+            TempData[GlobalAddToFavoritesMessage] = "You added Ashtray to your collection successfully!";
 
             return RedirectToAction("Ashtray", "Ashtray");
         }
@@ -110,6 +110,8 @@ namespace CigarWorld.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await ashtrayService.RemoveFromFavoritesAsync(ashtrayId, userId);
+
+            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Ashtray from your collection successfully!";
 
             return RedirectToAction("MyCollection", "MyProfile");
         }

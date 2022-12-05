@@ -9,7 +9,12 @@
 
 
 <div class="text-center row">
-
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
+    }
     @foreach (var ashtray in Model.FavoriteAshtray)
     {
          <div class="card col-4" style="width: 20rem; ">

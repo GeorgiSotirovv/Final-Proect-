@@ -21,6 +21,12 @@
             @TempData[WebConstants.GlobalDeleteMessage]
         </div>
     }
+    @if (TempData.ContainsKey(WebConstants.GlobalAddToFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddToFavoritesMessage]
+        </div>
+    }
 
     <form class="input-group-sm">
         <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Ashtray" asp-action="AddAshtray">Add Ashtray</a>

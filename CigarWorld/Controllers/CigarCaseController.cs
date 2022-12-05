@@ -59,7 +59,6 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> AddFavoriteCigarPocketCase(int cigarPocketCaseId)
         {
-
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -70,7 +69,9 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
-            return RedirectToAction("CigarCase", "CigarCase");
+            TempData[GlobalAddToFavoritesMessage] = "You added Cigar Pocket Case to your collection successfully!";
+
+            return RedirectToAction("CigarPocketCase", "CigarCase");
         }
 
         [HttpGet]
@@ -105,6 +106,8 @@ namespace CigarWorld.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await cigarCaseService.RemoveFromFavoritesAsync(CPCId, userId);
+
+            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cigar Pocket Case from your collection successfully!";
 
             return RedirectToAction("MyCollection", "MyProfile");
         }

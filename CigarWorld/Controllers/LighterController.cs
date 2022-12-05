@@ -67,7 +67,9 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
-            return RedirectToAction("Cigar", "Cigar");
+            TempData[GlobalAddToFavoritesMessage] = "You added Lighter to your collection successfully!";
+
+            return RedirectToAction("Lighter", "Lighter");
         }
 
         [HttpGet]
@@ -100,6 +102,8 @@ namespace CigarWorld.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await lighterService.RemoveFromFavoritesAsync(lighterId, userId);
+
+            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Lighter from your collection successfully!";
 
             return RedirectToAction("MyCollection", "MyProfile");
         }

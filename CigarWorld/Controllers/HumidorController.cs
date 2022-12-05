@@ -67,6 +67,8 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
+            TempData[GlobalAddToFavoritesMessage] = "You added Humidor to your collection successfully!";
+
             return RedirectToAction("Humidor", "Humidor");
         }
 
@@ -100,6 +102,8 @@ namespace CigarWorld.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await humidorsService.RemoveFromFavoritesAsync(humidorId, userId);
+
+            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Humidor from your collection successfully!";
 
             return RedirectToAction("MyCollection", "MyProfile");
         }

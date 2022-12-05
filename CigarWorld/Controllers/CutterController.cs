@@ -73,6 +73,8 @@ namespace CigarWorld.Controllers
                 throw;
             }
 
+            TempData[GlobalAddToFavoritesMessage] = "You added Cutter to your collection successfully!";
+
             return RedirectToAction("Cigar", "Cigar");
         }
 
@@ -115,6 +117,8 @@ namespace CigarWorld.Controllers
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             await cutterService.RemoveFromFavoritesAsync(cutterId, userId);
+
+            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cutter from your collection successfully!";
 
             return RedirectToAction("MyCollection", "MyProfile");
         }
