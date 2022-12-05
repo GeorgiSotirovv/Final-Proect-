@@ -21,11 +21,12 @@
             @TempData[WebConstants.GlobalDeleteMessage]
         </div>
     }
-    @if (TempData.ContainsKey(WebConstants.GlobalAddToFavoritesMessage))
+
+    @if (User.IsInRole("Admin"))
     {
-        <div class="alert alert-success" role="alert">
-            @TempData[WebConstants.GlobalAddToFavoritesMessage]
-        </div>
+        <form class="input-group-sm" asp-area="Admin" asp-controller="Cigar" asp-action="AddCigar">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Cigar" asp-action="AddCigar">Add Cigar</a>
+        </form>
     }
 
     @foreach (var cigar in Model)
@@ -43,11 +44,17 @@
 
             </div>
 
-            <a class="fs-6 btn btn-success mb-3 p-2" href="/Cigar/Edit?id=@cigar.Id" aria-required="true">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="fs-6 btn btn-success mb-3 p-2" href="/Admin/Cigar/Edit?id=@cigar.Id" aria-required="true">Edit</a>
 
-            
-            <form class="input-group-sm" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">
-                <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+                <form class="input-group-sm" asp-area="Admin" asp-controller="Cigar" asp-action="RemoveFromDataBase" asp-route-CigarId="@cigar.Id">
+                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
+            }
+
+            <form class="input-group-sm" asp-area="Admin" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">
+                    <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
 
         </div>

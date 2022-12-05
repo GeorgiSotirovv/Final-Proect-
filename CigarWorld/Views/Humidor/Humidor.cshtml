@@ -27,9 +27,13 @@
         </div>
     }
 
-    <form class="input-group-sm" asp-controller="Humidor" asp-action="AddHumidor">
-        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
-    </form>
+    @if (User.IsInRole("Admin"))
+    {
+        <form class="input-group-sm" asp-area="Admin" asp-controller="Humidor" asp-action="AddHumidor">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
+        </form>
+    }
+
 
     @foreach (var humidor in Model)
     {
@@ -44,11 +48,14 @@
 
             </div>
 
-            <a class="fs-6 btn btn-success mb-3 p-2" href="/Humidor/Edit?id=@humidor.Id" aria-required="true">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="fs-6 btn btn-success mb-3 p-2" href="/Admin/Humidor/Edit?id=@humidor.Id" aria-required="true">Edit</a>
 
-            <form class="input-group-sm" asp-controller="Humidor" asp-action="RemoveFromDataBase" asp-route-humidorId="@humidor.Id">
-                <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
-            </form>
+                <form class="input-group-sm" asp-area="Admin" asp-controller="Humidor" asp-action="RemoveFromDataBase" asp-route-humidorId="@humidor.Id">
+                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
+            }
 
             <form class="input-group-sm" asp-controller="Humidor" asp-action="AddFavoriteHumidor" asp-route-humidorId="@humidor.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />

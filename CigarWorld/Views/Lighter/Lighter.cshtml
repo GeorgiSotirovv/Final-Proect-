@@ -27,9 +27,13 @@
         </div>
     }
 
-    <form class="input-group-sm" asp-controller="Lighter" asp-action="AddLighter">
-        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Lighter" asp-action="AddLighter">Add Lighter</a>
-    </form>
+    @if (User.IsInRole("Admin"))
+    {
+        <form class="input-group-sm" asp-area="Admin" asp-controller="Lighter" asp-action="AddLighter">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Lighter" asp-action="AddLighter">Add Lighter</a>
+        </form>
+    }
+
 
     @foreach (var lighter in Model)
     {
@@ -44,12 +48,14 @@
 
             </div>
 
-            <a class="fs-6 btn btn-success mb-3 p-2" href="/Lighter/Edit?id=@lighter.Id" aria-required="true">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="fs-6 btn btn-success mb-3 p-2" href="/Admin/Lighter/Edit?id=@lighter.Id" aria-required="true">Edit</a>
 
-            <form class="input-group-sm" asp-controller="Lighter" asp-action="RemoveFromDataBase" asp-route-lighterId="@lighter.Id">
-                <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
-            </form>
-
+                <form class="input-group-sm" asp-area="Admin" asp-controller="Lighter" asp-action="RemoveFromDataBase" asp-route-lighterId="@lighter.Id">
+                    <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove" />
+                </form>
+            }
             <form class="input-group-sm" asp-controller="Lighter" asp-action="AddFavoriteLighter" asp-route-lighterId="@lighter.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>

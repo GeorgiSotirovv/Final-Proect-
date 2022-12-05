@@ -27,9 +27,12 @@
         </div>
     }
 
-    <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddCigarPocketCase">
-        <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="CigarCase" asp-action="AddCigarPocketCase">Add Cigar Pocket Case</a>
-    </form>
+    @if (User.IsInRole("Admin"))
+    {
+        <form class="input-group-sm" asp-area="Admin" asp-controller="CigarCase" asp-action="AddCigarPocketCase">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="CigarCase" asp-action="AddCigarPocketCase">Add Cigar Pocket Case</a>
+        </form>
+    }
 
     @foreach (var CPC in Model)
     {
@@ -44,12 +47,14 @@
 
             </div>
 
-            <a class="fs-6 btn btn-success mb-3 p-2" href="/CigarCase/Edit?id=@CPC.Id" aria-required="true">Edit</a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="fs-6 btn btn-success mb-3 p-2" href="/Admin/CigarCase/Edit?id=@CPC.Id" aria-required="true">Edit</a>
 
-            <form class="input-group-sm" asp-controller="CigarCase" asp-action="RemoveFromDataBase" asp-route-CigarPocketCaseId="@CPC.Id">
-                <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
+                <form class="input-group-sm" asp-area="Admin" asp-controller="CigarCase" asp-action="RemoveFromDataBase" asp-route-CigarPocketCaseId="@CPC.Id">
+                    <input type="submit" value="Remove" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
-
+            }
             <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddFavoriteCigarPocketCase" asp-route-CigarPocketCaseId="@CPC.Id">
                 <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
             </form>
