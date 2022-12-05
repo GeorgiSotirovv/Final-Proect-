@@ -133,6 +133,7 @@ namespace CigarWorld.Services
             return user.UserAshtrays
                 .Select(m => new MyFavoriteAshtrayViewModel()
                 {
+                    Id = m.AshtrayId,
                     Brand = m.Ashtray.Brand,
                     ImageUrl = m.Ashtray.ImageUrl,
                     Comment = m.Ashtray.Comment,

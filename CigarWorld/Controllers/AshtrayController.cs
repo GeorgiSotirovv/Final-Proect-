@@ -26,38 +26,38 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddAshtray()
-        //{
-        //    var model = new AddAshtrayViewModel()
-        //    {
-        //        AshtrayTypes = await ashtrayService.GetTypesAsync()
-        //    };
+        [HttpGet]
+        public async Task<IActionResult> AddAshtray()
+        {
+            var model = new AddAshtrayViewModel()
+            {
+                AshtrayTypes = await ashtrayService.GetTypesAsync()
+            };
 
-        //    return View(model);
-        //}
+            return View(model);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-        //    try
-        //    {
-        //        await ashtrayService.AddAshtraysAsync(model);
+            try
+            {
+                await ashtrayService.AddAshtraysAsync(model);
 
-        //        return RedirectToAction("Ashtray", "Ashtray");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        ModelState.AddModelError("", "Something went wrong");
+                return RedirectToAction("Ashtray", "Ashtray");
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Something went wrong");
 
-        //        return View(model);
-        //    }
-        //}
+                return View(model);
+            }
+        }
 
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
@@ -103,12 +103,12 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Details", "Ashtray", new { id = targetAshtray.Id });
         }
 
-        public async Task<IActionResult> RemoveFromCollection(int Id)
+        public async Task<IActionResult> RemoveFromCollection(int ashtrayId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            await ashtrayService.RemoveFromFavoritesAsync(Id, userId);
+            await ashtrayService.RemoveFromFavoritesAsync(ashtrayId, userId);
 
-            return RedirectToAction("Ashtray", "Ashtray");
+            return RedirectToAction("MyCollection", "MyProfile");
         }
 
         public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
@@ -159,7 +159,7 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult EditComment(string petko)
         {
-            /*var targetAshtrayId = ashtrayService.DeleteReview(edit);*/
+            //var targetAshtrayId = ashtrayService.DeleteReview(edit);
 
             return RedirectToAction("Details", "Ashtray", new { id = 0 });
         }

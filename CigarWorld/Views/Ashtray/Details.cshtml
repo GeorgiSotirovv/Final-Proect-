@@ -55,7 +55,7 @@
 
                                     <button method="post" id="edit-button">Edit</button>
                                     <form method="post" action="/Ashtray/EditComment">
-                                        <input id="petko" name="petko" value="@review.Review"/>
+                                        <input disabled id="petko" name="petko" value="@review.Review"/>
                                         <button hidden type="submit" id="end-editing">Done</button>
                                     </form>
                                 </div>
@@ -90,34 +90,10 @@
             </form>
         </div>
     </div>
-    </div>
 </body>
 </html>
 
-<style>
-    #leftbox {
-        float: left;
-        width: 25%;
-        height: 280px;
-    }
 
-    #middlebox {
-        float: left;
-        width: 46%;
-        height: 280px;
-    }
-
-    #rightbox {
-        float: right;
-        width: 25%;
-        height: 280px;
-    }
-
-    h1 {
-        color: green;
-        text-align: center;
-    }
-</style>
 
 
 

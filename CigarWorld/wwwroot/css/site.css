@@ -17,3 +17,22 @@ body {
   margin-bottom: 60px;
 }
 
+#leftbox {
+    float: left;
+    width: 25%;
+    height: 280px;
+}
+
+#middlebox {
+    float: left;
+    width: 46%;
+    height: 280px;
+}
+
+#rightbox {
+    float: right;
+    width: 25%;
+    height: 280px;
+}
+
+

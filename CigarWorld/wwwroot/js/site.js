@@ -4,6 +4,7 @@ const end_button = document.getElementById("end-editing");
 
 edit_button.addEventListener("click", function () {
     paragraph.contentEditable = true;
+
     paragraph.style.backgroundColor = "#dddbdb";
 
     edit_button.hidden = true;

@@ -2,6 +2,9 @@
 {
     public class FavoriteProductsViewModels
     {
+
+        public int Id { get; set; }
+
         public IEnumerable<MyFavoriteAshtrayViewModel> FavoriteAshtray { get; set; }// = new List<AddAshtrayViewModel>();
         public IEnumerable<MyFavoriteCigarPocketCaseViewModel> FavoriteCigarPoketCase { get; set; }// = new List<AddCigarPocketCaseViewModel>();
         public IEnumerable<MyFavoriteCigarilloViewModel> FavoriteCigarillo { get; set; }// = new List<AddCigarilloViewModel>();

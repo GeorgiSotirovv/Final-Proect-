@@ -15,7 +15,7 @@ namespace CigarWorld.Controllers
             myProfileService = _myProfileService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> MyCollection()
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
