@@ -26,8 +26,7 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-        
-
+       
         public async Task<IActionResult> AddFavoriteCutter(int cutterId)
         {
             try
@@ -42,7 +41,7 @@ namespace CigarWorld.Controllers
 
             TempData[GlobalAddToFavoritesMessage] = "You added Cutter to your collection successfully!";
 
-            return RedirectToAction("Cigar", "Cigar");
+            return RedirectToAction("Cutter", "Cutter");
         }
 
 

@@ -91,6 +91,5 @@ namespace CigarWorld.Areas.Admin.Controllers
 
             return RedirectToAction("Cigarillo", "Cigarillo", new { area = "" });
         }
-
     }
 }

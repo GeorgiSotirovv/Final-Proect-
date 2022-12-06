@@ -27,40 +27,6 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddAshtray()
-        //{
-        //    var model = new AddAshtrayViewModel()
-        //    {
-        //        AshtrayTypes = await ashtrayService.GetTypesAsync()
-        //    };
-
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddAshtray(AddAshtrayViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    try
-        //    {
-        //        await ashtrayService.AddAshtraysAsync(model);
-
-        //        TempData[GlobalAddMessage] = "You added Ashtray Successfully!";
-
-        //        return RedirectToAction("Ashtray", "Ashtray");
-        //    }
-        //    catch (Exception)
-        //    {
-        //        ModelState.AddModelError("", "Something went wrong");
-
-        //        return View(model);
-        //    }
-        //}
 
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
@@ -116,45 +82,6 @@ namespace CigarWorld.Controllers
             return RedirectToAction("MyCollection", "MyProfile");
         }
 
-        //public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
-        //{
-        //    await ashtrayService.RemoveFromDatabaseAsync(ashtrayId);
-
-        //    TempData[GlobalDeleteMessage] = "You Delited Ashtray Successfully!";
-
-        //    return RedirectToAction("Ashtray", "Ashtray");
-        //}
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int Id)
-        //{
-        //    var targetAshtary = await ashtrayService.GetInformationForAshtray(Id);
-
-
-
-        //    var model = new EditAshtrayViewModel()
-        //    {
-        //        Id = Id,
-        //        Brand = targetAshtary.Brand,
-        //        Comment = targetAshtary.Comment,
-        //        CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
-        //        AshtrayTypes = targetAshtary.AshtrayTypes,
-        //        ImageUrl = targetAshtary.ImageUrl,
-        //        TypeId = targetAshtary.TypeId
-        //    };
-
-        //    return View(model);
-        //}
-
-
-        //[HttpPost]
-        //public IActionResult Edit(int Id, EditAshtrayViewModel targetAshtary)
-        //{
-        //    ashtrayService.EditAshtaryInformation(targetAshtary);
-
-        //    return RedirectToAction("Ashtray", "Ashtray");
-        //}
 
         public IActionResult DeleteComment(int ReviewId)
         {
@@ -164,11 +91,11 @@ namespace CigarWorld.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditComment(string petko)
+        public IActionResult EditComment(int ReviewId, string petko)
         {
-            //var targetAshtrayId = ashtrayService.DeleteReview(edit);
+            var targetAshtrayId = ashtrayService.EditReview(ReviewId, petko);
 
-            return RedirectToAction("Details", "Ashtray", new { id = 0 });
+            return RedirectToAction("Details", "Ashtray", new { id = targetAshtrayId });
         }
     }
 }

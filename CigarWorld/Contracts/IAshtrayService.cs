@@ -35,6 +35,6 @@ namespace CigarWorld.Contracts
 
         public int DeleteReview(int reviewId);
 
-        //public void EditComment(int ashtrayId);
+        public int EditReview(int ashtrayId, string changedReview);
     }
 }

@@ -1,21 +1,27 @@
-﻿const paragraph = document.getElementById("petko");
-const edit_button = document.getElementById("edit-button");
-const end_button = document.getElementById("end-editing");
+﻿const div = document.querySelectorAll(".inpDiv");
 
-edit_button.addEventListener("click", function () {
-    paragraph.contentEditable = true;
+for (var i = 0; i < div.length; i++) {
+    let paragraph = div[i].querySelector(".inpReview");
+    let edit_button = div[i].querySelector(".inpEdit");
+    let end_button = div[i].querySelector(".inpDone");
 
-    paragraph.style.backgroundColor = "#dddbdb";
+    if (edit_button!= null) {
+        edit_button.addEventListener("click", function () {
+            paragraph.contentEditable = true;
+            paragraph.disabled = false;
+            paragraph.style.backgroundColor = "#dddbdb";
 
-    edit_button.hidden = true;
-    end_button.hidden = false;
-});
+            edit_button.hidden = true;
+            end_button.hidden = false;
+        })
 
+        end_button.addEventListener("click", function () {
+            paragraph.contentEditable = false;
+            paragraph.style.backgroundColor = "#ffe44d";
+            /*paragraph.disabled = true;*/
+            edit_button.hidden = false;
+            end_button.hidden = true;
+        });
+    }
+}
 
-end_button.addEventListener("click", function () {
-    paragraph.contentEditable = false;
-    paragraph.style.backgroundColor = "#ffe44d";
-
-    edit_button.hidden = false;
-    end_button.hidden = true;
-})

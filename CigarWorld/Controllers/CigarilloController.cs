@@ -28,8 +28,6 @@ namespace CigarWorld.Controllers
         }
 
 
-        
-
         public async Task<IActionResult> AddFavoriteCigarillo(int cigarilloId)
         {
             try
@@ -46,6 +44,7 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Cigarillo", "Cigarillo");
         }
+
 
         public async Task<IActionResult> RemoveFromCollection(int cigarilloId)
         {

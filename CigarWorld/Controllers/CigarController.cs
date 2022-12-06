@@ -27,41 +27,6 @@ namespace CigarWorld.Controllers
 
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> AddCigar()
-        //{
-        //    var model = new AddCigarViewModel()
-        //    {
-        //        StrengthTypes = await cigarService.GetStrengthTypeAsync()
-        //    };
-
-        //    return View(model);
-        //}
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddCigar(AddCigarViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    try
-        //    {
-        //        await cigarService.AddCigarsAsync(model);
-
-        //        TempData[GlobalAddMessage] = "You added Cigar Successfully!";
-
-        //        return RedirectToAction(nameof(Cigar));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        ModelState.AddModelError("", "Something went wrong");
-
-        //        return View(model);
-        //    }
-        //}
 
         public async Task<IActionResult> AddFavoriteCigar(int cigarId)
         {
@@ -117,47 +82,7 @@ namespace CigarWorld.Controllers
             return RedirectToAction("MyCollection", "MyProfile");
         }
 
-        //public async Task<IActionResult> RemoveFromDataBase(int cigarId)
-        //{
-        //    await cigarService.RemoveFromDatabaseAsync(cigarId);
-
-        //    TempData[GlobalDeleteMessage] = "You Delited Cigar Successfully!";
-
-        //    return RedirectToAction("Cigar", "Cigar");
-        //}
-
-        //[HttpGet]
-        //public async Task<IActionResult> Edit(int Id)
-        //{
-        //    var targetCigar = await cigarService.GetInformationForCigar(Id);
-
-
-
-        //    var model = new EditCigarViewModel()
-        //    {
-        //        Id = Id,
-        //        Brand = targetCigar.Brand,
-        //        CountryOfManufacturing = targetCigar.CountryOfManufacturing,
-        //        ImageUrl = targetCigar.ImageUrl,
-        //        Comment = targetCigar.Comment,
-        //        Format = targetCigar.Format,
-        //        StrengthId = targetCigar.StrengthId,
-        //        Length = targetCigar.Length,
-        //        Ring = targetCigar.Ring,
-        //        SmokingDuration = targetCigar.SmokingDuration,
-        //        StrengthTypes = targetCigar.StrengthTypes,
-
-        //    };
-        //    return View(model);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Edit(int Id, EditCigarViewModel targetAshtary)
-        //{
-        //    cigarService.EditCigarInformation(targetAshtary);
-
-        //    return RedirectToAction("Cigar", "Cigar");
-        //}
+   
 
         public IActionResult DeleteComment(int ReviewId)
         {

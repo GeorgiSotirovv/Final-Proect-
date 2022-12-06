@@ -88,7 +88,6 @@ namespace CigarWorld.Areas.Admin.Controllers
 
 
         [HttpPost]
-        //[Route("Admin/[Controller]/[Action]/{id}")]
         public IActionResult Edit(int Id, EditAshtrayViewModel targetAshtary)
         {
             ashtrayService.EditAshtaryInformation(targetAshtary);

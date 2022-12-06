@@ -77,8 +77,11 @@ namespace CigarWorld.Services
         public async Task<IEnumerable<AllAshtrayViewModel>> GetAllAshtrayAsync()
         {
             var entities = await context.Ashtrays
+                //.Include(x => x.)
                 .Include(x => x.AshtrayType)
                 .ToListAsync();
+
+            //var favoriteAshtrays = await context.UserAshtray
 
             return entities
                 .Select(m => new AllAshtrayViewModel()
@@ -269,25 +272,19 @@ namespace CigarWorld.Services
             return (targetAshtreyId);
         }
 
-        //public void EditComment(int ashtrayId)
-        //{
-        //    var ashtray = context.AshtrayReviews.
-        //         Where(u => u.Id == ashtrayId)
 
-        //         .FirstOrDefault();
+        public int EditReview(int ashtrayId, string changedReview)
+        {
+            var targetReview = context.AshtrayReviews
+               .Where(x => x.Id == ashtrayId)
+               .FirstOrDefault();
 
-        //    if (ashtray == null)
-        //    {
-        //        throw new ArgumentException("Invalid Ashtray");
-        //    }
+            var targetAshtreyId = targetReview.AshtrayId;
 
-        //    ashtray.Brand = targetAshtray.Brand;
-        //    ashtray.CountryOfManufacturing = targetAshtray.CountryOfManufacturing;
-        //    ashtray.ImageUrl = targetAshtray.ImageUrl;
-        //    ashtray.Comment = targetAshtray.Comment;
-        //    ashtray.AshtrayId = targetAshtray.TypeId;
+            targetReview.Review = changedReview;
 
-        //    context.SaveChanges();
-        //}
+            context.SaveChanges();
+            return (targetAshtreyId);
+        }
     }
 }
