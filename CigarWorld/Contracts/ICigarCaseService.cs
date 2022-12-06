@@ -31,5 +31,7 @@ namespace CigarWorld.Contracts
         public CigarCaseDetailsViewModel AddReview(CigarCaseDetailsViewModel targetCPC, string UserName);
 
         public int DeleteReview(int reviewId);
+
+        public int EditReview(int CPCId, string changedReview);
     }
 }

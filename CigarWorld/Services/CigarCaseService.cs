@@ -286,6 +286,18 @@ namespace CigarWorld.Services
             return (targetCPCId);
         }
 
-        
+        public int EditReview(int CPCId, string changedReview)
+        {
+            var targetReview = context.CigarPocketCaseReviews
+               .Where(x => x.Id == CPCId)
+               .FirstOrDefault();
+
+            var targetAshtreyId = targetReview.CigarPocketCaseId;
+
+            targetReview.Review = changedReview;
+
+            context.SaveChanges();
+            return (targetAshtreyId);
+        }
     }
 }

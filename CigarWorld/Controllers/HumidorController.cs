@@ -87,5 +87,14 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Details", "Humidor", new { id = targetHumidorId });
         }
+
+
+        [HttpPost]
+        public IActionResult EditComment(int ReviewId, string petko)
+        {
+            var targetHumidorId = humidorsService.EditReview(ReviewId, petko);
+
+            return RedirectToAction("Details", "Humidor", new { id = targetHumidorId });
+        }
     }
 }

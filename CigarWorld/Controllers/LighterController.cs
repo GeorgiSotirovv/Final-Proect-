@@ -84,5 +84,13 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Details", "Lighter", new { id = targetLighterId });
         }
+
+        [HttpPost]
+        public IActionResult EditComment(int ReviewId, string petko)
+        {
+            var targetLighterId = lighterService.EditReview(ReviewId, petko);
+
+            return RedirectToAction("Details", "Lighter", new { id = targetLighterId });
+        }
     }
 }

@@ -47,8 +47,13 @@
                 <ul>
                     @foreach (var review in Model.CigarReviews)
                     {
-                        <li>
+                        <div class=inpDiv id="container">
 
+                            <form method="post" action="/Cigar/EditComment?ReviewId=@review.Id">
+                                <textarea style="resize: none;" class=inpReview disabled id="petko" name="petko" value="@review.Review">@review.Review</textarea>
+
+                                <button hidden class=inpDone type="submit" id="end-editing">Done</button>
+                            </form>
 
                             @if (Model.UserName == review.Commenter || Model.UserName == "Admin")
                             {
@@ -56,13 +61,10 @@
                                     <button type="submit">Delete Review</button>
                                 </form>
 
-                                <button method="post" id="edit-button">Edit</button>
-                                <form method="post" action="/Cigar/EditComment">
-                                    <input id="petko" name="petko" value="@review.Review" />
-                                    <button hidden type="submit" id="end-editing">Done</button>
-                                </form>
+                                <button class=inpEdit method="post" id="edit-button">Edit</button>
                             }
-                        </li>
+                        </div>
+                        <hr>
                     }
                 </ul>
             </div>

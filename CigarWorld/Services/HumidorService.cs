@@ -301,6 +301,18 @@ namespace CigarWorld.Services
             return (targetHumidorId);
         }
 
-       
+        public int EditReview(int humidorId, string changedReview)
+        {
+            var targetReview = context.HumidorReviews
+               .Where(x => x.Id == humidorId)
+               .FirstOrDefault();
+
+            var targetHumidorId = targetReview.HumidorId;
+
+            targetReview.Review = changedReview;
+
+            context.SaveChanges();
+            return (targetHumidorId);
+        }
     }
 }

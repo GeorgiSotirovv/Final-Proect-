@@ -262,5 +262,19 @@ namespace CigarWorld.Services
             context.SaveChanges();
             return (targetCigarilloId);
         }
+
+        public int EditReview(int cigarilloId, string changedReview)
+        {
+            var targetReview = context.CigarilloReviews
+               .Where(x => x.Id == cigarilloId)
+               .FirstOrDefault();
+
+            var targetAshtreyId = targetReview.CigarilloId;
+
+            targetReview.Review = changedReview;
+
+            context.SaveChanges();
+            return (targetAshtreyId);
+        }
     }
 }

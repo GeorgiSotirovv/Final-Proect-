@@ -34,5 +34,7 @@ namespace CigarWorld.Contracts
         public CutterDetailsViewModel AddReview(CutterDetailsViewModel targetCutter, string UserName);
 
         public int DeleteReview(int reviewId);
+
+        public int EditReview(int cutterId, string changedReview);
     }
 }

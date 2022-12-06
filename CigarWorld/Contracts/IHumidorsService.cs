@@ -31,5 +31,7 @@ namespace CigarWorld.Contracts
         public HumidorDetailsViewModel AddReview(HumidorDetailsViewModel targetHumidor, string UserName);
 
         public int DeleteReview(int reviewId);
+
+        public int EditReview(int humidorId, string changedReview);
     }
 }

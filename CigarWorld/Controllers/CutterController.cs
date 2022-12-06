@@ -82,11 +82,19 @@ namespace CigarWorld.Controllers
             return RedirectToAction("MyCollection", "MyProfile");
         }
 
-       
-
+ 
         public IActionResult DeleteComment(int ReviewId)
         {
             var targetCutterId = cutterService.DeleteReview(ReviewId);
+
+            return RedirectToAction("Details", "Cutter", new { id = targetCutterId });
+        }
+
+
+        [HttpPost]
+        public IActionResult EditComment(int ReviewId, string petko)
+        {
+            var targetCutterId = cutterService.EditReview(ReviewId, petko);
 
             return RedirectToAction("Details", "Cutter", new { id = targetCutterId });
         }
