@@ -4,6 +4,7 @@ using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+
 using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Controllers
@@ -25,35 +26,6 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddHumidor()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddHumidor(AddHumidorViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                await humidorsService.AddHumidorAsync(model);
-
-                TempData[GlobalAddMessage] = "You added Humidor Successfully!";
-
-                return RedirectToAction(nameof(Humidor));
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Something went wrong!");
-
-                return View(model);
-            }
-        }
 
         public async Task<IActionResult> AddFavoriteHumidor(int humidorId)
         {

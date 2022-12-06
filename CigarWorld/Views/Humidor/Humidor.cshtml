@@ -30,7 +30,7 @@
     @if (User.IsInRole("Admin"))
     {
         <form class="input-group-sm" asp-area="Admin" asp-controller="Humidor" asp-action="AddHumidor">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
         </form>
     }
 

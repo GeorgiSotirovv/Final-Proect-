@@ -25,36 +25,6 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddLighter()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddLighter(AddLighterViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            try
-            {
-                await lighterService.AddLighterAsync(model);
-
-                TempData[GlobalAddMessage] = "You added Lighter Successfully!";
-
-                return RedirectToAction(nameof(Lighter));
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Something went wrong!");
-
-                return View(model);
-            }
-        }
-
         public async Task<IActionResult> AddFavoriteLighter(int lighterId)
         {
             try
@@ -106,43 +76,6 @@ namespace CigarWorld.Controllers
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Lighter from your collection successfully!";
 
             return RedirectToAction("MyCollection", "MyProfile");
-        }
-
-        public async Task<IActionResult> RemoveFromDataBase(int lighterId)
-        {
-            await lighterService.RemoveFromDatabaseAsync(lighterId);
-
-            TempData[GlobalDeleteMessage] = "You Delited Lighter Successfully!";
-
-            return RedirectToAction("Lighter", "Lighter");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int Id)
-        {
-            var targetAshtary = await lighterService.GetInformationForLighter(Id);
-
-
-
-            var model = new EditLighterViewModel()
-            {
-                Id = Id,
-                Brand = targetAshtary.Brand,
-                Comment = targetAshtary.Comment,
-                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
-                ImageUrl = targetAshtary.ImageUrl,
-            };
-
-            return View(model);
-        }
-
-
-        [HttpPost]
-        public IActionResult Edit(int Id, EditLighterViewModel targetAshtary)
-        {
-            lighterService.EditLighterInformation(targetAshtary);
-
-            return RedirectToAction("Lighter", "Lighter");
         }
 
         public IActionResult DeleteComment(int ReviewId)

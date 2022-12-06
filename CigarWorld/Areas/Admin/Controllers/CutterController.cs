@@ -8,9 +8,9 @@ using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class CutterController : Controller
+    [Authorize(Roles = "Admin")]
+    public class CutterController : AdminController
     {
         private readonly ICutterService cutterService;
 

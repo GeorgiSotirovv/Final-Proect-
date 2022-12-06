@@ -8,8 +8,8 @@ using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class CigarController : AdminController
     {
         private readonly ICigarService cigarService;
