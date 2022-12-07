@@ -25,6 +25,11 @@
         <div class="alert alert-success" role="alert">
             @TempData[WebConstants.GlobalAddToFavoritesMessage]
         </div>
+    }@if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
     }
 
     @if (User.IsInRole("Admin"))
@@ -69,9 +74,6 @@
                     <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
                 </form>
             }
-
-
-
         </div>
     }
 </div>

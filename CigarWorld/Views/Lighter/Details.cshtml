@@ -43,6 +43,8 @@
                 <ul>
                     @foreach (var review in Model.LighterReviews)
                     {
+                         @review.Commenter
+                        <hr>
                         <div class=inpDiv id="container">
 
                             <form method="post" action="/Lighter/EditComment?ReviewId=@review.Id">

@@ -29,16 +29,13 @@ namespace CigarWorld.Controllers
         }
 
         [HttpGet]
-        
-
-
-        public async Task<IActionResult> AddFavoriteCigarPocketCase(int cigarPocketCaseId)
+        public async Task<IActionResult> AddFavoriteCigarPocketCase(int CPCId)
         {
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-                await cigarCaseService.AddCigarCaseToFavoritesAsync(cigarPocketCaseId, userId);
+                await cigarCaseService.AddCigarCaseToFavoritesAsync(CPCId, userId);
 
                 TempData[GlobalAddToFavoritesMessage] = "You added Cigar Pocket Case to your collection successfully!";
             }

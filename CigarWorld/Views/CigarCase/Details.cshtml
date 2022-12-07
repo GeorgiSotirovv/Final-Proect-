@@ -44,8 +44,8 @@
                 <ul>
                     @foreach (var review in Model.CigarPocketCaseReviews)
                     {
-
-                           <div class=inpDiv id="container">
+                        <hr>
+                        <div class=inpDiv id="container">
 
                             <form method="post" action="/CigarCase/EditComment?ReviewId=@review.Id">
                                 <textarea style="resize: none;" class=inpReview disabled id="petko" name="petko" value="@review.Review">@review.Review</textarea>
@@ -63,7 +63,6 @@
                             }
                         </div>
                         <hr>
-
                     }
                 </ul>
             </div>

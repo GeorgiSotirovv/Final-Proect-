@@ -82,7 +82,14 @@ namespace CigarWorld.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(int Id, EditCigarPocketCaseViewModel targetCPC)
         {
+            if (targetCPC == null)
+            {
+                return View();
+            }
+
             cigarCaseService.EditCigarPocketCaseInformation(targetCPC);
+
+            TempData[GlobalDeleteMessage] = "You Edited Cigar Pocket Case Successfully!";
 
             return RedirectToAction("CigarPocketCase", "CigarCase", new { area = "" });
         }

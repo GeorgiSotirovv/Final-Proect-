@@ -43,7 +43,8 @@
                 <ul>
                     @foreach (var review in Model.CigarilloReviews)
                     {
-                       <div class=inpDiv id="container">
+                        <hr>
+                        <div class=inpDiv id="container">
 
                             <form method="post" action="/Cigarillo/EditComment?ReviewId=@review.Id">
                                 <textarea style="resize: none;" class=inpReview disabled id="petko" name="petko" value="@review.Review">@review.Review</textarea>

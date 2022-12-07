@@ -17,9 +17,12 @@
     }
     @foreach (var ashtray in Model.FavoriteAshtray)
     {
+
          <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@ashtray.ImageUrl" alt="Ashtray Image">
+            <a href="/Ashtray/Details?id=@ashtray.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@ashtray.ImageUrl" alt="Ashtray Image">
+            </a>
             <div class="card-body">
                 <h5 class="card-title mt-1">@ashtray.Brand</h5>
                 <p class="mb-0">CountryOfManufacturing: @ashtray.CountryOfManufacturing</p>
@@ -27,10 +30,6 @@
                 <p>Category: @ashtray.Comment</p>
             </div>
 
-            @*<div hidden>
-                <input asp-for="@Model.Id" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>*@
             
             <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromCollection" asp-route-ashtrayId="@ashtray.Id">
                  <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />

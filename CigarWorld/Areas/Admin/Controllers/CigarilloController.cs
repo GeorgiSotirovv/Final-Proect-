@@ -87,7 +87,14 @@ namespace CigarWorld.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(int Id, EditCigarilloViewModel targetCigarillo)
         {
+            if (targetCigarillo == null)
+            {
+                return View();
+            }
+
             cigarilloService.EditCigarilloInformation(targetCigarillo);
+
+            TempData[GlobalDeleteMessage] = "You Edited Cigarillo Successfully!";
 
             return RedirectToAction("Cigarillo", "Cigarillo", new { area = "" });
         }

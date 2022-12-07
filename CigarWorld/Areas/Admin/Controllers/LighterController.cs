@@ -83,9 +83,16 @@ namespace CigarWorld.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int Id, EditLighterViewModel targetAshtary)
-        {
-            lighterService.EditLighterInformation(targetAshtary);
+        public IActionResult Edit(int Id, EditLighterViewModel targetLighter)
+        {   
+            if (targetLighter == null)
+            {
+                return View();
+            }
+
+            lighterService.EditLighterInformation(targetLighter);
+
+            TempData[GlobalDeleteMessage] = "You Edited Lighter Successfully!";
 
             return RedirectToAction("Lighter", "Lighter", new { area = "" });
         }

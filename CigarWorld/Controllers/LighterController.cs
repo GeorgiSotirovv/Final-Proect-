@@ -2,12 +2,14 @@
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.DetailsModels;
 using CigarWorld.Models.EditViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Controllers
 {
+    
     public class LighterController : Controller
     {
         private readonly ILighterService lighterService;
@@ -41,9 +43,9 @@ namespace CigarWorld.Controllers
 
                 TempData[GlobalAddToFavoritesMessage] = "You added Lighter to your collection successfully!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                TempData[GlobalExeptionError] = ex.Message;
             }
 
             return RedirectToAction("Lighter", "Lighter");

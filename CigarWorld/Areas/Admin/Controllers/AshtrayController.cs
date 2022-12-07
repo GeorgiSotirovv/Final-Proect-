@@ -44,6 +44,8 @@ namespace CigarWorld.Areas.Admin.Controllers
             {
                 await ashtrayService.AddAshtraysAsync(model);
 
+                TempData[GlobalAddMessage] = "You Added Ashtray Successfully!";
+
                 return RedirectToAction("Ashtray", "Ashtray", new {area = ""});
             }
             catch (Exception)
@@ -57,6 +59,11 @@ namespace CigarWorld.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveFromDataBase(int ashtrayId)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             await ashtrayService.RemoveFromDatabaseAsync(ashtrayId);
 
             TempData[GlobalDeleteMessage] = "You Delited Ashtray Successfully!";
@@ -69,8 +76,6 @@ namespace CigarWorld.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var targetAshtary = await ashtrayService.GetInformationForAshtray(Id);
-
-
 
             var model = new EditAshtrayViewModel()
             {
@@ -90,7 +95,14 @@ namespace CigarWorld.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(int Id, EditAshtrayViewModel targetAshtary)
         {
+            if (targetAshtary == null)
+            {
+                return View();
+            }
+
             ashtrayService.EditAshtaryInformation(targetAshtary);
+
+            TempData[GlobalEditedMessage] = "You Edited Ashtray Successfully!";
 
             return RedirectToAction("Ashtray", "Ashtray", new { area = "" });
         }

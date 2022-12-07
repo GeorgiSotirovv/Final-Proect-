@@ -88,9 +88,14 @@ namespace CigarWorld.Areas.Admin.Controllers
 
         public async Task<IActionResult> RemoveFromDataBase(int cutterId)
         {
+            if (cutterId == null)
+            {
+                return View();
+            }
+
             await cutterService.RemoveFromDatabaseAsync(cutterId);
 
-            TempData[GlobalDeleteMessage] = "You Delited Cutter Successfully!";
+            TempData[GlobalDeleteMessage] = "You Edited Cutter Successfully!";
 
             return RedirectToAction("Cutter", "Cutter", new { area = "" });
         }

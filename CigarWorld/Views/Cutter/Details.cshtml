@@ -43,6 +43,7 @@
                 <ul>
                     @foreach (var review in Model.CutterReviews)
                     {
+                        <hr>
                         <div class=inpDiv id="container">
 
                             <form method="post" action="/Cutter/EditComment?ReviewId=@review.Id">

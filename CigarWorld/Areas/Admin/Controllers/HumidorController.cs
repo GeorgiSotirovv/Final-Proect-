@@ -87,9 +87,16 @@ namespace CigarWorld.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int Id, EditHumidorViewModel targetAshtary)
+        public IActionResult Edit(int Id, EditHumidorViewModel targetHumidor)
         {
-            humidorsService.EditHumidorInformation(targetAshtary);
+            if (targetHumidor == null)
+            {
+                return View();
+            }
+
+            humidorsService.EditHumidorInformation(targetHumidor);
+
+            TempData[GlobalDeleteMessage] = "You Edited Humidor Successfully!";
 
             return RedirectToAction("Humidor", "Humidor", new { area = "" });
         }

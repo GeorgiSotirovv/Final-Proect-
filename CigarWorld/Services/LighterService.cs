@@ -37,10 +37,6 @@ namespace CigarWorld.Services
                 throw new ArgumentException("Invalid Lighter ID.");
             }
 
-            if (user.UserLighter.Any(m => m.LighterId == lighterId))
-            {
-                throw new ArgumentException("This Lighter is alredy added.");
-            }
 
             if (!user.UserLighter.Any(m => m.LighterId == lighterId))
             {

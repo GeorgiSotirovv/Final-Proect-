@@ -21,6 +21,17 @@
             @TempData[WebConstants.GlobalDeleteMessage]
         </div>
     }
+    @if (TempData.ContainsKey(WebConstants.GlobalAddToFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddToFavoritesMessage]
+        </div>
+    }@if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
+    }
 
     @if (User.IsInRole("Admin"))
     {

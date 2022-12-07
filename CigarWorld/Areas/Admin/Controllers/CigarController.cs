@@ -91,9 +91,17 @@ namespace CigarWorld.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int Id, EditCigarViewModel targetAshtary)
+        public IActionResult Edit(int Id, EditCigarViewModel targetCigar
+            )
         {
-            cigarService.EditCigarInformation(targetAshtary);
+            if (targetCigar == null)
+            {
+                return View();
+            }
+
+            cigarService.EditCigarInformation(targetCigar);
+
+            TempData[GlobalDeleteMessage] = "You Edited Cigar Successfully!";
 
             return RedirectToAction("Cigar", "Cigar", new { area = "" });
         }

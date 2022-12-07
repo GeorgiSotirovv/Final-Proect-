@@ -47,6 +47,7 @@
                 <ul>
                     @foreach (var review in Model.HumidorReviews)
                     {
+                        <hr>
                         <div class=inpDiv id="container">
 
                             <form method="post" action="/Humidor/EditComment?ReviewId=@review.Id">

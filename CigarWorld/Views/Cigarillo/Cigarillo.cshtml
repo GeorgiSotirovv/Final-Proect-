@@ -25,7 +25,14 @@
         <div class="alert alert-success" role="alert">
             @TempData[WebConstants.GlobalAddToFavoritesMessage]
         </div>
+    }@if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
     }
+
+
     @if (User.IsInRole("Admin"))
     {
         <form class="input-group-sm" asp-area="Admin" asp-controller="Cigarillo" asp-action="AddCigarillo">
