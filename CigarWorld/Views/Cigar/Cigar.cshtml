@@ -53,9 +53,18 @@
                 </form>
             }
 
-            <form class="input-group-sm" asp-area="Admin" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">
-                    <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+            @if (cigar.IsFavorite)
+            {
+                <form class="input-group-sm" asp-controller="Cigar" asp-action="RemoveFromCollection" asp-route-cigarId="@cigar.Id">
+                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
             </form>
+            }
+            else
+            {
+                <form class="input-group-sm" asp-area="" asp-controller="Cigar" asp-action="AddFavoriteCigar" asp-route-CigarId="@cigar.Id">
+                    <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
+            }
 
         </div>
     }

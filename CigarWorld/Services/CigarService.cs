@@ -44,13 +44,20 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllCigarViewModel>> GetAllCigarsAsync()
+        public async Task<IEnumerable<AllCigarViewModel>> GetAllCigarsAsync(string userId)
         {
-            var entities = await context.Cigars
+            var favorites = await context.UserCigars
+                //.Include(x => x.ApplicationUser)
+                .Include(x => x.Cigar)
+                .ThenInclude(x => x.StrengthType)
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            var cigar = await context.Cigars
                 .Include(x => x.StrengthType)
                 .ToListAsync();
 
-            return entities
+            return cigar
                 .Select(m => new AllCigarViewModel()
                 {
                     Id = m.Id,
@@ -63,6 +70,7 @@ namespace CigarWorld.Services
                     Length = m.Length,
                     Ring = m.Ring,
                     SmokingDuration = m.SmokingDuration,
+                    IsFavorite = favorites.Where(x => x.CigarId == m.Id).Count() > 0
                 });
         }
 
@@ -84,7 +92,7 @@ namespace CigarWorld.Services
 
             if (user.UserCigars.Any(m => m.CigarId == cigarId))
             {
-                throw new ArgumentException("This Case is alredy added.");
+                throw new ArgumentException("This Cigar is alredy added.");
             }
 
             if (!user.UserCigars.Any(m => m.CigarId == cigarId))
@@ -135,26 +143,34 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromFavoritesAsync(int cigarId, string userId)
         {
-            var user = await context.Users
-               .Where(u => u.Id == userId)
-               .Include(u => u.UserCigars)
-               .ThenInclude(um => um.Cigar)
-                .ThenInclude(m => m.StrengthType)
-               .FirstOrDefaultAsync();
+            var targetUserCigar = context.UserCigars
+                .Where(x => x.CigarId == cigarId)
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault();
 
-            if (user == null)
+            if (targetUserCigar == null)
             {
                 throw new ArgumentException("Invalid user Id");
             }
 
-            var cigar = user.UserCigars.FirstOrDefault(m => m.CigarId == cigarId);
+            context.UserCigars.Remove(targetUserCigar);
 
-            if (cigar != null)
-            {
-                user.UserCigars.Remove(cigar);
+            await context.SaveChangesAsync();
 
-                await context.SaveChangesAsync();
-            }
+            //var user = await context.Users
+            //   .Where(u => u.Id == userId)
+            //   .Include(u => u.UserCigars)
+            //   .ThenInclude(um => um.Cigar)
+            //    .ThenInclude(m => m.StrengthType)
+            //   .FirstOrDefaultAsync();
+
+
+
+            //var cigar = user.UserCigars.FirstOrDefault(m => m.CigarId == cigarId);
+
+            //if (cigar != null)
+            //{
+            //    var targetUserCigar = user.UserCigars.Where(x => x.CigarId ==  )
         }
 
         public async Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId, string userName)

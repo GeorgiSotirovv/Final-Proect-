@@ -30,6 +30,11 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Ashtray", "Ashtray");
+            }
+
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -48,6 +53,11 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public IActionResult Details(int Id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Ashtray", "Ashtray");
+            }
+
             try
             {
                 var curUser = this.User.Identity.Name;
@@ -93,6 +103,11 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult EditComment(int ReviewId, string petko)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Ashtray", "Ashtray");
+            }
+
             var targetAshtrayId = ashtrayService.EditReview(ReviewId, petko);
 
             return RedirectToAction("Details", "Ashtray", new { id = targetAshtrayId });

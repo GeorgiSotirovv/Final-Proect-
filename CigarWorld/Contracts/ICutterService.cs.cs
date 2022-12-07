@@ -9,6 +9,8 @@ namespace CigarWorld.Contracts
 {
     public interface ICutterService
     {
+        Task CheckIfIdExist(int movieId);
+
         Task<IEnumerable<AllCutterViewModel>> GetAllAsync();
 
         Task<IEnumerable<CutterType>> GetTypesAsync();

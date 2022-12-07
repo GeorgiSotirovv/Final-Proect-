@@ -24,7 +24,6 @@ namespace CigarWorld.Services
 
         public async Task AddAshtraysAsync(AddAshtrayViewModel model)
         {
-            //Areas.Admin.Models.Add.
 
             var entity = new Ashtray()
             {
@@ -43,21 +42,25 @@ namespace CigarWorld.Services
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
+
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
             var ashtray = await context.Ashtrays.FirstOrDefaultAsync(u => u.Id == ashtrayId);
 
             if (ashtray == null)
             {
-                throw new ArgumentException("Invalid Ashtray ID");
+                throw new ArgumentException("Invalid Ashtray Id");
             }
+
             if (user.UserAshtrays.Any(m => m.AshtrayId == ashtrayId))
             {
-                throw new ArgumentException("Ashtray all added");
+                throw new ArgumentException("This Ashtray is already added");
             }
+
+            var id = user.UserAshtrays.FirstOrDefault(m => m.AshtrayId == ashtrayId);
 
             if (!user.UserAshtrays.Any(m => m.AshtrayId == ashtrayId))
             {

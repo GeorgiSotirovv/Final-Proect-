@@ -21,10 +21,11 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Cigar()
         {
-            var model = await cigarService.GetAllCigarsAsync();
+
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await cigarService.GetAllCigarsAsync(userId);
 
             return View(model);
-
         }
 
 
@@ -79,7 +80,8 @@ namespace CigarWorld.Controllers
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cigar from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
         public IActionResult DeleteComment(int ReviewId)

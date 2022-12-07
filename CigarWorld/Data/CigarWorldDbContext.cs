@@ -39,6 +39,16 @@ namespace CigarWorld.Data
         public DbSet<LighterReview> LighterReviews { get; set; }
         public DbSet<CigarPocketCaseReview> CigarPocketCaseReviews { get; set; }
 
+        //Favorites
+        public DbSet<UserAshtray> UserAshtrays { get; set; }
+        public DbSet<UserCigar> UserCigars { get; set; }
+        public DbSet<UserCigarillo> UserCigarillos { get; set; }
+        public DbSet<UserCigarPocketCase> UserCigarPocketCases { get; set; }
+        public DbSet<UserCutter> UserCutters { get; set; }
+        public DbSet<UserLighter> UserLighters { get; set; }
+        public DbSet<UserHumidor> UserHumidors { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

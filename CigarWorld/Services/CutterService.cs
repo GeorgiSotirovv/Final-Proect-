@@ -22,6 +22,13 @@ namespace CigarWorld.Services
         }
 
 
+        public Task CheckIfIdExist(int movieId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
         public async Task<IEnumerable<CutterType>> GetTypesAsync()
         {
             return await context.CutterTypes.ToListAsync();
@@ -66,28 +73,28 @@ namespace CigarWorld.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID.");
+                throw new ArgumentException("Invalid user Id.");
             }
 
-            var cigar = await context.Cutters.FirstOrDefaultAsync(a => a.Id == cutterId);
+            var cutter = await context.Cutters.FirstOrDefaultAsync(a => a.Id == cutterId);
 
-            if (cigar == null)
+            if (cutter == null)
             {
-                throw new ArgumentException("Invalid Cutter ID.");
+                throw new ArgumentException("Invalid Cutter Id.");
             }
 
-            if (user.UserCutters.Any(m => m.CutterId == cutterId))
+            if (cutter.Id == cutterId)
             {
-                throw new ArgumentException("This Cutter is alredy added.");
+                throw new ArgumentException("This Cutter is already added.");
             }
 
             if (!user.UserCutters.Any(m => m.CutterId == cutterId))
             {
                 user.UserCutters.Add(new UserCutter()
                 {
-                    CutterId = cigar.Id,
+                    CutterId = cutter.Id,
                     UserId = user.Id,
-                    Cutter = cigar,
+                    Cutter = cutter,
                     ApplicationUser = user
                 });
 
@@ -280,5 +287,6 @@ namespace CigarWorld.Services
             context.SaveChanges();
             return (targetCutterId);
         }
+
     }
 }

@@ -42,5 +42,6 @@ namespace CigarWorld.Models.Models
         [Required]
         public string Strength { get; set; } = null!;
 
+        public bool IsFavorite { get; set; }
     }
 }

@@ -74,10 +74,10 @@ namespace CigarWorld.Services
 
             if (user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarilloId))
             {
-                throw new ArgumentException("This Case is alredy added.");
+                throw new ArgumentException("This Cigarillo is alredy added.");
             }
 
-            if (!user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarilloId))
+            if (!user.UserCigarillos.Any(m => m.Cigarillo.Id == cigarilloId))
             {
                 user.UserCigarillos.Add(new UserCigarillo()
                 {
