@@ -74,12 +74,17 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllHumidorViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllHumidorViewModel>> GetAllHumidorAsync(string userId)
         {
-            var entities = await context.Humidors
+            var favorites = await context.UserHumidors
+               .Include(x => x.Humidor)
+               .Where(x => x.UserId == userId)
                .ToListAsync();
 
-            return entities
+            var humidor = await context.Humidors
+               .ToListAsync();
+
+            return humidor
                 .Select(m => new AllHumidorViewModel()
                 {
                     Id = m.Id,
@@ -92,30 +97,25 @@ namespace CigarWorld.Services
                     Weight = m.Weight,
                     MaterialOfManufacture = m.MaterialOfManufacture,
                     Capacity = m.Capacity,
+                    IsFavorite = favorites.Where(x => x.HumidorId == m.Id).Count() > 0
                 });
         }
 
         public async Task RemoveFromFavoritesAsync(int humidorId, string userId)
         {
-            var user = await context.Users
-              .Where(u => u.Id == userId)
-              .Include(u => u.UserHumidors)
-              .ThenInclude(um => um.Humidor)
-              .FirstOrDefaultAsync();
+            var targetUserHumidor = context.UserHumidors
+                 .Where(x => x.HumidorId == humidorId)
+                 .Where(x => x.UserId == userId)
+                 .FirstOrDefault();
 
-            if (user == null)
+            if (targetUserHumidor == null)
             {
                 throw new ArgumentException("Invalid user Id");
             }
 
-            var ashtray = user.UserHumidors.FirstOrDefault(m => m.HumidorId == humidorId);
+            context.UserHumidors.Remove(targetUserHumidor);
 
-            if (ashtray != null)
-            {
-                user.UserHumidors.Remove(ashtray);
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();
         }
 
         public async Task<HumidorDetailsViewModel> GetDetailsAsync(int humidorId, string userName)

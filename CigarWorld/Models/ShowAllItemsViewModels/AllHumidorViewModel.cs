@@ -43,5 +43,7 @@ namespace CigarWorld.Models.JustModels
         [Required]
         [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
         public string Comment { get; set; } = null!;
+
+        public bool IsFavorite { get; set; }
     }
 }

@@ -39,14 +39,16 @@ namespace CigarWorld.Controllers
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
                 await cigarilloService.AddFavoriteCigarilloAsync(cigarilloId, userId);
+
+                TempData[GlobalAddToFavoritesMessage] = "You added Cigarillo to your collection successfully!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                TempData[GlobalExeptionError] = ex.Message;
             }
 
-            TempData[GlobalAddToFavoritesMessage] = "You added Cigarillo to your collection successfully!";
 
             return RedirectToAction("Cigarillo", "Cigarillo");
         }

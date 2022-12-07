@@ -94,8 +94,14 @@ namespace CigarWorld.Services
         }
 
 
-        public async Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase()
+        public async Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase(string userId)
         {
+            var favorites = await context.UserCigarPocketCases
+             .Include(x => x.CigarPocketCase)
+             .Where(x => x.UserId == userId)
+             .ToListAsync();
+
+
             var entities = await context.CigarPocketCases
                 .ToListAsync();
 
@@ -108,7 +114,8 @@ namespace CigarWorld.Services
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
                     Capacity = m.Capacity,
-                    MaterialOfManufacture = m.MaterialOfManufacture
+                    MaterialOfManufacture = m.MaterialOfManufacture,
+                    IsFavorite = favorites.Where(x => x.CigarPocketCaseId == m.Id).Count() > 0
                 });
         }
 
@@ -167,24 +174,19 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromCollectionAsync(int CPCId, string userId)
         {
-            var user = await context.Users
-               .Where(u => u.Id == userId)
-               .Include(u => u.UserCigarPocketCases)
-               .FirstOrDefaultAsync();
+            var targetUserCPC = context.UserCigarPocketCases
+               .Where(x => x.CigarPocketCaseId == CPCId)
+               .Where(x => x.UserId == userId)
+               .FirstOrDefault();
 
-            if (user == null)
+            if (targetUserCPC == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
-            var CPC = user.UserCigarPocketCases.FirstOrDefault(m => m.CigarPocketCaseId == CPCId);
+            context.UserCigarPocketCases.Remove(targetUserCPC);
 
-            if (CPC != null)
-            {
-                user.UserCigarPocketCases.Remove(CPC);
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();
         }
 
         public async Task RemoveFromDatabaseAsync(int cigarPocketCaseId)

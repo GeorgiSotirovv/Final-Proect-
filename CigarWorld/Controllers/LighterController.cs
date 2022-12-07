@@ -25,8 +25,8 @@ namespace CigarWorld.Controllers
                 return RedirectToAction("Login", "User");
             }
 
-
-            var model = await lighterService.GetAllAsync();
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await lighterService.GetAllLighterAsync(userId);
 
             return View(model);
         }
@@ -36,14 +36,15 @@ namespace CigarWorld.Controllers
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
                 await lighterService.AddFavoriteLighterAsync(lighterId, userId);
+
+                TempData[GlobalAddToFavoritesMessage] = "You added Lighter to your collection successfully!";
             }
             catch (Exception)
             {
                 throw;
             }
-
-            TempData[GlobalAddToFavoritesMessage] = "You added Lighter to your collection successfully!";
 
             return RedirectToAction("Lighter", "Lighter");
         }
@@ -81,7 +82,8 @@ namespace CigarWorld.Controllers
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Lighter from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
         public IActionResult DeleteComment(int ReviewId)

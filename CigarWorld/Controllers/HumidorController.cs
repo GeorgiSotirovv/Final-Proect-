@@ -26,7 +26,8 @@ namespace CigarWorld.Controllers
                 return RedirectToAction("Login", "User");
             }
 
-            var model = await humidorsService.GetAllAsync();
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await humidorsService.GetAllHumidorAsync(userId);
 
             return View(model);
         }
@@ -37,14 +38,16 @@ namespace CigarWorld.Controllers
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
                 await humidorsService.AddFavoriteHumidorAsync(humidorId, userId);
+
+                TempData[GlobalAddToFavoritesMessage] = "You added Humidor to your collection successfully!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                TempData[GlobalExeptionError] = ex.Message;
             }
 
-            TempData[GlobalAddToFavoritesMessage] = "You added Humidor to your collection successfully!";
 
             return RedirectToAction("Humidor", "Humidor");
         }
@@ -78,11 +81,13 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int humidorId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
             await humidorsService.RemoveFromFavoritesAsync(humidorId, userId);
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Humidor from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
         
 

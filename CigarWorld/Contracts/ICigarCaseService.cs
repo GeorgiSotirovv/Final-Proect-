@@ -8,7 +8,7 @@ namespace CigarWorld.Contracts
 {
     public interface ICigarCaseService
     {
-        Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase();
+        Task<IEnumerable<AllCigarPocketCaseViewModel>> GetAllAsyncCigarCase(string userId);
 
         Task AddCigarCasesAsync(AddCigarPocketCaseViewModel model);
 

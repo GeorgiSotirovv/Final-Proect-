@@ -26,7 +26,8 @@ namespace CigarWorld.Controllers
                 return RedirectToAction("Login", "User");
             }
 
-            var model = await cutterService.GetAllAsync();
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await cutterService.GetCuttersAllAsync(userId);
 
             return View(model);
         }
@@ -37,14 +38,15 @@ namespace CigarWorld.Controllers
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                await cutterService.AddFavoriteCutterAsync(cutterId, userId);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
 
-            TempData[GlobalAddToFavoritesMessage] = "You added Cutter to your collection successfully!";
+                await cutterService.AddFavoriteCutterAsync(cutterId, userId);
+
+                TempData[GlobalAddToFavoritesMessage] = "You added Cutter to your collection successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData[GlobalExeptionError] = ex.Message;
+            }
 
             return RedirectToAction("Cutter", "Cutter");
         }
@@ -80,11 +82,13 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int cutterId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
             await cutterService.RemoveFromFavoritesAsync(cutterId, userId);
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cutter from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
  

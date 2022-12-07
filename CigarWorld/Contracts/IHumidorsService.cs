@@ -8,7 +8,7 @@ namespace CigarWorld.Contracts
 {
     public interface IHumidorsService
     {
-        Task<IEnumerable<AllHumidorViewModel>> GetAllAsync();
+        Task<IEnumerable<AllHumidorViewModel>> GetAllHumidorAsync(string userId);
 
         Task AddHumidorAsync(AddHumidorViewModel model);
 

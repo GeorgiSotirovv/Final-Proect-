@@ -56,8 +56,8 @@
             @if (cigar.IsFavorite)
             {
                 <form class="input-group-sm" asp-controller="Cigar" asp-action="RemoveFromCollection" asp-route-cigarId="@cigar.Id">
-                 <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
-            </form>
+                    <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+                </form>
             }
             else
             {
@@ -65,7 +65,6 @@
                     <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
                 </form>
             }
-
         </div>
     }
 </div>

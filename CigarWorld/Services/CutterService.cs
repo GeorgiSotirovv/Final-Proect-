@@ -48,13 +48,19 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllCutterViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllCutterViewModel>> GetCuttersAllAsync(string userId)
         {
-            var entities = await context.Cutters
+            var favorites = await context.UserCutters
+                .Include(x => x.Cutter)
+                .ThenInclude(x => x.CutterType)
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            var cutters = await context.Cutters
                 .Include(x => x.CutterType)
                 .ToListAsync();
 
-            return entities
+            return cutters
                 .Select(m => new AllCutterViewModel()
                 {
                     Id = m.Id,
@@ -62,8 +68,8 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
-                    Type = m?.CutterType?.Name
-
+                    Type = m?.CutterType?.Name,
+                    IsFavorite = favorites.Where(x => x.CutterId == m.Id).Count() > 0
                 });
         }
 
@@ -83,10 +89,6 @@ namespace CigarWorld.Services
                 throw new ArgumentException("Invalid Cutter Id.");
             }
 
-            if (cutter.Id == cutterId)
-            {
-                throw new ArgumentException("This Cutter is already added.");
-            }
 
             if (!user.UserCutters.Any(m => m.CutterId == cutterId))
             {
@@ -130,26 +132,19 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromFavoritesAsync(int cutterId, string userId)
         {
-            var user = await context.Users
-               .Where(u => u.Id == userId)
-               .Include(u => u.UserCutters)
-               .ThenInclude(um => um.Cutter)
-                .ThenInclude(m => m.CutterType)
+            var targetUserCutter = await context.UserCutters
+               .Where(u => u.CutterId == cutterId)
+               .Where(x => x.UserId == userId)
                .FirstOrDefaultAsync();
 
-            if (user == null)
+            if (targetUserCutter == null)
             {
                 throw new ArgumentException("Invalid user Id");
             }
 
-            var ashtray = user.UserCutters.FirstOrDefault(m => m.CutterId == cutterId);
+            context.UserCutters.Remove(targetUserCutter);
 
-            if (ashtray != null)
-            {
-                user.UserCutters.Remove(ashtray);
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();
         }
 
         public async Task<CutterDetailsViewModel> GetDetailsAsync(int cutterId, string curUser)

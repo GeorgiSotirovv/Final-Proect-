@@ -21,9 +21,9 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> CigarPocketCase()
         {
-            
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            var model = await cigarCaseService.GetAllAsyncCigarCase();
+            var model = await cigarCaseService.GetAllAsyncCigarCase(userId);
 
             return View(model);
         }
@@ -37,14 +37,15 @@ namespace CigarWorld.Controllers
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-                await cigarCaseService.AddCigarCaseToFavoritesAsync(cigarPocketCaseId, userId);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
 
-            TempData[GlobalAddToFavoritesMessage] = "You added Cigar Pocket Case to your collection successfully!";
+                await cigarCaseService.AddCigarCaseToFavoritesAsync(cigarPocketCaseId, userId);
+
+                TempData[GlobalAddToFavoritesMessage] = "You added Cigar Pocket Case to your collection successfully!";
+            }
+            catch (Exception ex)
+            {
+                TempData[GlobalExeptionError] = ex.Message;
+            }
 
             return RedirectToAction("CigarPocketCase", "CigarCase");
         }
@@ -80,11 +81,13 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int CPCId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
             await cigarCaseService.RemoveFromFavoritesAsync(CPCId, userId);
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cigar Pocket Case from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
 

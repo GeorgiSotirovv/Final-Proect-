@@ -8,7 +8,7 @@ namespace CigarWorld.Contracts
 {
     public interface ILighterService
     {
-        Task<IEnumerable<AllLighterViewModel>> GetAllAsync();
+        Task<IEnumerable<AllLighterViewModel>> GetAllLighterAsync(string userId);
 
         Task AddLighterAsync(AddLighterViewModel model);
 

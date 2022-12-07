@@ -70,12 +70,17 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllLighterViewModel>> GetAllAsync()
+        public async Task<IEnumerable<AllLighterViewModel>> GetAllLighterAsync(string userId)
         {
-            var entities = await context.Lighters
+            var favorites = await context.UserLighters
+                .Include(x => x.Lighter)
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            var lighter = await context.Lighters
                .ToListAsync();
 
-            return entities
+            return lighter
                 .Select(m => new AllLighterViewModel()
                 {
                     Id = m.Id,
@@ -83,6 +88,7 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
+                    IsFavorite = favorites.Where(x => x.LighterId == m.Id).Count() > 0
                 });
         }
 
@@ -135,27 +141,19 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromFavoritesAsync(int lighterId, string userId)
         {
-            var user = await context.Users
-                .Where(u => u.Id == userId)
-                .Include(u => u.UserLighter)
-                .ThenInclude(um => um.Lighter)
-                .FirstOrDefaultAsync();
+            var targetUserAshtray = context.UserLighters
+                .Where(x => x.LighterId == lighterId)
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault();
 
-
-            if (user == null)
+            if (targetUserAshtray == null)
             {
                 throw new ArgumentException("Invalid user Id");
             }
 
-            var lighter = user.UserLighter.FirstOrDefault(m => m.LighterId == lighterId);
+            context.UserLighters.Remove(targetUserAshtray);
 
-
-            if (lighter != null)
-            {
-                user.UserLighter.Remove(lighter);
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();
         }
 
         public async Task RemoveFromDatabaseAsync(int lighterId)

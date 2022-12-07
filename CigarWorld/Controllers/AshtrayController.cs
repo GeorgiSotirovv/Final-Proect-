@@ -17,7 +17,7 @@ namespace CigarWorld.Controllers
         {
             ashtrayService = _AshtrayService;
         }
-
+        ////////////////////////////////////////////////////////////////////////////////
         [HttpGet]
         public async Task<IActionResult> Ashtray()
         {
@@ -32,7 +32,7 @@ namespace CigarWorld.Controllers
             return View(model);
         }
 
-
+///////////////////////////////////////////////////////////////////////////////
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
             if (!User.Identity.IsAuthenticated)
@@ -48,7 +48,9 @@ namespace CigarWorld.Controllers
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
                 await ashtrayService.AddAshtrayToFavoritesAsync(ashtrayId, userId);
+
                 TempData[GlobalAddToFavoritesMessage] = "You added Ashtray to your collection successfully!";
             }
             catch (Exception ex)
