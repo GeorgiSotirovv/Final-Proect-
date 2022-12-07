@@ -114,6 +114,7 @@ namespace CigarWorld.Services
         {
             var lighter = await context.Lighters
               .Where(u => u.Id == lighterId)
+              .Include(u => u.LighterReviews)
               .FirstOrDefaultAsync();
 
             if (lighter == null)

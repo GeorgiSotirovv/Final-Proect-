@@ -21,6 +21,11 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Cutter()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var model = await cutterService.GetAllAsync();
 
             return View(model);

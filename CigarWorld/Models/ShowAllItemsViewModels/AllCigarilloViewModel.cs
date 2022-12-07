@@ -25,5 +25,7 @@ namespace CigarWorld.Models.Models
 
         [Required]
         public string Filter { get; set; } = null!;
+
+        public bool IsFavorite { get; set; }
     }
 }

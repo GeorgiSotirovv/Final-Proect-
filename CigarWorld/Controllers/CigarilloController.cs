@@ -22,7 +22,13 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Cigarillo()
         {
-            var model = await cigarilloService.GetAllCigarillosAsync();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await cigarilloService.GetAllCigarillosAsync(userId);
 
             return View(model);
         }
@@ -54,7 +60,8 @@ namespace CigarWorld.Controllers
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cigarillo from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
         [HttpGet]

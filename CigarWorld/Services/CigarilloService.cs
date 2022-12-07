@@ -40,13 +40,19 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<AllCigarilloViewModel>> GetAllCigarillosAsync()
+        public async Task<IEnumerable<AllCigarilloViewModel>> GetAllCigarillosAsync(string userId)
         {
-            var entities = await context.Cigarillo
+            var favorites = await context.UserCigarillos
+                .Include(x => x.Cigarillo)
+                .ThenInclude(x => x.FilterType)
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            var ashtray = await context.Cigarillo
                 .Include(x => x.FilterType)
                 .ToListAsync();
 
-            return entities
+            return ashtray
                 .Select(m => new AllCigarilloViewModel()
                 {
                     Id = m.Id,
@@ -54,7 +60,8 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
-                    Filter = m?.FilterType?.Name
+                    Filter = m?.FilterType?.Name,
+                    IsFavorite = favorites.Where(x => x.CigarilloId == m.Id).Count() > 0
                 });
         }
 
@@ -119,25 +126,19 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromFavoritesAsync(int cigarilloId, string userId)
         {
-            var user = await context.Users
-               .Where(u => u.Id == userId)
-               .Include(u => u.UserCigarillos)
-               .ThenInclude(um => um.Cigarillo)
-               .FirstOrDefaultAsync();
+            var targetUserCigarillo = context.UserCigarillos
+               .Where(x => x.CigarilloId == cigarilloId)
+               .Where(x => x.UserId == userId)
+               .FirstOrDefault();
 
-            if (user == null)
+            if (targetUserCigarillo == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
-            var cigarillo = user.UserCigarillos.FirstOrDefault(m => m.CigarilloId == cigarilloId);
+            context.UserCigarillos.Remove(targetUserCigarillo);
 
-            if (cigarillo != null)
-            {
-                user.UserCigarillos.Remove(cigarillo);
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();
         }
 
         public async Task<CigarilloDetailsViewModel> GetDetailsAsync(int cigarilloId, string userName)

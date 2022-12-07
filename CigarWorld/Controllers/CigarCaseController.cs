@@ -21,6 +21,8 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> CigarPocketCase()
         {
+            
+
             var model = await cigarCaseService.GetAllAsyncCigarCase();
 
             return View(model);

@@ -21,6 +21,11 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Humidor()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var model = await humidorsService.GetAllAsync();
 
             return View(model);

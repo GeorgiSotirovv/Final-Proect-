@@ -26,9 +26,9 @@ namespace Watchlist.Controllers
 
         public IActionResult Register()
         {
-            if (User?.Identity?.IsAuthenticated ?? false)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("All", "Movies");
+                return RedirectToAction("Cigar", "Cigar");
             }
 
             var model = new RegisterViewModel();
@@ -70,9 +70,10 @@ namespace Watchlist.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            if (User?.Identity?.IsAuthenticated ?? false)
+
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("Cigar", "Cigar");
             }
 
             var model = new LoginViewModel();

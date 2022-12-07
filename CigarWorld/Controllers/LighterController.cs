@@ -20,6 +20,12 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Lighter()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+
             var model = await lighterService.GetAllAsync();
 
             return View(model);
@@ -59,13 +65,13 @@ namespace CigarWorld.Controllers
         }
 
         [HttpPost]
-        public IActionResult Details(LighterDetailsViewModel targetLighter)
+        public IActionResult Details(LighterDetailsViewModel Lighter)
         {
             var curUser = this.User.Identity.Name;
 
-            lighterService.AddReview(targetLighter, curUser);
+            lighterService.AddReview(Lighter, curUser);
 
-            return RedirectToAction("Details", "Lighter", new { id = targetLighter.Id });
+            return RedirectToAction("Details", "Lighter", new { id = Lighter.Id });
         }
 
         public async Task<IActionResult> RemoveFromCollection(int lighterId)

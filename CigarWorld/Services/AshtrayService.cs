@@ -55,12 +55,6 @@ namespace CigarWorld.Services
                 throw new ArgumentException("Invalid Ashtray Id");
             }
 
-            if (user.UserAshtrays.Any(m => m.AshtrayId == ashtrayId))
-            {
-                throw new ArgumentException("This Ashtray is already added");
-            }
-
-            var id = user.UserAshtrays.FirstOrDefault(m => m.AshtrayId == ashtrayId);
 
             if (!user.UserAshtrays.Any(m => m.AshtrayId == ashtrayId))
             {
@@ -76,17 +70,19 @@ namespace CigarWorld.Services
             }
         }
 
-
-        public async Task<IEnumerable<AllAshtrayViewModel>> GetAllAshtrayAsync()
+        public async Task<IEnumerable<AllAshtrayViewModel>> GetAllAshtrayAsync(string userId)
         {
-            var entities = await context.Ashtrays
-                //.Include(x => x.)
+            var favorites = await context.UserAshtrays
+                .Include(x => x.Ashtray)
+                .ThenInclude(x => x.AshtrayType)
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            var ashtray = await context.Ashtrays
                 .Include(x => x.AshtrayType)
                 .ToListAsync();
 
-            //var favoriteAshtrays = await context.UserAshtray
-
-            return entities
+            return ashtray
                 .Select(m => new AllAshtrayViewModel()
                 {
                     Id = m.Id,
@@ -94,7 +90,8 @@ namespace CigarWorld.Services
                     CountryOfManufacturing = m.CountryOfManufacturing,
                     ImageUrl = m.ImageUrl,
                     Comment = m.Comment,
-                    Type = m.AshtrayType.Name
+                    Type = m.AshtrayType.Name,
+                    IsFavorite = favorites.Where(x => x.AshtrayId == m.Id).Count() > 0
                 });
         }
 
@@ -134,7 +131,7 @@ namespace CigarWorld.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
             return user.UserAshtrays
@@ -156,26 +153,19 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromFavoritesAsync(int ashtrayId, string userId)
         {
-            var user = await context.Users
-               .Where(u => u.Id == userId)
-               .Include(u => u.UserAshtrays)
-               .ThenInclude(um => um.Ashtray)
-                .ThenInclude(m => m.AshtrayType)
-               .FirstOrDefaultAsync();
+            var targetUserAshtray = context.UserAshtrays
+                .Where(x => x.AshtrayId == ashtrayId)
+                .Where(x => x.UserId == userId)
+                .FirstOrDefault();
 
-            if (user == null)
+            if (targetUserAshtray == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
-            var ashtray = user.UserAshtrays.FirstOrDefault(m => m.AshtrayId == ashtrayId);
+            context.UserAshtrays.Remove(targetUserAshtray);
 
-            if (ashtray != null)
-            {
-                user.UserAshtrays.Remove(ashtray);
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();
         }
 
         public async Task RemoveFromDatabaseAsync(int ashtrayId)
@@ -254,8 +244,8 @@ namespace CigarWorld.Services
                 Commenter = UserName
             };
 
-             context.AshtrayReviews.Add(entity);
-             context.SaveChanges();
+            context.AshtrayReviews.Add(entity);
+            context.SaveChanges();
 
             targetAshtray.AddReviewToAshtray = String.Empty;
 

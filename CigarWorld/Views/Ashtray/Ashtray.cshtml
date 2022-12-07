@@ -26,6 +26,11 @@
         <div class="alert alert-success" role="alert">
             @TempData[WebConstants.GlobalAddToFavoritesMessage]
         </div>
+    }@if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
     }
 
     @if (User.IsInRole("Admin"))
@@ -60,9 +65,19 @@
                 </form>
             }
 
-            <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">
-                <input type="submit" value="Add to Favoritee" class="fs-6 btn btn-success mb-3 p-2" />
-            </form>
+            @if (ashtray.IsFavorite)
+            {
+                <form class="input-group-sm" asp-controller="Ashtray" asp-action="RemoveFromCollection" asp-route-ashtrayId="@ashtray.Id">
+                    <input class="fs-6 btn btn-success mb-3 p-2" type="submit" value="Remove from Collection" />
+                </form>
+            }
+            else
+            {
+                <form class="input-group-sm" asp-controller="Ashtray" asp-action="AddFavoriteAshtray" asp-route-AshtrayId="@ashtray.Id">
+                    <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
+                </form>
+            }
+
 
         </div>
     }

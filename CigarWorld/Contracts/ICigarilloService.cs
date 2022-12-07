@@ -9,7 +9,7 @@ namespace CigarWorld.Contracts
 {
     public interface ICigarilloService
     {
-        Task<IEnumerable<AllCigarilloViewModel>> GetAllCigarillosAsync();
+        Task<IEnumerable<AllCigarilloViewModel>> GetAllCigarillosAsync(string userId);
 
         Task<IEnumerable<FilterType>> GetTypesAsync();
 

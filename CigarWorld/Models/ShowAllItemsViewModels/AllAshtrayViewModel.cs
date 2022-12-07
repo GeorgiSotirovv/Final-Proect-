@@ -25,6 +25,6 @@ namespace CigarWorld.Models.BaseModels
 
         public string Type { get; set; } = null!;
 
-        public bool isFavorited { get; set; }
+        public bool IsFavorite { get; set; }
     }
 }

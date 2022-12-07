@@ -9,7 +9,6 @@ using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Controllers
 {
-    [Authorize]
     public class AshtrayController : Controller
     {
         private readonly IAshtrayService ashtrayService;
@@ -22,7 +21,13 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Ashtray()
         {
-            var model = await ashtrayService.GetAllAshtrayAsync();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var model = await ashtrayService.GetAllAshtrayAsync(userId);
 
             return View(model);
         }
@@ -30,6 +35,11 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Ashtray", "Ashtray");
@@ -39,13 +49,12 @@ namespace CigarWorld.Controllers
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 await ashtrayService.AddAshtrayToFavoritesAsync(ashtrayId, userId);
+                TempData[GlobalAddToFavoritesMessage] = "You added Ashtray to your collection successfully!";
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                TempData[GlobalExeptionError] = ex.Message;
             }
-
-            TempData[GlobalAddToFavoritesMessage] = "You added Ashtray to your collection successfully!";
 
             return RedirectToAction("Ashtray", "Ashtray");
         }
@@ -53,6 +62,11 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public IActionResult Details(int Id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Ashtray", "Ashtray");
@@ -75,6 +89,11 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult Details(AshtrayDetailsViewModel targetAshtray)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var curUser = this.User.Identity.Name;
 
             ashtrayService.AddReview(targetAshtray, curUser);
@@ -84,17 +103,29 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> RemoveFromCollection(int ashtrayId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
             await ashtrayService.RemoveFromFavoritesAsync(ashtrayId, userId);
 
             TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Ashtray from your collection successfully!";
 
-            return RedirectToAction("MyCollection", "MyProfile");
+            string referer = Request.Headers["Referer"].ToString();
+            return Redirect(referer);
         }
 
 
         public IActionResult DeleteComment(int ReviewId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var targetAshtrayId = ashtrayService.DeleteReview(ReviewId);
 
             return RedirectToAction("Details", "Ashtray", new { id = targetAshtrayId });
@@ -103,6 +134,11 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult EditComment(int ReviewId, string petko)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Ashtray", "Ashtray");

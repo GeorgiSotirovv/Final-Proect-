@@ -80,7 +80,7 @@ namespace CigarWorld.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID.");
+                throw new ArgumentException("Invalid user Id.");
             }
 
             var cigar = await context.Cigars.FirstOrDefaultAsync(a => a.Id == cigarId);
@@ -121,7 +121,7 @@ namespace CigarWorld.Services
 
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID");
+                throw new ArgumentException("Invalid user Id");
             }
 
             return user.UserCigars
@@ -157,20 +157,6 @@ namespace CigarWorld.Services
 
             await context.SaveChangesAsync();
 
-            //var user = await context.Users
-            //   .Where(u => u.Id == userId)
-            //   .Include(u => u.UserCigars)
-            //   .ThenInclude(um => um.Cigar)
-            //    .ThenInclude(m => m.StrengthType)
-            //   .FirstOrDefaultAsync();
-
-
-
-            //var cigar = user.UserCigars.FirstOrDefault(m => m.CigarId == cigarId);
-
-            //if (cigar != null)
-            //{
-            //    var targetUserCigar = user.UserCigars.Where(x => x.CigarId ==  )
         }
 
         public async Task<CigarDetailsViewModel> GetDetailsAsync(int cigarId, string userName)
