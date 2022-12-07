@@ -58,10 +58,12 @@ namespace CigarWorld.Controllers
                 return View(model);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                TempData[GlobalExeptionError] = ex.Message;
             }
+
+            return RedirectToAction("CigarPocketCase", "CigarCase");
         }
 
         [HttpPost]

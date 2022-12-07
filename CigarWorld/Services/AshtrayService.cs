@@ -69,11 +69,8 @@ namespace CigarWorld.Services
                 await context.SaveChangesAsync();
             }
         }
-/// <summary>
-/// /////////////////////////////////////////////////////////////////////////////
-/// </summary>
-/// <param name="userId"></param>
-/// <returns></returns>
+
+
         public async Task<IEnumerable<AllAshtrayViewModel>> GetAllAshtrayAsync(string userId)
         {
             var favorites = await context.UserAshtrays
@@ -98,13 +95,8 @@ namespace CigarWorld.Services
                     IsFavorite = favorites.Where(x => x.AshtrayId == m.Id).Count() > 0
                 });
         }
-/// <summary>
-/// ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/// </summary>
-/// <param name="ashtrayId"></param>
-/// <param name="userName"></param>
-/// <returns></returns>
-/// <exception cref="ArgumentException"></exception>
+
+
         public async Task<AshtrayDetailsViewModel> GetDetailsAsync(int ashtrayId, string userName)
         {
             var ashtray = await context.Ashtrays
@@ -129,6 +121,7 @@ namespace CigarWorld.Services
                 UserName = userName
             };
         }
+
 
         public async Task<IEnumerable<MyFavoriteAshtrayViewModel>> GetMineAshtrayAsync(string userId)
         {
@@ -156,12 +149,13 @@ namespace CigarWorld.Services
                 });
         }
 
+
         public async Task<IEnumerable<AshtrayType>> GetTypesAsync()
         {
             return await context.AshtrayTypes.ToListAsync();
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////
+
         public async Task RemoveFromFavoritesAsync(int ashtrayId, string userId)
         {
             var targetUserAshtray = context.UserAshtrays
@@ -178,7 +172,8 @@ namespace CigarWorld.Services
 
             await context.SaveChangesAsync();
         }
-        /////////////////////////////////////////////////////////////////////////////////////////
+
+
         public async Task RemoveFromDatabaseAsync(int ashtrayId)
         {
 
@@ -246,6 +241,7 @@ namespace CigarWorld.Services
             context.SaveChanges();
         }
 
+
         public AshtrayDetailsViewModel AddReview(AshtrayDetailsViewModel targetAshtray, string UserName)
         {
             var entity = new AshtrayReview()
@@ -262,6 +258,7 @@ namespace CigarWorld.Services
 
             return targetAshtray;
         }
+
 
         public int DeleteReview(int reviewId)
         {

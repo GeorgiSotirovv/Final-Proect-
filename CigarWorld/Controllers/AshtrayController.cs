@@ -17,22 +17,18 @@ namespace CigarWorld.Controllers
         {
             ashtrayService = _AshtrayService;
         }
-        ////////////////////////////////////////////////////////////////////////////////
+
+
         [HttpGet]
         public async Task<IActionResult> Ashtray()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "User");
-            }
-
             var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var model = await ashtrayService.GetAllAshtrayAsync(userId);
 
             return View(model);
         }
 
-///////////////////////////////////////////////////////////////////////////////
+
         public async Task<IActionResult> AddFavoriteAshtray(int ashtrayId)
         {
             if (!User.Identity.IsAuthenticated)
@@ -61,6 +57,7 @@ namespace CigarWorld.Controllers
             return RedirectToAction("Ashtray", "Ashtray");
         }
 
+
         [HttpGet]
         public IActionResult Details(int Id)
         {
@@ -82,10 +79,12 @@ namespace CigarWorld.Controllers
                 return View(model);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                TempData[GlobalExeptionError] = ex.Message;
             }
+
+            return RedirectToAction("Ashtray", "Ashtray");
         }
 
         [HttpPost]
@@ -132,6 +131,7 @@ namespace CigarWorld.Controllers
 
             return RedirectToAction("Details", "Ashtray", new { id = targetAshtrayId });
         }
+
 
         [HttpPost]
         public IActionResult EditComment(int ReviewId, string petko)
