@@ -21,23 +21,28 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> CigarPocketCase()
         {
-            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
 
+            var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var model = await cigarCaseService.GetAllAsyncCigarCase(userId);
 
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddFavoriteCigarPocketCase(int CPCId)
+       
+        public async Task<IActionResult> AddFavoriteCigarPocketCase(int cigarPocketCaseId)
         {
+
             try
             {
                 var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-                await cigarCaseService.AddCigarCaseToFavoritesAsync(CPCId, userId);
+                await cigarCaseService.AddCigarCaseToFavoritesAsync(cigarPocketCaseId, userId);
 
-                TempData[GlobalAddToFavoritesMessage] = "You added Cigar Pocket Case to your collection successfully!";
+                TempData[GlobalAddToFavoritesMessage] = "You added Lighter to your collection successfully!";
             }
             catch (Exception ex)
             {
@@ -58,12 +63,10 @@ namespace CigarWorld.Controllers
                 return View(model);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TempData[GlobalExeptionError] = ex.Message;
+                throw;
             }
-
-            return RedirectToAction("CigarPocketCase", "CigarCase");
         }
 
         [HttpPost]
@@ -80,29 +83,56 @@ namespace CigarWorld.Controllers
         public async Task<IActionResult> RemoveFromCollection(int CPCId)
         {
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-
             await cigarCaseService.RemoveFromFavoritesAsync(CPCId, userId);
 
-            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Cigar Pocket Case from your collection successfully!";
+            TempData[GlobalDeleteFromFavoritesMessage] = "You deleted Lighter from your collection successfully!";
 
             string referer = Request.Headers["Referer"].ToString();
             return Redirect(referer);
         }
 
+        public async Task<IActionResult> RemoveFromDataBase(int cigarPocketCaseId)
+        {
+            await cigarCaseService.RemoveFromDatabaseAsync(cigarPocketCaseId);
+
+            return RedirectToAction("CigarPocketCase", "CigarCase");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var targetAshtary = await cigarCaseService.GetInformationForCigarPocketCase(Id);
+
+
+
+            var model = new EditCigarPocketCaseViewModel()
+            {
+                Id = Id,
+                Brand = targetAshtary.Brand,
+                Comment = targetAshtary.Comment,
+                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
+                MaterialOfManufacture = targetAshtary.MaterialOfManufacture,
+                ImageUrl = targetAshtary.ImageUrl,
+                Capacity = targetAshtary.Capacity,
+            };
+
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int Id, EditCigarPocketCaseViewModel targetCPC)
+        {
+            cigarCaseService.EditCigarPocketCaseInformation(targetCPC);
+
+            return RedirectToAction("CigarPocketCase", "CigarCase");
+        }
 
         public IActionResult DeleteComment(int ReviewId)
         {
             var targetAshtrayId = cigarCaseService.DeleteReview(ReviewId);
 
             return RedirectToAction("Details", "CigarCase", new { id = targetAshtrayId });
-        }
-
-        [HttpPost]
-        public IActionResult EditComment(int ReviewId, string petko)
-        {
-            var targetCPCId = cigarCaseService.EditReview(ReviewId, petko);
-
-            return RedirectToAction("Details", "CigarCase", new { id = targetCPCId });
         }
     }
 }

@@ -8,7 +8,7 @@
 <hr />
 
 <div class="text-center row">
-   @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
+    @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
     {
         <div class="alert alert-success" role="alert">
             @TempData[WebConstants.GlobalAddMessage]
@@ -70,10 +70,12 @@
             }
             else
             {
-                <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddFavoriteCigarPocketCase" asp-route-CPCId="@CPC.Id">
+                <form class="input-group-sm" asp-controller="CigarCase" asp-action="AddFavoriteCigarPocketCase" asp-route-CigarPocketCaseId="@CPC.Id">
                     <input type="submit" value="Add to Favorite" class="fs-6 btn btn-success mb-3 p-2" />
                 </form>
             }
+
+
 
         </div>
     }

@@ -42,7 +42,6 @@ namespace CigarWorld.Services
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-
             if (user == null)
             {
                 throw new ArgumentException("Invalid user Id");

@@ -40,21 +40,19 @@ namespace CigarWorld.Services
         public async Task AddCigarCaseToFavoritesAsync(int cigarPocketCaseId, string userId)
         {
             var user = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
             if (user == null)
             {
-                throw new ArgumentException("Invalid user ID.");
+                throw new ArgumentException("Invalid user Id.");
             }
 
             var cigarPocketCase = await context.CigarPocketCases.FirstOrDefaultAsync(a => a.Id == cigarPocketCaseId);
+
             if (cigarPocketCase == null)
             {
-                throw new ArgumentException("Invalid Case ID.");
+                throw new ArgumentException("Invalid Case Id.");
             }
 
-            if (user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
-            {
-                throw new ArgumentException("This Case is alredy added.");
-            }
 
             if (!user.UserCigarPocketCases.Any(m => m.CigarPocketCaseId == cigarPocketCaseId))
             {
@@ -72,25 +70,20 @@ namespace CigarWorld.Services
 
         public async Task RemoveFromFavoritesAsync(int CPCId, string userId)
         {
-            var user = await context.Users
-               .Where(u => u.Id == userId)
-               .Include(u => u.UserCigarPocketCases)
-               .ThenInclude(um => um.CigarPocketCase)
-               .FirstOrDefaultAsync();
+            var targetUserCPC = context.UserCigarPocketCases
+               .Where(x => x.CigarPocketCaseId == CPCId)
+               .Where(x => x.UserId == userId)
+               .FirstOrDefault();
 
-            if (user == null)
+            if (targetUserCPC == null)
             {
                 throw new ArgumentException("Invalid user ID");
             }
 
-            var CPC = user.UserCigarPocketCases.FirstOrDefault(m => m.CigarPocketCaseId == CPCId);
+            context.UserCigarPocketCases.Remove(targetUserCPC);
 
-            if (CPC != null)
-            {
-                user.UserCigarPocketCases.Remove(CPC);
+            await context.SaveChangesAsync();
 
-                await context.SaveChangesAsync();
-            }
         }
 
 
@@ -145,7 +138,7 @@ namespace CigarWorld.Services
             };
         }
 
-      
+
         public async Task<IEnumerable<MyFavoriteCigarPocketCaseViewModel>> GetMineCPCAsync(string userId)
         {
             var user = await context.Users
