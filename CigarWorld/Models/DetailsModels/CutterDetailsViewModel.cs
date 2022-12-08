@@ -4,23 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CigarWorld.Models.DetailsModels
 {
-    public class CutterDetailsViewModel
+    public class CutterDetailsViewModel : BaseEditViewModel
     {
-        [Required]
-        public int Id { get; set; } 
-
-        [Required]
-        public string Brand { get; set; } = null!;
-
-        [Required]
-        public string CountryOfManufacturing { get; set; } = null!;
-
-        [Required]
-        public string ImageUrl { get; set; } = null!;
-
-        [Required]
-        public string Comment { get; set; } = null!;
-
         [Required]
         public string Type { get; set; } = null!;
 
@@ -29,7 +14,5 @@ namespace CigarWorld.Models.DetailsModels
         public IEnumerable<CutterReview> CutterReviews { get; set; } = new List<CutterReview>();
 
         public string AddReviewToCutter { get; set; } = null!;
-
-        public string UserName { get; set; } = null!;
     }
 }

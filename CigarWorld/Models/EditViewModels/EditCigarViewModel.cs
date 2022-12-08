@@ -4,15 +4,8 @@ using static CigarWorld.Data.DataConstants.Cigar;
 
 namespace CigarWorld.Models.EditViewModels
 {
-    public class EditCigarViewModel
+    public class EditCigarViewModel : BaseEditViewModel
     {
-        [Required]
-        public int Id { get; set; }
-
-        [Required]
-        [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
-        public string Brand { get; set; } = null!;
-
         [Required]
         [StringLength(MaxFormatLenght, MinimumLength = MinFormatLenght)]
         public string Format { get; set; } = null!;
@@ -30,23 +23,8 @@ namespace CigarWorld.Models.EditViewModels
         public int SmokingDuration { get; set; } //The unit of measure is Minutes
 
         [Required]
-        [StringLength(MaxCountryOfManufacturingLenght, MinimumLength = MinCountryOfManufacturingLenght)]
-        public string CountryOfManufacturing { get; set; } = null!;
-
-        [Required]
-        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
-        public string Comment { get; set; } = null!;
-
-        [Required]
-        public string ImageUrl { get; set; } = null!;
-
-        [Required]
         public int StrengthId { get; set; }
 
         public IEnumerable<StrengthType> StrengthTypes { get; set; } = new List<StrengthType>();
-
-        public string AddReviewToAshtray { get; set; }
-
-        public string UserName { get; set; }
     }
 }

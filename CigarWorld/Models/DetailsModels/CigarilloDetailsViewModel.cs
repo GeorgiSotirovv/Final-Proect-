@@ -4,23 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CigarWorld.Models.DetailsModels
 {
-    public class CigarilloDetailsViewModel
+    public class CigarilloDetailsViewModel : BaseEditViewModel
     {
-        [Required]
-        public int Id { get; set; }
-
-        [Required]
-        public string Brand { get; set; } = null!;
-
-        [Required]
-        public string CountryOfManufacturing { get; set; } = null!;
-
-        [Required]
-        public string Comment { get; set; } = null!;
-
-        [Required]
-        public string ImageUrl { get; set; } = null!;
-
         [Required]
         public string Filter { get; set; } = null!;
 
@@ -29,7 +14,5 @@ namespace CigarWorld.Models.DetailsModels
         public IEnumerable<CigarilloReview> CigarilloReviews { get; set; } = new List<CigarilloReview>();
 
         public string AddReviewToCigarillo{ get; set; } = null!;
-
-        public string UserName { get; set; } = null!;
     }
 }

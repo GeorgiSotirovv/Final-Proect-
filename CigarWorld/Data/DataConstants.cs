@@ -19,7 +19,7 @@
             public const int MinSmokingDurationLenght = 20;
             public const int MaxSmokingDurationLenght = 300;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -31,7 +31,7 @@
             public const int MinBrandLenght = 3;
             public const int MaxBrandLenght = 30;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -43,7 +43,7 @@
             public const int MinBrandLenght = 3;
             public const int MaxBrandLenght = 30;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -55,7 +55,7 @@
             public const int MinBrandLenght = 3;
             public const int MaxBrandLenght = 30;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -67,7 +67,7 @@
             public const int MinBrandLenght = 3;
             public const int MaxBrandLenght = 30;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -79,7 +79,7 @@
             public const int MinBrandLenght = 3;
             public const int MaxBrandLenght = 30;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -94,10 +94,11 @@
             public const int MinWeightLenght = 0;
             public const int MaxWeightLenght = 200;
 
-            public const int MinMaterialOfManufactureLenght = 5;
+            public const int MinMaterialOfManufactureLenght = 3;
             public const int MaxMaterialOfManufactureLenght = 200;
 
             public const int MinCapacityLenght = 0;
+            public const int MaxCapacityLenght = 1000;
         }
 
         public class CigarPocketCase
@@ -105,7 +106,7 @@
             public const int MinBrandLenght = 3;
             public const int MaxBrandLenght = 30;
 
-            public const int MinCountryOfManufacturingLenght = 5;
+            public const int MinCountryOfManufacturingLenght = 3;
             public const int MaxCountryOfManufacturingLenght = 100;
 
             public const int MinCommentLenght = 15;
@@ -120,10 +121,11 @@
             public const int MinWeightLenght = 0;
             public const int MaxWeightLenght = 200;
 
-            public const int MinMaterialOfManufactureLenght = 5;
+            public const int MinMaterialOfManufactureLenght = 3;
             public const int MaxMaterialOfManufactureLenght = 200;
 
             public const int MinCapacityLenght = 0;
+            public const int MaxCapacityLenght = 10;
         }
     }
 }

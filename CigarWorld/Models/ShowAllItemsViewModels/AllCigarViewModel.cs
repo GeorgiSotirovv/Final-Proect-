@@ -1,17 +1,11 @@
 ﻿using CigarWorld.Data.Models;
+using CigarWorld.Models.ShowAllItemsViewModels;
 using System.ComponentModel.DataAnnotations;
 using static CigarWorld.Data.DataConstants.Cigar;
 namespace CigarWorld.Models.Models
 {
-    public class AllCigarViewModel
+    public class AllCigarViewModel : BaseAllViewModel
     {
-        [Required]
-        public int Id { get; set; }
-
-        [Required]
-        [StringLength(MaxBrandLenght, MinimumLength = MinBrandLenght)]
-        public string Brand { get; set; } = null!;
-
         [Required]
         [StringLength(MaxFormatLenght, MinimumLength = MinFormatLenght)]
         public string Format { get; set; } = null!;
@@ -27,17 +21,6 @@ namespace CigarWorld.Models.Models
         [Required]
         [StringLength(MaxSmokingDurationLenght, MinimumLength = MinSmokingDurationLenght)]
         public int SmokingDuration { get; set; } //The unit of measure is Minutes
-
-        [Required]
-        [StringLength(MaxCountryOfManufacturingLenght, MinimumLength = MinCountryOfManufacturingLenght)]
-        public string CountryOfManufacturing { get; set; } = null!;
-
-        [Required]
-        [StringLength(MaxCommentLenght, MinimumLength = MinCommentLenght)]
-        public string Comment { get; set; } = null!;
-
-        [Required]
-        public string ImageUrl { get; set; } = null!;
 
         [Required]
         public string Strength { get; set; } = null!;

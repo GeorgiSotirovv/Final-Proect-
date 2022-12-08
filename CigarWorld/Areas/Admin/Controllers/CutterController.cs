@@ -82,6 +82,8 @@ namespace CigarWorld.Areas.Admin.Controllers
         {
             cutterService.EditCutterInformation(targetCutter);
 
+            TempData[GlobalEditedMessage] = "You Edited Cutter Successfully!";
+
             return RedirectToAction("Cutter", "Cutter", new { area = "" });
         }
 

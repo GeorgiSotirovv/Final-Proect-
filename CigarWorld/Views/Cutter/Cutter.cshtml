@@ -31,6 +31,12 @@
             @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
         </div>
     }
+     @if (TempData.ContainsKey(WebConstants.GlobalEditedMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalEditedMessage]
+        </div>
+    }
 
     @if (User.IsInRole("Admin"))
     {

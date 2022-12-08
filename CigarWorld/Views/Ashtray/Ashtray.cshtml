@@ -26,10 +26,17 @@
         <div class="alert alert-success" role="alert">
             @TempData[WebConstants.GlobalAddToFavoritesMessage]
         </div>
-    }@if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
     {
         <div class="alert alert-success" role="alert">
             @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalEditedMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalEditedMessage]
         </div>
     }
 
