@@ -22,6 +22,11 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public async Task<IActionResult> Ashtray()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
             var userId = User?.Claims?.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             var model = await ashtrayService.GetAllAshtrayAsync(userId);
 

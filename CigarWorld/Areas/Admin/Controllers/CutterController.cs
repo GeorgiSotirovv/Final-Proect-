@@ -97,7 +97,7 @@ namespace CigarWorld.Areas.Admin.Controllers
 
             await cutterService.RemoveFromDatabaseAsync(cutterId);
 
-            TempData[GlobalDeleteMessage] = "You Edited Cutter Successfully!";
+            TempData[GlobalDeleteMessage] = "You Delited Cutter Successfully!";
 
             return RedirectToAction("Cutter", "Cutter", new { area = "" });
         }

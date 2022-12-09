@@ -1,0 +1,30 @@
+﻿ @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalAddToFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalAddToFavoritesMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
+        </div>
+    }
+    @if (TempData.ContainsKey(WebConstants.GlobalEditedMessage))
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData[WebConstants.GlobalEditedMessage]
+        </div>
+    }

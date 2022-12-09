@@ -41,7 +41,7 @@ namespace CigarWorld.Areas.Admin.Controllers
             {
                 await lighterService.AddLighterAsync(model);
 
-                TempData[GlobalAddMessage] = "You added Lighter Successfully!";
+                TempData[GlobalAddMessage] = "You Added Lighter Successfully!";
 
                 return RedirectToAction("Lighter", "Lighter", new { area = "" });
             }

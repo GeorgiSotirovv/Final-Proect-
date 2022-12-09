@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CigarWorld", "CigarWorld\CigarWorld.csproj", "{C925B813-DB74-40AF-BBCF-22B4D6C22DDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CigarWorld.Test", "CigarWorld.Test\CigarWorld.Test.csproj", "{EF068E6E-6A09-4B83-BA2A-68CEB7AFC5DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CigarWorld.Test", "CigarWorld.Test\CigarWorld.Test.csproj", "{A4632159-BBD4-4F95-9659-FD683AF4DA38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C925B813-DB74-40AF-BBCF-22B4D6C22DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C925B813-DB74-40AF-BBCF-22B4D6C22DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C925B813-DB74-40AF-BBCF-22B4D6C22DDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF068E6E-6A09-4B83-BA2A-68CEB7AFC5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF068E6E-6A09-4B83-BA2A-68CEB7AFC5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF068E6E-6A09-4B83-BA2A-68CEB7AFC5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF068E6E-6A09-4B83-BA2A-68CEB7AFC5DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4632159-BBD4-4F95-9659-FD683AF4DA38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4632159-BBD4-4F95-9659-FD683AF4DA38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4632159-BBD4-4F95-9659-FD683AF4DA38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4632159-BBD4-4F95-9659-FD683AF4DA38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

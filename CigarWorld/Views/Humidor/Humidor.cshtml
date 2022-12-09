@@ -8,37 +8,8 @@
 <hr />
 
 <div class="text-center row">
-    @if (TempData.ContainsKey(WebConstants.GlobalAddMessage))
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData[WebConstants.GlobalAddMessage]
-        </div>
-    }
-    @if (TempData.ContainsKey(WebConstants.GlobalDeleteMessage))
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData[WebConstants.GlobalDeleteMessage]
-        </div>
-    }
-    @if (TempData.ContainsKey(WebConstants.GlobalAddToFavoritesMessage))
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData[WebConstants.GlobalAddToFavoritesMessage]
-        </div>
-    }@if (TempData.ContainsKey(WebConstants.GlobalDeleteFromFavoritesMessage))
-    {
-        <div class="alert alert-success" role="alert">
-            @TempData[WebConstants.GlobalDeleteFromFavoritesMessage]
-        </div>
-    }
 
-    @if (User.IsInRole("Admin"))
-    {
-        <form class="input-group-sm" asp-area="Admin" asp-controller="Humidor" asp-action="AddHumidor">
-            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Humidor" asp-action="AddHumidor">Add Humidor</a>
-        </form>
-    }
-
+@Html.Partial("_TempData")
 
     @foreach (var humidor in Model)
     {

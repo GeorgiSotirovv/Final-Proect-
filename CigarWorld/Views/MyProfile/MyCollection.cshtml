@@ -41,8 +41,10 @@
     @foreach (var cigar in Model.FavoriteCigar)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@cigar.ImageUrl" alt="Cigar Image">
+            <a href="/Cigar/Details?id=@cigar.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@cigar.ImageUrl" alt="Cigar Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigar.Brand</h5>
@@ -63,8 +65,10 @@
     @foreach (var CPC in Model.FavoriteCigarPoketCase)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@CPC.ImageUrl" alt="Ashtray Image">
+            <a href="/CigarCase/Details?id=@CPC.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@CPC.ImageUrl" alt="Cigar Pocket Cases Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@CPC.Brand</h5>
@@ -83,8 +87,10 @@
     @foreach (var cigarillo in Model.FavoriteCigarillo)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@cigarillo.ImageUrl" alt="Cigarillo Image">
+             <a href="/Cigarillo/Details?id=@cigarillo.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@cigarillo.ImageUrl" alt="Cigarillo Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cigarillo.Brand</h5>
@@ -100,8 +106,10 @@
      @foreach (var cutter in Model.FavoriteCutter)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@cutter.ImageUrl" alt="Ashtray Image">
+             <a href="/Cutter/Details?id=@cutter.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@cutter.ImageUrl" alt="Cutter Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@cutter.Brand</h5>
@@ -117,8 +125,10 @@
     @foreach (var humidor in Model.FavoriteHumidor)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@humidor.ImageUrl" alt="Ashtray Image">
+            <a href="/Humidor/Details?id=@humidor.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@humidor.ImageUrl" alt="Humidors Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@humidor.Brand</h5>
@@ -138,8 +148,10 @@
     @foreach (var lighter in Model.FavoriteLighter)
     {
         <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top" style="width: 18rem;"
-             src="@lighter.ImageUrl" alt="Ashtray Image">
+             <a href="/Lighter/Details?id=@lighter.Id">
+                <img class="card-img-top" style="width: 18rem;"
+                 src="@lighter.ImageUrl" alt="Lighters Image">
+            </a>
             <div class="card-body">
 
                 <h5 class="card-title mt-1">@lighter.Brand</h5>
