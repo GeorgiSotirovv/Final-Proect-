@@ -62,6 +62,8 @@ namespace CigarWorld.Controllers
 
             if (!ModelState.IsValid)
             {
+                TempData[GlobalExeptionError] = "Someting went wrong";
+
                 return RedirectToAction("Humidor", "Humidor");
             }
 
@@ -81,6 +83,18 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult Details(HumidorDetailsViewModel Humidor)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (Humidor.AddReviewToHumidor == null)
+            {
+                TempData[GlobalExeptionError] = GlobalExeptionError;
+
+                return RedirectToAction("Details", "Humidor", new { id = Humidor.Id });
+            }
+
             var curUser = this.User.Identity.Name;
 
             humidorsService.AddReview(Humidor, curUser);
@@ -101,7 +115,7 @@ namespace CigarWorld.Controllers
         }
         
 
-        public IActionResult DeleteComment(int ReviewId)
+        public IActionResult DeleteReview(int ReviewId)
         {
             var targetHumidorId = humidorsService.DeleteReview(ReviewId);
 
@@ -110,7 +124,7 @@ namespace CigarWorld.Controllers
 
 
         [HttpPost]
-        public IActionResult EditComment(int ReviewId, string petko)
+        public IActionResult EditReview(int ReviewId, string petko)
         {
             if (!User.Identity.IsAuthenticated)
             {

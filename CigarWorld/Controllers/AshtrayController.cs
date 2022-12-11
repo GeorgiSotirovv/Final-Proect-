@@ -73,7 +73,7 @@ namespace CigarWorld.Controllers
 
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("Ashtray", "Ashtray");
+                return RedirectToAction("Details", "Ashtray");
             }
 
             try
@@ -100,6 +100,13 @@ namespace CigarWorld.Controllers
                 return RedirectToAction("Login", "User");
             }
 
+            if (targetAshtray.AddReviewToAshtray == null)
+            {
+                TempData[GlobalExeptionError] = GlobalExeptionError;
+
+                return RedirectToAction("Details", "Ashtray", new { id = targetAshtray.Id });
+            }
+
             var curUser = this.User.Identity.Name;
 
             ashtrayService.AddReview(targetAshtray, curUser);
@@ -112,6 +119,13 @@ namespace CigarWorld.Controllers
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                TempData[GlobalExeptionError] = "Someting went wrong";
+
+                return RedirectToAction("Ashtray", "Ashtray");
             }
 
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;

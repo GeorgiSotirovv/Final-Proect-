@@ -7,6 +7,7 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+@Html.Partial("_TempData")
 
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@
                         <hr>
                         <div class=inpDiv id="container">
 
-                            <form method="post" action="/Cigar/EditComment?ReviewId=@review.Id">
+                            <form method="post" action="/Cigar/EditReview?ReviewId=@review.Id">
                                 <textarea style="resize: none;" class=inpReview disabled id="petko" name="petko" value="@review.Review">@review.Review</textarea>
 
                                 <button hidden class=inpDone type="submit" id="end-editing">Done</button>
@@ -59,7 +60,7 @@
 
                             @if (Model.UserName == review.Commenter || Model.UserName == "Admin")
                             {
-                                <form method="post" action="/Cigar/DeleteComment?ReviewId=@review.Id">
+                                <form method="post" action="/Cigar/DeleteReview?ReviewId=@review.Id">
                                     <button type="submit">Delete Review</button>
                                 </form>
 

@@ -62,7 +62,7 @@ namespace CigarWorld.Controllers
 
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("CigarPocketCase", "CigarCase");
+                return RedirectToAction("Details", "CigarCase");
             }
 
             try
@@ -82,6 +82,18 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult Details(CigarCaseDetailsViewModel targetCPC)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (targetCPC.AddReviewToCigarPocketCase == null)
+            {
+                TempData[GlobalExeptionError] = GlobalExeptionError;
+
+                return RedirectToAction("Details", "CigarCase", new { id = targetCPC.Id });
+            }
+
             var curUser = this.User.Identity.Name;
 
             cigarCaseService.AddReview(targetCPC, curUser);
