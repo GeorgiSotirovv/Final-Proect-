@@ -9,7 +9,7 @@ using static CigarWorld.WebConstants;
 
 namespace CigarWorld.Controllers
 {
-    
+
     public class LighterController : Controller
     {
         private readonly ILighterService lighterService;
@@ -63,7 +63,7 @@ namespace CigarWorld.Controllers
             {
                 TempData[GlobalExeptionError] = "Someting went wrong";
 
-                return RedirectToAction("Lighter", "Lighter");
+                return RedirectToAction("Humidor", "Humidor");
             }
 
             try
@@ -75,7 +75,7 @@ namespace CigarWorld.Controllers
             }
             catch (Exception)
             {
-                return RedirectToAction("Lighter", "Lighter");
+                throw;
             }
         }
 
@@ -87,11 +87,11 @@ namespace CigarWorld.Controllers
                 return RedirectToAction("Login", "User");
             }
 
-            if (!ModelState.IsValid)
+            if (Lighter.AddReviewToLighter == null)
             {
                 TempData[GlobalExeptionError] = GlobalExeptionError;
 
-                return RedirectToAction("Details", "Lighter", new { id = Lighter.Id });
+                return RedirectToAction("Details", "Humidor", new { id = Lighter.Id });
             }
 
             var curUser = this.User.Identity.Name;
@@ -122,16 +122,6 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult EditReview(int ReviewId, string petko)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "User");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Lighter", "Lighter");
-            }
-
             var targetLighterId = lighterService.EditReview(ReviewId, petko);
 
             return RedirectToAction("Details", "Lighter", new { id = targetLighterId });

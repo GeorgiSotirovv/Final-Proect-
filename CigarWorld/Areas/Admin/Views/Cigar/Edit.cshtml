@@ -44,7 +44,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="@Model.SmokingDuration" class="form-label">SmokingDuration</label>
-                <input asp-for="@Model.SmokingDuration" class="form-control" value="" placeholder="The unit of time is minutes"/> 
+                <input asp-for="@Model.SmokingDuration" class="form-control" aria-required="true" placeholder="The unit of time is minutes"/> 
                 <span asp-validation-for="SmokingDuration" class="text-danger"></span>
             </div>
             <div class="mb-3">
