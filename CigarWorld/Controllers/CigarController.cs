@@ -55,6 +55,16 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public IActionResult Details(int Id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Cigar", "Cigar");
+            }
+
             try
             {
                 var curUser = this.User.Identity.Name;
@@ -65,7 +75,7 @@ namespace CigarWorld.Controllers
             }
             catch (Exception)
             {
-                throw;
+                return RedirectToAction("Cigar", "Cigar");
             }
         }
 
@@ -101,6 +111,16 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult EditComment(int ReviewId, string petko)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Cigar", "Cigar");
+            }
+
             var targetCigarId = cigarService.EditReview(ReviewId, petko);
 
             return RedirectToAction("Details", "Cigar", new { id = targetCigarId });

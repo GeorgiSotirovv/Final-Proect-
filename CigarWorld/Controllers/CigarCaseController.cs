@@ -55,6 +55,16 @@ namespace CigarWorld.Controllers
         [HttpGet]
         public IActionResult Details(int Id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("CigarPocketCase", "CigarCase");
+            }
+
             try
             {
                 var curUser = this.User.Identity.Name;
@@ -65,7 +75,7 @@ namespace CigarWorld.Controllers
             }
             catch (Exception)
             {
-                throw;
+                return RedirectToAction("CigarPocketCase", "CigarCase");
             }
         }
 
@@ -128,11 +138,29 @@ namespace CigarWorld.Controllers
             return RedirectToAction("CigarPocketCase", "CigarCase");
         }
 
-        public IActionResult DeleteComment(int ReviewId)
+        public IActionResult DeleteReview(int ReviewId)
         {
             var targetAshtrayId = cigarCaseService.DeleteReview(ReviewId);
 
             return RedirectToAction("Details", "CigarCase", new { id = targetAshtrayId });
+        }
+
+        [HttpPost]
+        public IActionResult EditReview(int ReviewId, string petko)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("CigarPocketCase", "CigarCase");
+            }
+
+            var targetCigarCaseId = cigarCaseService.EditReview(ReviewId, petko);
+
+            return RedirectToAction("Details", "CigarCase", new { id = targetCigarCaseId });
         }
     }
 }

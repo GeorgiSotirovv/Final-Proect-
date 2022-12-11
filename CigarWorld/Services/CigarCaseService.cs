@@ -122,7 +122,7 @@ namespace CigarWorld.Services
 
             if (CPC == null)
             {
-                throw new ArgumentException("Invalid Cigar Pocket Case ID");
+                throw new ArgumentException("Invalid Cigar Pocket Case Id");
             }
 
             return new CigarCaseDetailsViewModel()

@@ -106,7 +106,7 @@ namespace CigarWorld.Services
 
             if (ashtray == null)
             {
-                throw new ArgumentException("Invalid ashtray ID");
+                throw new ArgumentException("Invalid ashtray Id");
             }
 
             return new AshtrayDetailsViewModel()

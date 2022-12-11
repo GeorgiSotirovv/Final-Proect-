@@ -84,12 +84,12 @@ namespace CigarWorld.Controllers
                 return View(model);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TempData[GlobalExeptionError] = ex.Message;
+                return RedirectToAction("Ashtray", "Ashtray");
             }
 
-            return RedirectToAction("Ashtray", "Ashtray");
+           
         }
 
         [HttpPost]
@@ -125,7 +125,7 @@ namespace CigarWorld.Controllers
         }
 
 
-        public IActionResult DeleteComment(int ReviewId)
+        public IActionResult DeleteReview(int ReviewId)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -139,7 +139,7 @@ namespace CigarWorld.Controllers
 
 
         [HttpPost]
-        public IActionResult EditComment(int ReviewId, string petko)
+        public IActionResult EditReview(int ReviewId, string petko)
         {
             if (!User.Identity.IsAuthenticated)
             {

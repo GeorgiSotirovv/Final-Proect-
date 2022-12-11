@@ -17,6 +17,16 @@ namespace CigarWorld.Controllers
 
         public async Task<IActionResult> MyCollection()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Ashtray", "Ashtray");
+            }
+
             var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             var model =  myProfileService.GetAllFavoriteProductsViewModels(userId);
