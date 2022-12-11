@@ -11,6 +11,14 @@
 
 @Html.Partial("_TempData")
 
+      @if (User.IsInRole("Admin"))
+    {
+        <form class="input-group-sm" asp-area="Admin" asp-controller="Lighter" asp-action="AddLighter">
+            <a class="fs-6 btn btn-success mb-3 p-2 " asp-area="Admin" asp-controller="Lighter" asp-action="AddLighter">Add Lighter</a>
+        </form>
+    }
+
+
     @foreach (var lighter in Model)
     {
         <div class="card col-4" style="width: 20rem; ">
