@@ -1,7 +1,7 @@
 using CigarWorld.Contracts;
-using CigarWorld.Data.Models;
+using CigarWorld.Data;
 using CigarWorld.Models.AddModels;
-using CigarWorld.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CigarWorld.Test
@@ -14,18 +14,15 @@ namespace CigarWorld.Test
 
 		public async Task Setup()
 		{
-			dbContext = new InMemoryDbContext();
-			var serviceCollection = new ServiceCollection();
+            var contextOptions = new DbContextOptionsBuilder<CigarWorldDbContext>()
+               .UseInMemoryDatabase("HouseDB")
+               .Options;
 
-			serviceProvider = serviceCollection
-				.AddSingleton(sp => dbContext.CreateContext())
-				.AddSingleton<IAshtrayService, AshtrayService>()
-				.BuildServiceProvider();
+            applicationDbContext = new ApplicationDbContext(contextOptions);
 
-			var repo = serviceProvider.GetService<IAshtrayService>();
-
-            await SeedDbAsync(repo);
-		}
+            applicationDbContext.Database.EnsureDeleted();
+            applicationDbContext.Database.EnsureCreated();
+        }
 
 		[Test]
         public void Test1()

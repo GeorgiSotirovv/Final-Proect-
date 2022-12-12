@@ -41,7 +41,13 @@
         <div id="middlebox">
             <h2 style="text-align:center">Lighter Reviews by our users</h2>
             <div style="border-style: solid">
-                <ul>
+                @if (Model.LighterReviews.Count() == 0)
+                {
+                    <h3>There are curently no reviews for this product.</h3>
+                }
+                else
+                {
+                    <ul>
                     @foreach (var review in Model.LighterReviews)
                     {
                          @review.Commenter
@@ -65,7 +71,9 @@
                         </div>
                         <hr>
                     }
-                </ul>
+                </ul>    
+                }
+                
             </div>
         </div>
     </div>

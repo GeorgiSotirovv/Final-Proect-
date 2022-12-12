@@ -45,31 +45,40 @@
         <div id="middlebox">
             <h2 style="text-align:center">Cigar Reviews by our users</h2>
             <div style="border-style: solid">
-                <ul>
-                    @foreach (var review in Model.CigarReviews)
-                    {
-                        @review.Commenter
-                        <hr>
-                        <div class=inpDiv id="container">
+                @if (Model.CigarReviews.Count() == 0)
+                {
+                    <h3>There are curently no reviews for this product.</h3>
+                }
+                else
+                {
+                    <ul>
 
-                            <form method="post" action="/Cigar/EditReview?ReviewId=@review.Id">
-                                <textarea style="resize: none;" class=inpReview disabled id="petko" name="petko" value="@review.Review">@review.Review</textarea>
+                        @foreach (var review in Model.CigarReviews)
+                        {
+                            @review.Commenter
+                            <hr>
+                            <div class=inpDiv id="container">
 
-                                <button hidden class=inpDone type="submit" id="end-editing">Done</button>
-                            </form>
+                                <form method="post" action="/Cigar/EditReview?ReviewId=@review.Id">
+                                    <textarea style="resize: none;" class=inpReview disabled id="petko" name="petko" value="@review.Review">@review.Review</textarea>
 
-                            @if (Model.UserName == review.Commenter || Model.UserName == "Admin")
-                            {
-                                <form method="post" action="/Cigar/DeleteReview?ReviewId=@review.Id">
-                                    <button type="submit">Delete Review</button>
+                                    <button hidden class=inpDone type="submit" id="end-editing">Done</button>
                                 </form>
 
-                                <button class=inpEdit method="post" id="edit-button">Edit</button>
-                            }
-                        </div>
-                        <hr>
-                    }
-                </ul>
+                                @if (Model.UserName == review.Commenter || Model.UserName == "Admin")
+                                {
+                                    <form method="post" action="/Cigar/DeleteReview?ReviewId=@review.Id">
+                                        <button type="submit">Delete Review</button>
+                                    </form>
+
+                                    <button class=inpEdit method="post" id="edit-button">Edit</button>
+                                }
+                            </div>
+                            <hr>
+                        }
+                    </ul>
+                }
+
             </div>
         </div>
     </div>

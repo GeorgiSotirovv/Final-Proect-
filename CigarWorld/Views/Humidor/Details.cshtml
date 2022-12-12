@@ -45,7 +45,13 @@
         <div id="middlebox">
             <h2 style="text-align:center">Humidor Reviews by our users</h2>
             <div style="border-style: solid">
-                <ul>
+                @if (Model.HumidorReviews.Count() == 0)
+                {
+                    <h3>There are curently no reviews for this product.</h3>
+                }
+                else
+                {
+                    <ul>
                     @foreach (var review in Model.HumidorReviews)
                     {
                         @review.Commenter
@@ -70,6 +76,8 @@
                         <hr>
                     }
                 </ul>
+                }
+                
             </div>
         </div>
     </div>
