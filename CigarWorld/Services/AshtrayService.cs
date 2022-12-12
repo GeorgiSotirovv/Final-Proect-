@@ -24,7 +24,6 @@ namespace CigarWorld.Services
 
         public async Task AddAshtraysAsync(AddAshtrayViewModel model)
         {
-
             var entity = new Ashtray()
             {
                 Brand = model.Brand,
@@ -32,7 +31,6 @@ namespace CigarWorld.Services
                 ImageUrl = model.ImageUrl,
                 Comment = model.Comment,
                 AshtrayId = model.TypeId
-
             };
             await context.Ashtrays.AddAsync(entity);
             await context.SaveChangesAsync();
