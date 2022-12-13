@@ -120,36 +120,6 @@ namespace CigarWorld.Controllers
             return RedirectToAction("CigarPocketCase", "CigarCase");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int Id)
-        {
-            var targetAshtary = await cigarCaseService.GetInformationForCigarPocketCase(Id);
-
-
-
-            var model = new EditCigarPocketCaseViewModel()
-            {
-                Id = Id,
-                Brand = targetAshtary.Brand,
-                Comment = targetAshtary.Comment,
-                CountryOfManufacturing = targetAshtary.CountryOfManufacturing,
-                MaterialOfManufacture = targetAshtary.MaterialOfManufacture,
-                ImageUrl = targetAshtary.ImageUrl,
-                Capacity = targetAshtary.Capacity,
-            };
-
-            return View(model);
-        }
-
-
-        [HttpPost]
-        public IActionResult Edit(int Id, EditCigarPocketCaseViewModel targetCPC)
-        {
-            cigarCaseService.EditCigarPocketCaseInformation(targetCPC);
-
-            return RedirectToAction("CigarPocketCase", "CigarCase");
-        }
-
         public IActionResult DeleteReview(int ReviewId)
         {
             var targetAshtrayId = cigarCaseService.DeleteReview(ReviewId);

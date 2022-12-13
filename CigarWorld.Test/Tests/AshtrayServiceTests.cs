@@ -55,6 +55,7 @@ namespace CigarWorld.Test.Tests
 
             var Model = new AddAshtrayViewModel()
             {
+
                 Brand = "Lubinski",
                 CountryOfManufacturing = "China",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",

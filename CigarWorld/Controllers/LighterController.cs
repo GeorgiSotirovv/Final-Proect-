@@ -122,6 +122,16 @@ namespace CigarWorld.Controllers
         [HttpPost]
         public IActionResult EditReview(int ReviewId, string petko)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Lighter", "Lighter");
+            }
+
             var targetLighterId = lighterService.EditReview(ReviewId, petko);
 
             return RedirectToAction("Details", "Lighter", new { id = targetLighterId });

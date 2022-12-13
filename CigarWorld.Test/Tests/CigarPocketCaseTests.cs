@@ -63,5 +63,23 @@ namespace CigarWorld.Test.Tests
             Assert.DoesNotThrowAsync(async () => await service.AddCigarCasesAsync(Model));
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
         }
+
+        [Test]
+        public async Task EditShouldWork()
+        {
+            var service = serviceProvider.GetService<IAshtrayService>();
+
+            var Model = new EditCigarPocketCaseViewModel()
+            {
+                IdentityEntityFrameworkBuilderExtensions 
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                MaterialOfManufacture = "Oac",
+                Capacity = 4
+            };
+
+        }
     }
 }
