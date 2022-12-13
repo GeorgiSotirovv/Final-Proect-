@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
+using CigarWorld.Models.AddModels;
 using CigarWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,6 +28,41 @@ namespace CigarWorld.Test.Tests
                 .BuildServiceProvider();
 
             var repo = serviceProvider.GetService<CigarWorldDbContext>();
+        }
+
+        [Test]
+        public async Task AddCigarilloShouldWork()
+        {
+            var service = serviceProvider.GetService<ICigarilloService>();
+
+            var Model = new AddCigarilloViewModel()
+            {
+                Brand = "Lubinski",
+                CountryOfManufacturing = "China",
+                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
+                Comment = "Really nice and colorful ashtray.",
+                FiterId = 1,
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddCigarilloAsync(Model));
+        }
+
+        [Test]
+        public async Task RemoveCigarilloShouldWork()
+        {
+            var service = serviceProvider.GetService<ICigarilloService>();
+
+            var Model = new AddCigarilloViewModel()
+            {
+                Brand = "Lubinski",
+                CountryOfManufacturing = "China",
+                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
+                Comment = "Really nice and colorful ashtray.",
+                FiterId = 1,
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddCigarilloAsync(Model));
+            Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
         }
     }
 }

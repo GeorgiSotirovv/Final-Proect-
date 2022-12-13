@@ -1,5 +1,6 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
+using CigarWorld.Models.AddModels;
 using CigarWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,6 +29,41 @@ namespace CigarWorld.Test.Tests
 
             var repo = serviceProvider.GetService<CigarWorldDbContext>();
 
+        }
+
+        [Test]
+        public async Task AddCutterShouldWork()
+        {
+            var service = serviceProvider.GetService<ICutterService>();
+
+            var Model = new AddCutterViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                TypeId = 1
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddCutterAsync(Model));
+        }
+
+        [Test]
+        public async Task RemoveCutterShouldWork()
+        {
+            var service = serviceProvider.GetService<ICutterService>();
+
+            var Model = new AddCutterViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                TypeId = 1
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddCutterAsync(Model));
+            Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
         }
     }
 }

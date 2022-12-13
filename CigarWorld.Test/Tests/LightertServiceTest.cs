@@ -1,6 +1,7 @@
 ﻿using CigarWorld.Contracts;
 using CigarWorld.Data;
 using CigarWorld.Data.Models;
+using CigarWorld.Models.AddModels;
 using CigarWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -29,6 +30,39 @@ namespace CigarWorld.Test.Tests
 
             var repo = serviceProvider.GetService<CigarWorldDbContext>();
 
+        }
+
+        [Test]
+        public async Task AddLighterShouldWork()
+        {
+            var service = serviceProvider.GetService<ILighterService>();
+
+            var Model = new AddLighterViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddLighterAsync(Model));
+        }
+
+        [Test]
+        public async Task RemoveLighterShouldWork()
+        {
+            var service = serviceProvider.GetService<ILighterService>();
+
+            var Model = new AddLighterViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddLighterAsync(Model));
+            Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
         }
     }
 }

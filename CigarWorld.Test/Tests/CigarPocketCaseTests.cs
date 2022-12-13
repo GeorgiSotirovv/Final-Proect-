@@ -26,5 +26,42 @@ namespace CigarWorld.Test.Tests
 
             var repo = serviceProvider.GetService<CigarWorldDbContext>();
         }
+
+        [Test]
+        public async Task AddCigarPocketCaseShouldWork()
+        {
+            var service = serviceProvider.GetService<ICigarCaseService>();
+
+            var Model = new AddCigarPocketCaseViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                MaterialOfManufacture = "Oac",
+                Capacity = 4
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddCigarCasesAsync(Model));
+        }
+
+        [Test]
+        public async Task RemoveCigarPocketCaseShouldWork()
+        {
+            var service = serviceProvider.GetService<ICigarCaseService>();
+
+            var Model = new AddCigarPocketCaseViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                MaterialOfManufacture = "Oac",
+                Capacity = 4
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.AddCigarCasesAsync(Model));
+            Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
+        }
     }
 }
