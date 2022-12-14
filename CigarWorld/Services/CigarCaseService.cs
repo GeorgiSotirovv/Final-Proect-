@@ -202,12 +202,12 @@ namespace CigarWorld.Services
         }
 
 
-        public async Task EditCigarPocketCase(int CPCId)
-        {
-            var cigar = await context.CigarPocketCases
-                 .Where(u => u.Id == CPCId)
-                 .FirstOrDefaultAsync();
-        }
+        //public async Task EditCigarPocketCase(int CPCId)
+        //{
+        //    var cigar = await context.CigarPocketCases
+        //         .Where(u => u.Id == CPCId)
+        //         .FirstOrDefaultAsync();
+        //}
 
         public async Task<EditCigarPocketCaseViewModel> GetInformationForCigarPocketCase(int CPCId)
         {

@@ -190,12 +190,12 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task EditAshtray(int ashtrayId)
-        {
-            var ashtray = await context.Ashtrays
-                .Where(u => u.Id == ashtrayId)
-                .FirstOrDefaultAsync();
-        }
+        //public async Task EditAshtray(int ashtrayId)
+        //{
+        //    var ashtray = await context.Ashtrays
+        //        .Where(u => u.Id == ashtrayId)
+        //        .FirstOrDefaultAsync();
+        //}
 
         public async Task<EditAshtrayViewModel> GetInformationForAshtray(int ashtrayId)
         {

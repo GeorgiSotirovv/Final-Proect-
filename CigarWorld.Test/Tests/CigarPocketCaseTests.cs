@@ -66,6 +66,29 @@ namespace CigarWorld.Test.Tests
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
         }
 
+        [Test]
+        public async Task AddCigarPocketCaseToFavoritesAsyncWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ICigarCaseService>();
+
+            var Model = new AddCigarPocketCaseViewModel()
+            {
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                MaterialOfManufacture = "Oac",
+                Capacity = 4
+            };
+
+            await service.AddCigarCasesAsync(Model);
+
+            string user = "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138";
+
+            await service.AddCigarCaseToFavoritesAsync(1, user);
+
+            Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
+        }
 
 
         [Test]
@@ -85,8 +108,6 @@ namespace CigarWorld.Test.Tests
 
             await service.AddCigarCasesAsync(Model);
 
-            Assert.IsTrue(Model.Brand == "Somting");
-
             var editModel = new EditCigarPocketCaseViewModel()
             {
                 Id =1,
@@ -98,7 +119,14 @@ namespace CigarWorld.Test.Tests
                 Capacity = 4
             };
 
-            Assert.DoesNotThrowAsync(async () => await service.EditCigarPocketCase(editModel.Id));
+            service.EditCigarPocketCaseInformation(editModel);
+
+            var targetCPC = dbContext.CreateContext().CigarPocketCases
+                .Where(x => x.Id == editModel.Id)
+                .FirstOrDefault();
+
+            Assert.IsNotNull(targetCPC);
+            Assert.That(targetCPC.Brand, Is.EqualTo(editModel.Brand));
         }
 
         //[Test]

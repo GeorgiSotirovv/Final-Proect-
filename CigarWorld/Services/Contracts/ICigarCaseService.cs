@@ -22,7 +22,7 @@ namespace CigarWorld.Contracts
 
         Task RemoveFromDatabaseAsync(int CPCId);
 
-        Task EditCigarPocketCase(int CPCId);
+        //Task EditCigarPocketCase(int CPCId);
 
         Task<EditCigarPocketCaseViewModel> GetInformationForCigarPocketCase(int CPCId);
 
