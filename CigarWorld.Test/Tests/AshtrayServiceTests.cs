@@ -57,15 +57,6 @@ namespace CigarWorld.Test.Tests
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
-            var Model = new AddAshtrayViewModel()
-            {
-
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
-                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
-            };
-
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
 
             var count = dbContext.CreateContext().Ashtrays.Count();
@@ -74,7 +65,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task GetAllAShtraysMethodShouldWorkCorrectly()
+        public async Task GetAllAShtraysMethodShouldGetAllAshtrays()
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
@@ -103,7 +94,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddReviewShouldWorkCorrectly()
+        public async Task AddReviewShouldAddReviewForOneAshtray()
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
@@ -167,7 +158,7 @@ namespace CigarWorld.Test.Tests
                 UserName = "Gosho"
             };
 
-            Assert.DoesNotThrowAsync(async () =>  service.DeleteReview(1));
+            service.DeleteReview(1);
 
             var count = dbContext.CreateContext().AshtrayReviews.Count();
 
