@@ -235,7 +235,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddLighterToCollectionMEthodShouldSaveInDatabaseYourFavoriteLighter()
+        public async Task AddLighterToCollectionMethodShouldSaveInDatabaseYourFavoriteLighter()
         {
             var service = serviceProvider.GetService<ILighterService>();
 
@@ -247,6 +247,27 @@ namespace CigarWorld.Test.Tests
 
             Assert.IsNotNull(currentDbContext);
             Assert.That(currentDbContext.LighterId > 0);
+        }
+
+        [Test]
+        public async Task RemoveLighterFromCollectionMethodShouldRemoveFromDatabaseYourFavoriteLighter()
+        {
+            var service = serviceProvider.GetService<ILighterService>();
+
+            await service.AddFavoriteLighterAsync(1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138");
+
+            var secondCurrentDbContext = dbContext.CreateContext().UserLighters
+                .FirstOrDefault();
+
+            Assert.IsNotNull(secondCurrentDbContext);
+            Assert.That(secondCurrentDbContext.LighterId > 0);
+
+            await service.RemoveFromFavoritesAsync(1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138");
+
+            var currentDbContext = dbContext.CreateContext().UserLighters
+                .FirstOrDefault();
+
+            Assert.IsNull(currentDbContext);
         }
 
         [TearDown]

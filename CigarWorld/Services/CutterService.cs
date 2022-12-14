@@ -191,12 +191,6 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task EditCutter(int cutterId)
-        {
-            var ashtray = await context.Cutters
-                .Where(u => u.Id == cutterId)
-                .FirstOrDefaultAsync();
-        }
 
         public async Task<EditCutterViewModel> GetInformationForCutter(int cutterId)
         {

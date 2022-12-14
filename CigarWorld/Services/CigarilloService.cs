@@ -186,12 +186,6 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task EditCigarillo(int cigarilloId)
-        {
-            var cigarillo = await context.Cigarillo
-                .Where(u => u.Id == cigarilloId)
-                .FirstOrDefaultAsync();
-        }
 
         public async Task<EditCigarilloViewModel> GetInformationForCigarillo(int cigarilloId)
         {

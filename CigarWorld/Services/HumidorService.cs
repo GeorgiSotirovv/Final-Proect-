@@ -216,12 +216,6 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task EditHumidor(int humidorId)
-        {
-            var humidor = await context.Humidors
-               .Where(u => u.Id == humidorId)
-               .FirstOrDefaultAsync();
-        }
 
         public async Task<EditHumidorViewModel> GetInformationForHumidor(int humidorId)
         {

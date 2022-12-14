@@ -25,7 +25,6 @@ namespace CigarWorld.Contracts
 
         Task RemoveFromDatabaseAsync(int ashtrayId);
 
-        //Task EditAshtray(int ashtrayId);
 
         Task <EditAshtrayViewModel> GetInformationForAshtray(int ashtrayId);
 

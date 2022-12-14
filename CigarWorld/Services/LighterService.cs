@@ -170,12 +170,6 @@ namespace CigarWorld.Services
 
         }
 
-        public async Task EditLighter(int lighterId)
-        {
-            var ashtray = await context.Lighters
-                 .Where(u => u.Id == lighterId)
-                 .FirstOrDefaultAsync();
-        }
 
         public async Task<EditLighterViewModel> GetInformationForLighter(int lighterId)
         {

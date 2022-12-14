@@ -263,6 +263,27 @@ namespace CigarWorld.Test.Tests
             Assert.That(currentDbContext.AshtrayId > 0);
         }
 
+        [Test]
+        public async Task RemoveAshtrayFromCollectionMethodShouldRemoveFromDatabaseYourFavoriteAshtray()
+        {
+            var service = serviceProvider.GetService<IAshtrayService>();
+
+            await service.AddAshtrayToFavoritesAsync(1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138");
+
+            var secondCurrentDbContext = dbContext.CreateContext().UserAshtrays
+                .FirstOrDefault();
+
+            Assert.IsNotNull(secondCurrentDbContext);
+            Assert.That(secondCurrentDbContext.AshtrayId > 0);
+
+            await service.RemoveFromFavoritesAsync(1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138");
+
+            var currentDbContext = dbContext.CreateContext().UserAshtrays
+                .FirstOrDefault();
+
+            Assert.IsNull(currentDbContext);
+        }
+
         [TearDown]
         public void TearDown()
         {

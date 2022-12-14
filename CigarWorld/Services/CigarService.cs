@@ -206,12 +206,6 @@ namespace CigarWorld.Services
             await context.SaveChangesAsync();
         }
 
-        public async Task EditCigar(int cigarId)
-        {
-            var ashtray = await context.Cigars
-                .Where(u => u.Id == cigarId)
-                .FirstOrDefaultAsync();
-        }
 
         public async Task<EditCigarViewModel> GetInformationForCigar(int cigarId)
         {

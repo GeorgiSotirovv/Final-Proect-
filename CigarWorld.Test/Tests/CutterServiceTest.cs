@@ -252,5 +252,32 @@ namespace CigarWorld.Test.Tests
             Assert.IsNotNull(currentDbContext);
             Assert.That(currentDbContext.CutterId > 0);
         }
+
+        [Test]
+        public async Task RemoveCutterFromCollectionMethodShouldRemoveFromDatabaseYourFavoriteCutter()
+        {
+            var service = serviceProvider.GetService<ICutterService>();
+
+            await service.AddFavoriteCutterAsync(1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138");
+
+            var secondCurrentDbContext = dbContext.CreateContext().UserCutters
+                .FirstOrDefault();
+
+            Assert.IsNotNull(secondCurrentDbContext);
+            Assert.That(secondCurrentDbContext.CutterId > 0);
+
+            await service.RemoveFromFavoritesAsync(1, "a67ddfe2-5d26-45c2-bbe9-7fb8f4ef5138");
+
+            var currentDbContext = dbContext.CreateContext().UserCutters
+                .FirstOrDefault();
+
+            Assert.IsNull(currentDbContext);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            dbContext.Dispose();
+        }
     }
 }

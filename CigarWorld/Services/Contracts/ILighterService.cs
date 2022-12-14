@@ -22,8 +22,6 @@ namespace CigarWorld.Contracts
 
         Task RemoveFromDatabaseAsync(int lighterId);
 
-        Task EditLighter(int lighterId);
-
         Task<EditLighterViewModel> GetInformationForLighter(int lighterId);
 
         public void EditLighterInformation(EditLighterViewModel targetLighter);
