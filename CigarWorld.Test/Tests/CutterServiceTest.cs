@@ -32,7 +32,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddCutterShouldWork()
+        public async Task AddCutterShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ICutterService>();
 
@@ -49,7 +49,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task RemoveCutterShouldWork()
+        public async Task RemoveCutterShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ICutterService>();
 
@@ -64,6 +64,36 @@ namespace CigarWorld.Test.Tests
 
             Assert.DoesNotThrowAsync(async () => await service.AddCutterAsync(Model));
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
+        }
+
+
+        [Test]
+        public async Task GetAllCuttersShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ICutterService>();
+
+            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+            Assert.DoesNotThrowAsync(async () => await service.GetCuttersAllAsync(userId));
+
+            var cutter = await service.GetCuttersAllAsync(userId);
+
+            var expectedCount = 1;
+
+            var actualCount = cutter.Count();
+
+            Assert.IsTrue(actualCount == expectedCount);
+            Assert.IsFalse(actualCount < expectedCount);
+        }
+
+        [Test]
+        public async Task GetTypesShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ICutterService>();
+
+            var type = await service.GetTypesAsync();
+
+            Assert.IsTrue(type.Count() == 3);
         }
     }
 }

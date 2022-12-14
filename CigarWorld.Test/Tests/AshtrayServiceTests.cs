@@ -32,7 +32,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddAshtrayShouldWork()
+        public async Task AddAshtrayShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
@@ -49,7 +49,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task RemoveAshtrayShouldWork()
+        public async Task RemoveAshtrayShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
@@ -66,116 +66,124 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task EditShouldWork()
+        public async Task GetAllAShtraysShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
-             var editModel = new EditAshtrayViewModel()
+            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+            Assert.DoesNotThrowAsync(async () => await service.GetAllAshtrayAsync(userId));
+
+            var ashtray = await service.GetAllAshtrayAsync(userId);
+
+            var expectedCount = 1;
+
+            var actualCount = ashtray.Count();
+
+            Assert.IsTrue(actualCount == expectedCount);
+            Assert.IsFalse(actualCount < expectedCount);
+        }
+
+        [Test]
+        public async Task AddReviewShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<IAshtrayService>();
+
+            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+            var model = new AshtrayDetailsViewModel()
             {
                 Id = 1,
-                Brand = "somting",
+                Brand = "Lubinski",
+                CountryOfManufacturing = "China",
+                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
+                Comment = "Really nice and colorful ashtray.",
+                AddReviewToAshtray = "Somting",
+                Type = "Somting",
+                UserName = "Gosho"
+            };
+
+            var review = service.AddReview(model, userId); // may be
+
+            Assert.IsNotNull(review);
+            Assert.IsTrue(review.Id == 1);
+        }
+
+        [Test]
+        public async Task AddAshtrayToFavoritesAsyncSouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<IAshtrayService>();
+
+            var Model = new EditAshtrayViewModel()
+            {
+                Id = 1,
+                Brand = "Lubinski",
+                CountryOfManufacturing = "China",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
                 Comment = "Really nice and colorful ashtray.",
                 TypeId = 1,
             };
 
-            //Assert.DoesNotThrow(async => await service.EditAshtaryInformation(editModel));
-
-        }
-
-        [Test]
-        public async Task AddAShtrayFavoritesAsyncAshtrayShouldWork()
-        {
-            var service = serviceProvider.GetService<IAshtrayService>();
-
-            var Model = new Ashtray()
-            {
-                Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
-                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
-            };
-
             string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
-
-            await service.AddAshtrayToFavoritesAsync(Model.Id, userId);
 
             Assert.DoesNotThrowAsync(async () => await service.AddAshtrayToFavoritesAsync(Model.Id, userId));
         }
 
+
+
         [Test]
-        public async Task GetAllAshtrayAsyncShouldWork()
+        public async Task GetInformationForAshtraySouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<IAshtrayService>();
 
-            var Model = new AddAshtrayViewModel()
-            {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
-                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
-            };
-            var secondModel = new AddAshtrayViewModel()
-            {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
-                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
-            };
-
-            await service.AddAshtraysAsync(Model);
-            await service.AddAshtraysAsync(secondModel);
-
-
-            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
-
-            //await service.AddAshtrayToFavoritesAsync(Model.Id, userId);
-
-            Assert.DoesNotThrowAsync(async () => await service.GetAllAshtrayAsync(userId));
-        }
-
-        [Test]
-        public async Task AddReviewShouldWork()
-        {
-            var service = serviceProvider.GetService<IAshtrayService>();
-            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
-
-            var Model = new AshtrayDetailsViewModel()
+            var Model = new EditAshtrayViewModel()
             {
                 Id = 1,
-                
-            };
-
-            service.AddAshtrayToFavoritesAsync(Model.Id, userId);
-
-            //Assert.DoesNotThrow( service.AddReview(Model, userId));
-        }
-
-        [Test]
-        public async Task GetMineAshtrayAsyncShouldWork()
-        {
-            var service = serviceProvider.GetService<IAshtrayService>();
-            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
-
-            var Model = new AddAshtrayViewModel()
-            {
                 Brand = "Lubinski",
                 CountryOfManufacturing = "China",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
                 Comment = "Really nice and colorful ashtray.",
+                TypeId = 1,
             };
 
-            Assert.DoesNotThrow(async () => await service.GetMineAshtrayAsync(userId));
+            Assert.DoesNotThrowAsync(async () => await service.GetInformationForAshtray(Model.Id));
+        }
+
+        [Test]
+        public async Task RemoveReviewShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<IAshtrayService>();
+
+            var model = new AshtrayDetailsViewModel()
+            {
+                Id = 1,
+                Brand = "Lubinski",
+                CountryOfManufacturing = "China",
+                ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
+                Comment = "Really nice and colorful ashtray.",
+                AddReviewToAshtray = "Somting",
+                Type = "Somting",
+                UserName = "Gosho"
+            };
+
+            Assert.DoesNotThrowAsync(async () =>  service.DeleteReview(1)); // gypsi 
         }
 
 
+        [Test]
+        public async Task GetTypesShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<IAshtrayService>();
 
+            var type = await service.GetTypesAsync();
+
+            Assert.IsTrue(type.Count() == 2);
+        }
 
         [TearDown]
         public void TearDown()
         {
-            //dbContext.Dispose();
+            dbContext.Dispose();
         }
     }
 }

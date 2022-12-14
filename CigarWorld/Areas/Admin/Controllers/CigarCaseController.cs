@@ -62,8 +62,6 @@ namespace CigarWorld.Areas.Admin.Controllers
         {
             var targetAshtary = await cigarCaseService.GetInformationForCigarPocketCase(Id);
 
-
-
             var model = new EditCigarPocketCaseViewModel()
             {
                 Id = Id,

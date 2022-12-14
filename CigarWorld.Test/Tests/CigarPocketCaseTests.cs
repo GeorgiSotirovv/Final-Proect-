@@ -3,6 +3,8 @@ using CigarWorld.Data;
 using CigarWorld.Data.Models;
 using CigarWorld.Models.AddModels;
 using CigarWorld.Models.BaseModels;
+using CigarWorld.Models.DetailsModels;
+using CigarWorld.Models.EditViewModels;
 using CigarWorld.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,7 +30,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddCigarPocketCaseShouldWork()
+        public async Task AddCigarPocketCaseShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
@@ -46,7 +48,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task RemoveCigarPocketCaseShouldWork()
+        public async Task RemoveCigarPocketCaseShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
@@ -64,14 +66,15 @@ namespace CigarWorld.Test.Tests
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
         }
 
+
+
         [Test]
         public async Task EditShouldWork()
         {
-            var service = serviceProvider.GetService<IAshtrayService>();
+            var service = serviceProvider.GetService<ICigarCaseService>();
 
-            var Model = new EditCigarPocketCaseViewModel()
+            var Model = new AddCigarPocketCaseViewModel()
             {
-                IdentityEntityFrameworkBuilderExtensions 
                 Brand = "Somting",
                 CountryOfManufacturing = "Somting",
                 ImageUrl = "Somting",
@@ -80,6 +83,63 @@ namespace CigarWorld.Test.Tests
                 Capacity = 4
             };
 
+            await service.AddCigarCasesAsync(Model);
+
+            Assert.IsTrue(Model.Brand == "Somting");
+
+            var editModel = new EditCigarPocketCaseViewModel()
+            {
+                Id =1,
+                Brand = "Sucess",
+                CountryOfManufacturing = "Somting",
+                ImageUrl = "Somting",
+                Comment = "Somting",
+                MaterialOfManufacture = "Oac",
+                Capacity = 4
+            };
+
+            Assert.DoesNotThrowAsync(async () => await service.EditCigarPocketCase(editModel.Id));
+        }
+
+        //[Test]
+        //public Task AddReviewShouldWork()
+        //{
+        //    var service = serviceProvider.GetService<ICigarCaseService>();
+
+        //    string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+        //    var CPC = new CigarCaseDetailsViewModel
+        //    {
+        //        Id = 1,
+        //        Brand = "Sucess",
+        //        CountryOfManufacturing = "Somting",
+        //        ImageUrl = "Somting",
+        //        Comment = "Somting",
+        //        MaterialOfManufacture = "Oac",
+        //        Capacity = 4
+        //    };
+
+        //    Assert.Positive( service.AddReview(CPC, userId).);
+        //}
+
+
+        [Test]
+        public async Task GetAllCigarsPocketCasesShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ICigarCaseService>();
+
+            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+            Assert.DoesNotThrowAsync(async () => await service.GetAllAsyncCigarCase(userId));
+
+            var CPC = await service.GetAllAsyncCigarCase(userId);
+
+            var expectedCount = 1;
+
+            var actualCount = CPC.Count();
+
+            Assert.IsTrue(actualCount == expectedCount); 
+            Assert.IsFalse(actualCount < expectedCount);
         }
     }
 }

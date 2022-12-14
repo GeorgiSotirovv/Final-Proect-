@@ -32,7 +32,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddCigarilloShouldWork()
+        public async Task AddCigarilloShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ICigarService>();
 
@@ -53,7 +53,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task RemoveCigarilloShouldWork()
+        public async Task RemoveCigarilloShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ICigarService>();
 
@@ -72,6 +72,35 @@ namespace CigarWorld.Test.Tests
 
             Assert.DoesNotThrowAsync(async () => await service.AddCigarsAsync(Model));
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
+        }
+
+        [Test]
+        public async Task GetTypesShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ICigarService>();
+
+            var type = await service.GetStrengthTypeAsync();
+
+            Assert.IsTrue(type.Count() == 3);
+        }
+
+        [Test]
+        public async Task GetAllCigarsShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ICigarService>();
+
+            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+            Assert.DoesNotThrowAsync(async () => await service.GetAllCigarsAsync(userId));
+
+            var cigar = await service.GetAllCigarsAsync(userId);
+
+            var expectedCount = 1;
+
+            var actualCount = cigar.Count();
+
+            Assert.IsTrue(actualCount == expectedCount);
+            Assert.IsFalse(actualCount < expectedCount);
         }
     }
 }

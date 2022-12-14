@@ -33,7 +33,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddLighterShouldWork()
+        public async Task AddLighterShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ILighterService>();
 
@@ -49,7 +49,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task RemoveLighterShouldWork()
+        public async Task RemoveLighterShouldWorkCorrectly()
         {
             var service = serviceProvider.GetService<ILighterService>();
 
@@ -63,6 +63,26 @@ namespace CigarWorld.Test.Tests
 
             Assert.DoesNotThrowAsync(async () => await service.AddLighterAsync(Model));
             Assert.DoesNotThrowAsync(async () => await service.RemoveFromDatabaseAsync(1));
+        }
+
+
+        [Test]
+        public async Task GetAllLightersShouldWorkCorrectly()
+        {
+            var service = serviceProvider.GetService<ILighterService>();
+
+            string userId = "ff8c4ff1-b3a1-4d41-8d8c-4de59272dec5";
+
+            Assert.DoesNotThrowAsync(async () => await service.GetAllLighterAsync(userId));
+
+            var lighter = await service.GetAllLighterAsync(userId);
+
+            var expectedCount = 1;
+
+            var actualCount = lighter.Count();
+
+            Assert.IsTrue(actualCount == expectedCount);
+            Assert.IsFalse(actualCount < expectedCount);
         }
     }
 }
