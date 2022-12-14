@@ -30,16 +30,16 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddAshtrayMethodShouldAddAshtrayToDatabaseCorrectly()
+        public async Task AddCigarCaseMethodShouldAddCigarCaseToDatabaseCorrectly()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
             var Model = new AddCigarPocketCaseViewModel()
             {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 Capacity = 4,
                 MaterialOfManufacture = "Somting"
             };
@@ -52,7 +52,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task RemoveAshtrayMethodShouldDeleteFromDataBaseCorrectly()
+        public async Task RemoveCigarCaseMethodShouldDeleteFromDataBaseCorrectly()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
@@ -64,7 +64,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task GetAllAShtraysMethodShouldGetAllAshtrays()
+        public async Task GetAllCigarCasesMethodShouldGetAllCigarCases()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
@@ -72,18 +72,18 @@ namespace CigarWorld.Test.Tests
 
             Assert.DoesNotThrowAsync(async () => await service.GetAllAsyncCigarCase(userId));
 
-            var ashtray = await service.GetAllAsyncCigarCase(userId);
+            var CPC = await service.GetAllAsyncCigarCase(userId);
 
             var expectedCount = 1;
 
-            var actualCount = ashtray.Count();
+            var actualCount = CPC.Count();
 
             Assert.IsTrue(actualCount == expectedCount);
         }
 
 
         [Test]
-        public async Task AddReviewShouldAddReviewForOneAshtray()
+        public async Task AddReviewShouldAddReviewForOneCigarCase()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
@@ -92,10 +92,10 @@ namespace CigarWorld.Test.Tests
             var model = new CigarCaseDetailsViewModel()
             {
                 Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 AddReviewToCigarPocketCase = "Somting",
                 UserName = "Gosho",
                 Capacity = 1,
@@ -114,18 +114,17 @@ namespace CigarWorld.Test.Tests
 
 
         [Test]
-        public async Task GetInformationForAshtrayMethodShouldReturnModelForAshtray()
+        public async Task GetInformationForCigarCaseMethodShouldReturnModelForCigarCase()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
-            var Model = new EditAshtrayViewModel()
+            var Model = new EditCigarPocketCaseViewModel()
             {
                 Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
-                TypeId = 1,
+                Comment = "Somting",
             };
 
             Assert.DoesNotThrowAsync(async () => await service.GetInformationForCigarPocketCase(Model.Id));
@@ -139,10 +138,10 @@ namespace CigarWorld.Test.Tests
             var model = new CigarCaseDetailsViewModel()
             {
                 Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 UserName = "Gosho",
                 MaterialOfManufacture = "Somting",
                 Capacity = 3,
@@ -151,13 +150,13 @@ namespace CigarWorld.Test.Tests
 
             service.DeleteReview(1);
 
-            var count = dbContext.CreateContext().AshtrayReviews.Count();
+            var count = dbContext.CreateContext().CigarPocketCaseReviews.Count();
 
-            Assert.That(count == 1);
+            Assert.That(count == 0);
         }
 
         [Test]
-        public async Task GetDetailsAsyncMethodShoildReturnDetailsForAshtray()
+        public async Task GetDetailsAsyncMethodShoildReturnDetailsForCigarCase()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
@@ -173,16 +172,16 @@ namespace CigarWorld.Test.Tests
 
 
         [Test]
-        public async Task EditAshtrayMethodShouldEditValueInDatabase()
+        public async Task EditCigarCaseMethodShouldEditValueInDatabase()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
             var Model = new AddCigarPocketCaseViewModel()
             {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 Capacity = 1,
                 MaterialOfManufacture = "Somting"
             };
@@ -211,17 +210,17 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task EditAshtrayReviewMethodShouldEditValueInDatabase()
+        public async Task EditCigarCaseReviewMethodShouldEditValueInDatabase()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 
             var model = new CigarCaseDetailsViewModel()
             {
                 Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 AddReviewToCigarPocketCase= "Somting",
                 UserName = "Gosho",
                 Capacity= 1,
@@ -243,7 +242,7 @@ namespace CigarWorld.Test.Tests
         }
 
         [Test]
-        public async Task AddAshtrayToCollectionMEthodShouldSaveInDatabaseYourFavoriteAshtray()
+        public async Task AddCigarCaseToCollectionMEthodShouldSaveInDatabaseYourFavoriteCigarCase()
         {
             var service = serviceProvider.GetService<ICigarCaseService>();
 

@@ -40,10 +40,10 @@ namespace CigarWorld.Test.Tests
 
             var Model = new AddCigarilloViewModel()
             {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting.",
                 FiterId = 1,
             };
 
@@ -61,10 +61,10 @@ namespace CigarWorld.Test.Tests
 
             var Model = new AddCigarilloViewModel()
             {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 FiterId = 1,
             };
 
@@ -161,10 +161,10 @@ namespace CigarWorld.Test.Tests
             var model = new CigarilloDetailsViewModel()
             {
                 Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 UserName = "Gosho"
             };
 
@@ -197,10 +197,10 @@ namespace CigarWorld.Test.Tests
 
             var Model = new AddCigarilloViewModel()
             {
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 FiterId = 1
             };
 
@@ -234,10 +234,10 @@ namespace CigarWorld.Test.Tests
             var model = new CigarilloDetailsViewModel()
             {
                 Id = 1,
-                Brand = "Lubinski",
-                CountryOfManufacturing = "China",
+                Brand = "Somting",
+                CountryOfManufacturing = "Somting",
                 ImageUrl = "https://m.media-amazon.com/images/I/51xDDJtDbBL._AC_SY1000_.jpg",
-                Comment = "Really nice and colorful ashtray.",
+                Comment = "Somting",
                 AddReviewToCigarillo = "Somting",
                 Filter = "Somting",
                 UserName = "Gosho"
