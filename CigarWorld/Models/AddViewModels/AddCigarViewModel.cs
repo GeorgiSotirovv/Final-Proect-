@@ -14,11 +14,11 @@ namespace CigarWorld.Models.AddModels
 
         [Required]
         [Range(MinLengthLenght, MaxLengthLenght)]
-        public int Length { get; set; }  //The unit of measure is mm
+        public int Length { get; set; }  //The unit of measure is CM
 
         [Required]
         [Range(MinRingLenght, MaxRingLenght)]
-        public double Ring { get; set; } //The unit of measure is CM
+        public double Ring { get; set; } //The unit of measure is mm
 
         [Required]
         [Range(MinSmokingDurationLenght, MaxSmokingDurationLenght)]

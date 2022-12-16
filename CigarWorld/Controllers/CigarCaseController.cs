@@ -128,7 +128,7 @@ namespace CigarWorld.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditReview(int ReviewId, string petko)
+        public IActionResult EditReview(int ReviewId, string changetReview)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -140,7 +140,7 @@ namespace CigarWorld.Controllers
                 return RedirectToAction("CigarPocketCase", "CigarCase");
             }
 
-            var targetCigarCaseId = cigarCaseService.EditReview(ReviewId, petko);
+            var targetCigarCaseId = cigarCaseService.EditReview(ReviewId, changetReview);
 
             return RedirectToAction("Details", "CigarCase", new { id = targetCigarCaseId });
         }
